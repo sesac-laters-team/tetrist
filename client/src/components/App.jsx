@@ -1,21 +1,22 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import RoomList from "./waitingRoom/RoomList";
 import GameContainer from "./inGame/GameContainer";
 
 import "../styles/WaitingRoom.scss";
+import WaitingRoomPage from "./page/WaitingRoomPage";
 
 function App() {
     return (
         <Router>
             <div className="App">
-                <h2>laters</h2>
+                <h2>omokshiroi</h2>
                 <nav>
                     <Link to="/">Home</Link>
-                    <Link to="/game">Game</Link>
+                    <Link to="/game">Play Gomoku</Link>
+                    <Link to="/waiting">Waiting Room</Link>
                 </nav>
                 <Routes>
-                    <Route path="/" element={<RoomList />} />
+                    <Route path="/waiting" element={<WaitingRoomPage />} />
                     <Route path="/game" element={<GameContainer />} />
                 </Routes>
             </div>
