@@ -14,9 +14,9 @@ const Menubar = () => {
 
   return (
     <div className="menubar">
-      <button onClick={() => openModal('Rank')}>랭킹</button>
-      <button onClick={() => openModal('MyPage')}>내 정보</button>
-      <button onClick={() => openModal('Shop')}>상점</button>
+ <button onClick={() => openModal('Rank')} className="menubar-button">랭킹</button>
+  <button onClick={() => openModal('MyPage')} className="menubar-button">내 정보</button>
+  <button onClick={() => openModal('Shop')} className="menubar-button">상점</button>
 
       {modalType && <Modal type={modalType} closeModal={closeModal} />}
     </div>

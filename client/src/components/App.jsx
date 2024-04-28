@@ -11,12 +11,13 @@ function App() {
     return (
         <Router>
             <div className="App">
-                <h2>테트리스트</h2>
+              
                 <nav>
                     {/* <Link to="/">Home</Link>
                     <Link to="/game">Play Gomoku</Link>
                     <Link to="/waiting">Waiting Room</Link> */}
                 </nav>
+                {/* 들어갈때 http://localhost:3000/waiting 치고 들어가세요 */}
                 <Routes>
                     <Route path="/waiting" element={<WaitingRoomPage />} />
                     <Route path="/game" element={<GameContainer />} />
