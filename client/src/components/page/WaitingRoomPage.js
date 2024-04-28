@@ -28,7 +28,7 @@ export default function WaitingRoomPage() {
     return (
         <div className="waiting-room">
             <div className="logo-and-menubar">
-            <div className="logoImg">OMOKSHIROI</div>
+            <div className="logoImg">TETRIST</div>
                 <Menubar  socket={socket} />
                 
             </div>

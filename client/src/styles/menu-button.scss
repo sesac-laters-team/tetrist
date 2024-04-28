@@ -1,4 +1,4 @@
-//버튼들
+/* 공통 스타일 */
 .menubar {
     display: flex;
     justify-content: flex-end;
@@ -6,8 +6,9 @@
   }
   
   .menu-button {
-    margin: 0 10px;
+    margin: 10px 10px;
     padding: 10px 15px;
+
     background-color: #f1f1f1;
     border: none;
     border-radius: 5px;
@@ -18,9 +19,8 @@
   .menu-button:hover {
     background-color: #e2e2e2;
   }
-  //모달
   
-  .modal-backdrop {//모달 넘칠경우 스크롤
+  .modal-backdrop {
     position: fixed;
     top: 0;
     left: 0;
@@ -30,33 +30,51 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow-y: auto; /* 넘치는 내용에 대해 스크롤 가능 */
   }
   
   .modal-content {
     background: white;
     padding: 20px;
     border-radius: 10px;
-    width: 20%; /* 넓이를 뷰포트 너비의 50%로 설정 */
-    max-width: 600px; /* 최대 너비를 600px로 설정 */
-    height: auto; /* 높이를 내용에 맞게 자동으로 설정 */
-    max-height: 90vh;
+    width: 100%; /* 모바일 기기에서는 너비를 100%로 설정 */
+    max-width: 300px; /* 최대 너비 설정 */
+    margin: 20px; /* 모달의 마진 */
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   }
+  
   .modal-content.shop {
-    display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
   }
   
   .modal-content.rank {
-    display: flex;
     flex-direction: column;
   }
   
   .modal-content.MyPage {
     display: block;
   }
-
   
-
- 
+  /* 미디어 쿼리를 사용한 반응형 스타일 */
+  @media (min-width: 600px) {
+    .modal-content {
+      width: 47%; /* 태블릿 기기에서는 너비를 80%로 설정 */
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .modal-content {
+      width: 47%; /* 데스크탑에서는 너비를 50%로 설정 */
+    }
+  
+    .modal-content.shop {
+      grid-template-columns: repeat(4, 1fr); /* 데스크탑에서는 4개의 컬럼으로 표시 */
+    }
+  }
+  
+  /* 그리드 항목의 크기가 너무 작아지지 않도록 최소 너비 설정 */
+  .shop-item {
+    min-width: 100px;
+  }
+  
