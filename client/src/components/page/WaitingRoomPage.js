@@ -33,7 +33,7 @@ export default function WaitingRoomPage() {
                 
             </div>
 
-            <div className="ListTitle">
+       <div className="ListTitle">
   <span className="roomListTitle">방 목록</span>
   <button onClick={() => setCreateModal(true)} className="btnRoom btnPush btnJoin">
       방 만들기

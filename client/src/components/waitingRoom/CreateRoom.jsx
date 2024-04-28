@@ -56,7 +56,8 @@ export default function CreateRoom({ socket, setCreateModal }) {
             {/* 모달 */}
             <div className="modal">
                 <div className="modal-body">
-                    <button onClick={() => setCreateModal(false)}>취소</button>
+              
+
                     <form className="newRoom" onSubmit={handleNewRoom}>
                         <label>
                             방 제목
