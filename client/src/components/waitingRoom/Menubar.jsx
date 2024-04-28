@@ -1,25 +1,24 @@
 import React, { useState } from "react";
+import Modal from "../common/commonmodal"; // Modal 컴포넌트를 임포트
 
-const Menubar = ({ socket }) => {
-  const [isOpen, setOpen] = useState(false);
+const Menubar = () => {
+  const [modalType, setModalType] = useState("");
 
-  const toggleMenu = () => {
-    setOpen(!isOpen);
+  const openModal = (type) => {
+    setModalType(type);
+  };
+
+  const closeModal = () => {
+    setModalType("");
   };
 
   return (
     <div className="menubar">
-      <button onClick={toggleMenu} className="menubar-toggle">
-        Menubar
-      </button>
-      {isOpen && (
-        <div className="menubar-menu">
-            <div className="dropdown-item">닉네임:</div>
-          <div className="dropdown-item">전적</div>
-          <div className="dropdown-item">Shop</div>
-          <div className="dropdown-item">Rank</div>
-        </div>
-      )}
+      <button onClick={() => openModal('Rank')}>랭킹</button>
+      <button onClick={() => openModal('Profile')}>내 정보</button>
+      <button onClick={() => openModal('Shop')}>상점</button>
+
+      {modalType && <Modal type={modalType} closeModal={closeModal} />}
     </div>
   );
 };

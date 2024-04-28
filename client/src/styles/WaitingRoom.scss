@@ -10,7 +10,7 @@
     display: flex;
     justify-content: space-between; /* 로고와 메뉴바를 양쪽 끝으로 배치 */
     align-items: center;
-    width: 53%; /* 전체 너비의 90% 사용 */
+    width: 65%; /* 전체 너비의 90% 사용 */
     max-width: 1024px; /* 최대 너비 설정 */
     margin: 0 auto; /* 상하 마진 없이 좌우 마진으로 중앙 정렬 */
     padding: 20px; /* 패딩 조정 */
@@ -64,7 +64,7 @@
     font-weight: 600;
     text-align: center;
     line-height: 50px;
-   
+  
     border-radius: 10px;
    
    
@@ -97,7 +97,7 @@
     }
     
     .ShowRoomList {
-        margin-bottom: 20px; /* 섹션 사이의 여백 */
+        margin-bottom: 10px; /* 섹션 사이의 여백 */
     }
     
     .ListRoom ul {
@@ -108,7 +108,7 @@
     .ListRoom li {
 
         border: 1px solid #333; /* 테두리 */
-        border-radius: 3px; /* 모서리 둥글게 */
+        border-radius: 5px; /* 모서리 둥글게 */
         margin-bottom: 10px; /* 요소 사이의 마진 */
         padding: 15px; /* 내부 여백 */
         display: flex;
@@ -130,9 +130,9 @@
         background-color: white; /* 버튼 배경색 */
         box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
         color: #333; /* 버튼 폰트 색상 */
-        border: 2px solid black;
+        border: 2px solid #333;
         border-radius: 10px ;
-        border-bottom: 2px solid black;
+        border-bottom: 2px solid #333;
         
     }    
     /* [ 모달 ] */
@@ -158,75 +158,61 @@
     box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
 }
 
-//메뉴바
 .menubar {
-    flex: 1; /* 메뉴바가 필요한 공간만큼 유연하게 너비를 차지 */
     display: flex;
-    justify-content: flex-end; 
-}
-
-
-.menubar-toggle {
+    align-items: center;
+    justify-content: flex-end; // 오른쪽 정렬
+    width: 100%;
+    padding: 10px 0; // 상하 패딩
+  }
+  
+  .menu-button {
+    padding: 10px 20px;
+    margin-left: 10px; // 왼쪽 마진으로 버튼 간 간격 조정
     background-color: #f1f1f1;
     color: #333;
-    padding: 10px 15px;
-    
+    border: 2px solid #ccc;
+    border-radius: 5px;
     cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.3s;
-    position: relative; /* 드롭다운 메뉴의 위치 기준점 */
-    z-index: 1000; /* 드롭다운 메뉴가 다른 요소들 위에 표시되도록 */
-}
-
-.dropdown-menu {
-    display: none; /* 드롭다운 메뉴를 기본적으로 숨김 */
-    position: absolute;
-    top: 100%; /* 메뉴바 버튼 바로 아래에 위치 */
-    left: 0; /* 메뉴바 버튼의 왼쪽 끝에 맞춤 */
-    width: 100%; /* 메뉴바 버튼의 너비만큼 드롭다운 메뉴 너비 설정 */
-    background-color: #fff; /* 배경색 설정 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
-    z-index: 999; /* 메뉴바 바로 아래에 위치 */
-}
-.dropdown-item {
-    padding: 10px 15px;
-    color: red;
-    text-decoration: none;
-    display: block;
-    transition: background-color 0.3s;
-}
-
-.menubar.open .dropdown-menu {
-    display: block;
-}
-@media (max-width: 600px) {
-    .logo-and-menubar, .ListTitle {
-        flex-direction: column;
-        align-items: flex-start; /* 모바일에서는 왼쪽 정렬 */
-        width: 100%; /* 너비를 100%로 설정 */
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .menu-button:hover {
+    background-color: #e2e2e2; // 호버 시 배경색 변경
+    color: #000; // 호버 시 글자색 변경
+  }
+  
+  
+@media (max-width: 768px) {
+    .logo-and-menubar {
+      width: 95%;
     }
 
-    .roomListTitle {
-        /* 모바일에서는 "방 목록" 텍스트를 전체 너비로 설정 */
-        width: 100%;
-        margin-right: 0; /* 모바일에서는 오른쪽 마진을 제거 */
+    .ListTitle, .RoomList {
+        max-width: 100%; /* 모바일에서 최대 너비를 100%로 조정 */
+        padding: 10px; /* 모바일에서 패딩 감소 */
+    }
+
+    .ListRoom li {
+      width: 90%;
     }
 
     .btnRoom {
-        width: 100%; /* 모바일에서는 버튼을 전체 너비로 설정 */
-        margin-top: 10px; /* "방 목록" 텍스트와의 간격 */
-        margin-left: 0; /* 모바일에서는 왼쪽 마진을 제거 */
+        width: 15%; /* 모바일에서 버튼 너비를 100%로 조정 */
+        margin-right: 5%;
     }
-    .menubar-toggle {
-        /* 모바일 뷰에서 필요한 스타일 조정 */
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    /* 태블릿 크기 조정 */
+    .logo-and-menubar {
+        padding: 10px; /* 태블릿에서 패딩 조정 */
     }
-    
-    .dropdown-menu {
-        /* 모바일 뷰에서의 드롭다운 메뉴 스타일 */
-        box-shadow: none; /* 모바일에서는 그림자를 제거할 수 있음 */
-    }
-    
-    .dropdown-item {
-        padding: 10px; /* 모바일 뷰에서 항목들의 패딩을 줄일 수 있음 */
+}
+
+@media (min-width: 1025px) {
+    /* 데스크탑 크기 조정 */
+    .logo-and-menubar, .ListTitle, .RoomList {
+        max-width: 1024px; /* 데스크탑에서 최대 너비 설정 */
     }
 }

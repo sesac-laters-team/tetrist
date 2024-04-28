@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import GameContainer from "./inGame/GameContainer";
 
 import "../styles/WaitingRoom.scss";
+import "../styles/menu-button.scss";
 import WaitingRoomPage from "./page/WaitingRoomPage";
 
 function App() {

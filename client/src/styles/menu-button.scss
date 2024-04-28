@@ -1,0 +1,106 @@
+//버튼들
+.menubar {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+  }
+  
+  .menu-button {
+    margin: 0 10px;
+    padding: 10px 15px;
+    background-color: #f1f1f1;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .menu-button:hover {
+    background-color: #e2e2e2;
+  }
+  //모달
+  .modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+  .modal-content.shop {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  
+  .modal-content.rank {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .modal-content.profile {
+    display: block;
+  }
+  .ranking-list {
+    display: flex;
+    flex-direction: column;
+    background: #ecf0f1;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin: 20px;
+  }
+  
+  .ranking-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    background: white;
+    border-radius: 20px;
+    padding: 10px 20px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .medal {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .rank-1 .medal {
+    background-color: gold;
+    content: '2';
+  }
+  
+  .rank-2 .medal {
+    background-color: silver;
+  }
+  
+  .rank-3 .medal {
+    background-color: #cd7f32; /* Bronze color */
+  }
+  .rank-username {
+    flex: 1; /* 유연한 공간 배분 */
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #34495e;
+    margin: 0 15px; /* 좌우 여백을 늘림 */
+   
+  }
+  
+  .rank-points {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #2c3e50;
+  }
