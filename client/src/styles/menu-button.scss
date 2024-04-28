@@ -19,7 +19,8 @@
     background-color: #e2e2e2;
   }
   //모달
-  .modal-backdrop {
+  
+  .modal-backdrop {//모달 넘칠경우 스크롤
     position: fixed;
     top: 0;
     left: 0;
@@ -35,6 +36,10 @@
     background: white;
     padding: 20px;
     border-radius: 10px;
+    width: 20%; /* 넓이를 뷰포트 너비의 50%로 설정 */
+    max-width: 600px; /* 최대 너비를 600px로 설정 */
+    height: auto; /* 높이를 내용에 맞게 자동으로 설정 */
+    max-height: 90vh;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   }
   .modal-content.shop {
@@ -51,6 +56,21 @@
   .modal-content.profile {
     display: block;
   }
+  .ranking-title-container {
+    background: #ecf0f1;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #34495e;
+    width: auto; /* 컨테이너의 너비를 내용에 맞게 자동으로 설정합니다. */
+    max-width: 350px; /* 두 컨테이너의 최대 너비를 동일하게 설정합니다. */
+    margin: 20px auto;
+  }
+  
   .ranking-list {
     display: flex;
     flex-direction: column;
@@ -58,8 +78,11 @@
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 10px;
-    margin: 20px;
+    margin: 20px auto; /* 상단 마진을 설정하고, 중앙 정렬을 유지합니다. */
+    width: auto; /* 컨테이너의 너비를 내용에 맞게 자동으로 설정합니다. */
+    max-width: 350px; /* 두 컨테이너의 최대 너비를 동일하게 설정합니다. */
   }
+  
   
   .ranking-item {
     display: flex;
