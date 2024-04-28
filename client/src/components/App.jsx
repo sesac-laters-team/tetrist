@@ -4,6 +4,7 @@ import GameContainer from "./inGame/GameContainer";
 
 import "../styles/WaitingRoom.scss";
 import WaitingRoomPage from "./page/WaitingRoomPage";
+import SocketTest from "./SocketTest";
 
 function App() {
     return (
@@ -11,11 +12,15 @@ function App() {
             <div className="App">
                 <h2>omokshiroi</h2>
                 <nav>
-                    <Link to="/">Home</Link>
+                    <Link to="/home">Home</Link>
                     <Link to="/game">Play Gomoku</Link>
                     <Link to="/waiting">Waiting Room</Link>
                 </nav>
                 <Routes>
+                    <Route
+                        path="/home"
+                        element={<SocketTest></SocketTest>}
+                    ></Route>
                     <Route path="/waiting" element={<WaitingRoomPage />} />
                     <Route path="/game" element={<GameContainer />} />
                 </Routes>
