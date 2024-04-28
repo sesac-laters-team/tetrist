@@ -9,11 +9,11 @@ function App() {
     return (
         <Router>
             <div className="App">
-                <h2>omokshiroi</h2>
+                <h2>테트리스트</h2>
                 <nav>
-                    <Link to="/">Home</Link>
+                    {/* <Link to="/">Home</Link>
                     <Link to="/game">Play Gomoku</Link>
-                    <Link to="/waiting">Waiting Room</Link>
+                    <Link to="/waiting">Waiting Room</Link> */}
                 </nav>
                 <Routes>
                     <Route path="/waiting" element={<WaitingRoomPage />} />

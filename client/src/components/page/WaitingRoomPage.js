@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import RoomList from "../waitingRoom/RoomList";
 import io from "socket.io-client";
 import CreateRoom from "../waitingRoom/CreateRoom";
-import Sidebar from "../waitingRoom/SideBar";
+import Menubar from "../waitingRoom/Menubar"
 
 // It's good practice to move this configuration to a config file or similar
 const socket = io.connect("http://localhost:8081", {
@@ -27,12 +27,18 @@ export default function WaitingRoomPage() {
 
     return (
         <div className="waiting-room">
+            <div className="logo-and-menubar">
             <div className="logoImg">OMOKSHIROI</div>
-            <div className="ListTitle">
-                <button onClick={() => setCreateModal(true)} className="btnRoom btnPush btnJoin">
-                    방 만들기
-                </button>
+                <Menubar  socket={socket} />
+                
             </div>
+
+            <div className="ListTitle">
+  <span className="roomListTitle">방 목록</span>
+  <button onClick={() => setCreateModal(true)} className="btnRoom btnPush btnJoin">
+      방 만들기
+  </button>
+</div>
 
             <RoomList socket={socket} />
             
@@ -43,8 +49,6 @@ export default function WaitingRoomPage() {
                     </div>
                 </div>
             )}
-
-            <Sidebar width={400} socket={socket} />
         </div>
     );
 }
