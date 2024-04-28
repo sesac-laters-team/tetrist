@@ -5,7 +5,8 @@ import GameContainer from "./inGame/GameContainer";
 import "../styles/WaitingRoom.scss";
 import "../styles/menu-button.scss";
 import WaitingRoomPage from "./page/WaitingRoomPage";
-
+import "../styles/rankingmodal.scss";
+import "../styles/mypagemodal.scss";
 function App() {
     return (
         <Router>

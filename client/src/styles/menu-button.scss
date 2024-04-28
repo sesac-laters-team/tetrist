@@ -53,77 +53,10 @@
     flex-direction: column;
   }
   
-  .modal-content.profile {
+  .modal-content.MyPage {
     display: block;
   }
-  .ranking-title-container {
-    background: #ecf0f1;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 10px 20px;
-    margin-bottom: 20px;
-    text-align: center;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #34495e;
-    width: auto; /* 컨테이너의 너비를 내용에 맞게 자동으로 설정합니다. */
-    max-width: 350px; /* 두 컨테이너의 최대 너비를 동일하게 설정합니다. */
-    margin: 20px auto;
-  }
+
   
-  .ranking-list {
-    display: flex;
-    flex-direction: column;
-    background: #ecf0f1;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-    margin: 20px auto; /* 상단 마진을 설정하고, 중앙 정렬을 유지합니다. */
-    width: auto; /* 컨테이너의 너비를 내용에 맞게 자동으로 설정합니다. */
-    max-width: 350px; /* 두 컨테이너의 최대 너비를 동일하게 설정합니다. */
-  }
-  
-  
-  .ranking-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-    background: white;
-    border-radius: 20px;
-    padding: 10px 20px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .medal {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    margin-right: 10px;
-  }
-  
-  .rank-1 .medal {
-    background-color: gold;
-    content: '2';
-  }
-  
-  .rank-2 .medal {
-    background-color: silver;
-  }
-  
-  .rank-3 .medal {
-    background-color: #cd7f32; /* Bronze color */
-  }
-  .rank-username {
-    flex: 1; /* 유연한 공간 배분 */
-    font-size: 1.2em;
-    font-weight: bold;
-    color: #34495e;
-    margin: 0 15px; /* 좌우 여백을 늘림 */
-   
-  }
-  
-  .rank-points {
-    font-size: 1.2em;
-    font-weight: bold;
-    color: #2c3e50;
-  }
+
+ 

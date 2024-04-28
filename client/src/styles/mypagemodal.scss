@@ -1,0 +1,108 @@
+ //마이페이지 
+ .mypage-container {
+    background: #ecf0f1;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px;
+    width: 80%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .mypage-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .user-avatar {
+    width: 50px; /* Adjust as needed */
+    height: 50px; /* Adjust as needed */
+    border-radius: 50%;
+    margin-right: 15px;
+  }
+  
+  .user-details {
+    display: flex;
+    align-items: center; /* 세로 중앙 정렬 */
+    justify-content: space-between; /* 요소들을 양쪽 끝으로 정렬 */
+    flex-grow: 1;
+  }
+  
+  .username {
+    margin-right: 10px; /* 버튼과의 간격 조정 */
+    font-size: 1.5rem;
+    white-space: nowrap; /* 닉네임이 길어지지 않도록 고정 */
+  }
+  
+  .edit-button {
+    padding: 5px 10px; /* 버튼의 내부 패딩 */
+    font-size: 0.7rem; /* 버튼의 폰트 사이즈 */
+    border: none; /* 기본 테두리 제거 */
+    background: #3498db; /* 버튼 배경 색상 */
+    color: white; /* 버튼 글자 색상 */
+    cursor: pointer; /* 클릭 가능한 요소임을 나타냄 */
+    border-radius: 5px; /* 버튼의 모서리를 둥글게 */
+    transition: background 0.3s; /* 배경 색상의 전환 효과 */
+  }
+  
+  .edit-button:hover {
+    background: #2980b9; /* 호버 상태에서의 배경 색상 */
+  }
+  
+  .user-status {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .status-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+
+  
+  .status-comment {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+  }
+  
+  
+  
+  .action-button {
+    padding: 5px 10px; 
+    font-size: 0.7rem; 
+    margin: 5px;
+    border: none; 
+    background: #3498db; 
+    color: white; 
+    cursor: pointer; 
+    border-radius: 5px; 
+    transition: background 0.3s; 
+  }
+  
+  .action-button:hover {
+    background-color: #2980b9; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
+  }
+  
+  
+
+  .user-actions {
+    display: flex;
+    justify-content: center; /* 중앙 정렬 */
+    padding: 20px; /* 컨테이너 내부의 상하 패딩 */
+  }
+  

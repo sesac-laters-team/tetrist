@@ -15,7 +15,7 @@ const Menubar = () => {
   return (
     <div className="menubar">
       <button onClick={() => openModal('Rank')}>랭킹</button>
-      <button onClick={() => openModal('Profile')}>내 정보</button>
+      <button onClick={() => openModal('MyPage')}>내 정보</button>
       <button onClick={() => openModal('Shop')}>상점</button>
 
       {modalType && <Modal type={modalType} closeModal={closeModal} />}
