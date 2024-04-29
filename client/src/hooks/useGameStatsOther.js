@@ -7,11 +7,11 @@ const buildGameStats = () => ({
     points: 0,
 });
 
-export const useGameStats = () => {
-    const [gameStats, setGameStats] = useState(buildGameStats());
+export const useGameStatsOther = () => {
+    const [gameStatsOther, setGameStatsOther] = useState(buildGameStats());
 
-    const addLinesCleared = useCallback((lines) => {
-        setGameStats((previous) => {
+    const addLinesClearedOther = useCallback((lines) => {
+        setGameStatsOther((previous) => {
             const points = previous.points + lines * 100;
             const { linesPerLevel } = previous;
             const newLinesCompleted = previous.linesCompleted + lines;
@@ -30,5 +30,5 @@ export const useGameStats = () => {
         }, []);
     }, []);
 
-    return [gameStats, addLinesCleared];
+    return [gameStatsOther, addLinesClearedOther];
 };

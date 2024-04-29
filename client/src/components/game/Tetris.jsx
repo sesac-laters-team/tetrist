@@ -2,18 +2,18 @@ import "../../styles/game/Tetris.css";
 import React from "react";
 
 import Board from "./Board";
-
+import BoardOther from "./BoardOther";
 import GameStats from "./GameStats";
+import GameStatsOther from "./GameStatsOther";
 import Previews from "./Previews";
-import PreviewsOther from "./PreviewsOther";
-// import GameController from "./GameController";
+import GameController from "./GameController";
 
 import { useBoard } from "../../hooks/useBoard";
 import { useBoardOther } from "../../hooks/useBoardOther";
-import BoardOther from "./BoardOther";
 import { useGameStats } from "../../hooks/useGameStats";
-import GameStatsOther from "./GameStatsOther";
+import { useGameStatsOther } from "../../hooks/useGameStatsOther";
 import { usePlayer } from "../../hooks/usePlayer";
+import { usePlayerOther } from "../../hooks/usePlayerOther";
 
 const Tetris = ({ rows, columns, setGameOver }) => {
     // 테트리스 컴포넌트
@@ -22,28 +22,28 @@ const Tetris = ({ rows, columns, setGameOver }) => {
     // useGameStats hook
     // 게임 상태판 관리 훅
     const [gameStats, addLinesCleared] = useGameStats();
+    const [gameStatsOther, addLinesClearedOther] = useGameStatsOther();
 
     // usePlayer hook
     const [player, setPlayer, resetPlayer] = usePlayer();
+    const [playerOther, setPlayerOther, resetPlayerOther] = usePlayerOther();
 
     // useBoard hook
     // 보드 상태를 생성 및 관리하는 훅
     const [board, setBoard] = useBoard({
         rows,
         columns,
-        // player,
-        // resetPlayer,
-        // addLinesCleared,
+        player,
+        resetPlayer,
+        addLinesCleared,
     });
 
-    // useBoardOther hook
-    // 상대 보드 상태 관리 훅
     const [boardOther, setBoardOther] = useBoardOther({
         rows,
         columns,
-        // player,
-        // resetPlayer,
-        // addLinesCleared,
+        playerOther,
+        resetPlayerOther,
+        addLinesClearedOther,
     });
 
     return (
@@ -51,16 +51,15 @@ const Tetris = ({ rows, columns, setGameOver }) => {
             <Board board={board} />
             <GameStats gameStats={gameStats} />
             <Previews tetrominoes={player.tetrominoes} />
-            {/* <GameController
+            <GameController
                 board={board}
                 gameStats={gameStats}
                 player={player}
                 setPlayer={setPlayer}
                 setGameOver={setGameOver}
-            /> */}
-            <BoardOther board={board} />
-            <GameStatsOther gameStats={gameStats} />
-            <PreviewsOther tetrominoes={player.tetrominoes} />
+            />
+            <BoardOther board={boardOther} />
+            <GameStatsOther gameStats={gameStatsOther} />
         </div>
     );
 };

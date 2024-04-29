@@ -4,22 +4,22 @@ import { buildBoard, nextBoard } from "../business/Board";
 export const useBoardOther = ({
     rows,
     columns,
-    player,
-    resetPlayer,
-    addLinesCleared,
+    playerOther,
+    resetPlayerOther,
+    addLinesClearedOther,
 }) => {
     const [boardOther, setBoardOther] = useState(buildBoard({ rows, columns }));
 
-    // useEffect(() => {
-    //     setBoard((previousBoard) =>
-    //         nextBoard({
-    //             board: previousBoard,
-    //             player,
-    //             resetPlayer,
-    //             addLinesCleared,
-    //         })
-    //     );
-    // }, [player, resetPlayer, addLinesCleared]);
+    useEffect(() => {
+        // setBoardOther((previousBoard) =>
+        //     nextBoard({
+        //         board: previousBoard,
+        //         playerOther,
+        //         resetPlayerOther,
+        //         addLinesClearedOther,
+        //     })
+        // );
+    }, [playerOther, resetPlayerOther, addLinesClearedOther]);
 
     return [boardOther];
 };

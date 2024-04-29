@@ -6,14 +6,14 @@
 }
 
 .GameStats__me {
-    left: 16em;
-    top: 59vh;
+    left: 28em;
+    top: 55vh;
     text-align: left;
 }
 
 .GameStats__other {
-    right: 11em;
-    top: 59vh;
+    right: 12em;
+    top: 55vh;
     text-align: left;
 }
 
