@@ -1,0 +1,94 @@
+.CreateRoom .modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%; /* 너비를 90%로 설정 */
+    max-width: 300px; /* 최대 너비를 500px로 설정 */
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    
+    max-height: 70vh; /* 최대 높이를 화면의 90%로 설정 */
+}
+
+.CreateRoom .modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.CreateRoom label {
+    display: flex; /* 각 라벨을 블록 요소로 설정 */
+    margin-bottom: 5px;
+    color: #333;
+    font-weight: bold; /* 라벨을 두껍게 설정 */
+}
+.CreateRoom input {
+    width: calc(100% - 10px); /* 부모의 100% 너비에서 padding 값을 뺌 */
+    padding: 8px;
+    margin-top: 2px; /* 입력 필드 위의 여백을 줄임 */
+    margin-bottom: 5px; /* 입력 필드 아래의 여백을 줄임 */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+
+
+.CreateRoom .newRoomSubmit {
+    padding: 10px 20px; /* 버튼 패딩 */
+        background-color: white; /* 버튼 배경색 */
+        box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+        color: #333; /* 버튼 폰트 색상 */
+        border: 2px solid #333;
+        border-radius: 10px ;
+        border-bottom: 2px solid #333;
+        transition: background-color 0.3s, color 0.3s, border-color 0.3s; 
+}
+
+.CreateRoom .newRoomSubmit:hover {
+    background-color: #3498db; /* 호버 상태에서의 배경 색상 변경 */
+}
+/* Form item을 감싸는 컨테이너 스타일 */
+.form-item {
+    display: flex;
+    flex-direction: row; /* 수평 정렬 */
+    align-items: center; /* 세로축 중앙 정렬 */
+    margin-bottom: 0px; /* 아래쪽 간격 */
+  }
+  
+  /* 라벨 스타일 */
+  .form-item label {
+    width: 100px; /* 라벨의 너비를 고정합니다. 필요에 따라 조정하세요. */
+    text-align: right; /* 텍스트를 오른쪽으로 정렬합니다. */
+    margin-right: 1px; /* 라벨과 입력 필드 사이 간격 */
+  }
+  
+  
+  /* 인풋 필드 스타일 */
+  .form-item input {
+    flex-grow: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    /* 라벨의 너비와 마진을 고려하지 않아도 됩니다. */
+  }
+  
+/* 미디어 쿼리: 태블릿과 데스크탑 */
+@media (min-width: 768px) {
+    .CreateRoom .modal {
+        width: 60%; /* 너비를 60%로 조정 */
+        max-width: 300px; /* 최대 너비를 600px로 조정 */
+        padding: 30px; /* 패딩을 늘림 */
+    }
+}
+
+/* 미디어 쿼리: 데스크탑 환경 */
+@media (min-width: 1024px) {
+    .CreateRoom .modal {
+        width: 50%; /* 너비를 50%로 조정 */
+        padding: 30px; /* 패딩을 조정 */
+    }
+}

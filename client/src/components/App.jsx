@@ -8,6 +8,9 @@ import WaitingRoomPage from "./page/WaitingRoomPage";
 import "../styles/rankingmodal.scss";
 import "../styles/mypagemodal.scss";
 import GamePage from "./page/GamePage";
+import "../styles/CreateRoommodal.scss"
+import "../styles/ShopModal.scss"
+
 function App() {
     return (
         <Router>
