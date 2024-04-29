@@ -7,6 +7,8 @@ import "../styles/menu-button.scss";
 import WaitingRoomPage from "./page/WaitingRoomPage";
 import "../styles/rankingmodal.scss";
 import "../styles/mypagemodal.scss";
+import "../styles/CreateRoommodal.scss"
+import "../styles/ShopModal.scss"
 function App() {
     return (
         <Router>

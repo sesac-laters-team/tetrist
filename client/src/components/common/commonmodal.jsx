@@ -1,7 +1,7 @@
 import React from "react";
 import RankingModalContent from "../waitingRoom/RankingModalContent"; // 랭킹 컴포넌트 임포트
 import MyPageContent from "../waitingRoom/MyPageContent";
-
+import ShopModalContent from "../waitingRoom/ShopModalContent"
 const Modal = ({ type, closeModal }) => {
   const renderModalContent = () => {
     switch (type) {
@@ -12,6 +12,7 @@ const Modal = ({ type, closeModal }) => {
         return <MyPageContent/>;
       case 'Shop':
         // 상점 컴포넌트를 렌더링
+        return <ShopModalContent/>
         break;
       default:
         return <div>내용이 없습니다.</div>;

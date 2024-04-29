@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import TimerRadio from "./TimerRadio";
 import TimerRadioGroup from "./TimerRadioGroup";
 
+
 export default function CreateRoom({ socket, setCreateModal }) {
     const navigate = useNavigate();
     const [pwInput, setPwInput] = useState("");
@@ -59,20 +60,21 @@ export default function CreateRoom({ socket, setCreateModal }) {
               
 
                     <form className="newRoom" onSubmit={handleNewRoom}>
+                    <div className="form-item">
+                            <label htmlFor="roomTitle">방 제목</label>
+                                <input
+                                    type="text"
+                                    id="roomTitle"
+                                    className="roomTitle"
+                                    name="roomTitle"
+                                     placeholder="방 제목 입력"
+                                 />
+                        </div>
+                       
                         <label>
-                            방 제목
-                            <input
-                                type="text"
-                                className="roomTitle"
-                                name="roomTitle"
-                                placeholder="방 제목"
-                            />
-                        </label>
-                        <br />
-                        <label>
-                            시간 선택
+                            {/* 시간 선택 */}
                             {/* 시간 선택 라디오 그룹 */}
-                            <TimerRadioGroup label="시간선택">
+                            {/* <TimerRadioGroup label="시간선택">
                                 <TimerRadio
                                     name="time"
                                     value="sec30"
@@ -86,19 +88,22 @@ export default function CreateRoom({ socket, setCreateModal }) {
                                 <TimerRadio name="time" value="sec90">
                                     01:30
                                 </TimerRadio>
-                            </TimerRadioGroup>
+                            </TimerRadioGroup> */}
                         </label>
-                        <br />
-                        <label>
-                            비밀번호
+                    
+                        <div className="form-item">
+                            <label htmlFor="roomPw">비밀번호</label>
                             <input
                                 type="text"
+                                id="roomPw"
                                 name="roomPw"
                                 value={pwInput.trim()}
                                 onKeyDown={checkSpacebar}
                                 onChange={(e) => setPwInput(e.target.value)}
+                                placeholder="비밀번호"
                             />
-                        </label>
+                            </div>
+
                         <label>
                             <button type="submit" className="newRoomSubmit">
                                 방 만들기
