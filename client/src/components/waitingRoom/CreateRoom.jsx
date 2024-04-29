@@ -70,7 +70,7 @@ export default function CreateRoom({ socket, setCreateModal }) {
                                      placeholder="방 제목 입력"
                                  />
                         </div>
-                        <br />
+                       
                         <label>
                             {/* 시간 선택 */}
                             {/* 시간 선택 라디오 그룹 */}
@@ -90,7 +90,7 @@ export default function CreateRoom({ socket, setCreateModal }) {
                                 </TimerRadio>
                             </TimerRadioGroup> */}
                         </label>
-                        <br />
+                    
                         <div className="form-item">
                             <label htmlFor="roomPw">비밀번호</label>
                             <input

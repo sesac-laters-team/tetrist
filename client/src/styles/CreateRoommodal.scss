@@ -17,25 +17,23 @@
 .CreateRoom .modal-body {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
 }
 
 .CreateRoom label {
     display: flex; /* 각 라벨을 블록 요소로 설정 */
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     color: #333;
     font-weight: bold; /* 라벨을 두껍게 설정 */
 }
-
 .CreateRoom input {
-    width: 20%; /* 입력 필드 너비를 100%로 설정 */
-    padding: 10px;
-    margin-top: 5px;
-    margin-bottom: 10px; /* 각 입력 필드 사이에 마진 추가 */
+    width: calc(100% - 10px); /* 부모의 100% 너비에서 padding 값을 뺌 */
+    padding: 8px;
+    margin-top: 2px; /* 입력 필드 위의 여백을 줄임 */
+    margin-bottom: 5px; /* 입력 필드 아래의 여백을 줄임 */
     border: 1px solid #ccc;
     border-radius: 5px;
-   
-}
+  }
 
 
 
