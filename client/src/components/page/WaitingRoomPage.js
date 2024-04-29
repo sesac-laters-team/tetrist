@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import RoomList from "../waitingRoom/RoomList";
 import io from "socket.io-client";
 import CreateRoom from "../waitingRoom/CreateRoom";
-import Sidebar from "../waitingRoom/SideBar";
+import Menubar from "../waitingRoom/Menubar"
 
 const socket = io.connect("http://localhost:8081", {
     autoConnect: false,
@@ -25,26 +25,26 @@ export default function WaitingRoomPage() {
 
     return (
         <div className="waiting-room">
-            <div className="logoImg">OMOKSHIROI</div>
-            <div className="ListTitle">
-                <div>
-                    <span>방 목록</span>
-                </div>
-                <button
-                    onClick={() => {
-                        setCreateModal(true);
-                    }}
-                    className="btnRoom btnPush btnJoin"
-                >
-                    방 만들기
-                </button>
+
+            <div className="logo-and-menubar">
+            <div className="logoImg">TETRIST</div>
+                <Menubar  socket={socket} />
             </div>
             <br />
 
             {/* 방 리스트 */}
             <RoomList socket={socket}></RoomList>
 
-            {/* 모달 창 */}
+
+       <div className="ListTitle">
+  <span className="roomListTitle">방 목록</span>
+  <button onClick={() => setCreateModal(true)} className="btnRoom btnPush btnJoin">
+      방 만들기
+  </button>
+</div>
+
+            <RoomList socket={socket} />
+
             {createModal && (
                 <div
                     className="modal-outside"
@@ -65,8 +65,6 @@ export default function WaitingRoomPage() {
                     </div>
                 </div>
             )}
-
-            <Sidebar width={400} socket={socket}></Sidebar>
         </div>
     );
 }

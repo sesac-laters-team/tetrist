@@ -1,160 +1,191 @@
 .waiting-room {
-    margin: 5%;
-    // 로고 이미지
-    .logoImg {
-        width: 400px;
-        height: 80px;
-        background-color: gray;
-        margin: 20px;
-        margin-bottom: 20px;
-        padding: 10px;
-        text-align: center;
-        font-size: 50px;
-    }
-    // 방 목록 타이틀 바
-    .ListTitle {
-        display: flex;
-        background-color: gainsboro;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 5%; /* 상단 여백만 조정 */
+}
 
-        padding: 10px;
-        width: 780px;
-        height: 90px;
-        margin: 20px;
-        border-bottom: 2px solid black;
-        justify-content: space-evenly;
+.logo-and-menubar {
+    display: flex;
+    justify-content: space-between; /* 로고와 메뉴바를 양쪽 끝으로 배치 */
+    align-items: center;
+    width: 65%; /* 전체 너비의 90% 사용 */
+    max-width: 1024px; /* 최대 너비 설정 */
+    margin: 0 auto; /* 상하 마진 없이 좌우 마진으로 중앙 정렬 */
+    padding: 20px; /* 패딩 조정 */
+}
 
-        // 방 목록
-        div {
-            font-weight: bold;
-            span {
-                font-size: 50px;
-            }
-        }
+// .logoImg {
+//     height: 80px; /* 로고 높이 고정 */
+//     background-color: gray;
+//     margin: 20px 0; /* 상하 마진 설정 */
+//     padding: 10px;
+//     text-align: center;
+//     font-size: 50px;
+//     flex: 1; /* 유연하게 공간 차지 */
+//     flex-shrink: 0;
+// }
 
-        // 방 만들기 버튼
-        .btnRoom {
-            display: block;
-            position: relative;
-            float: left;
-            width: 120px;
-            padding: 0;
-            margin: 10px 10px 10px 0;
-            font-weight: 600;
-            text-align: center;
-            line-height: 50px;
-            color: #202020;
-            border-radius: 5px;
-            border: none;
-            transition: all 0.2s;
-        }
-        .btnJoin {
-            background-color: aliceblue;
-        }
 
-        .btnJoin.btnPush {
-            box-shadow: 0px 5px 0px 0px rgb(0, 0, 0);
-        }
 
-        .btnJoin:hover {
-            margin-top: 15px;
-            margin-bottom: 5px;
-        }
-    }
+  .ListTitle {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* 왼쪽 정렬 */
+   
+    padding: 10px 20px; /* 상단과 하단 패딩 */
+    width: 100%; /* 전체 너비 */
+    max-width: 780px; /* 최대 너비 설정 */
+    margin: 20px auto; /* 위아래 마진 지정, 좌우는 자동으로 중앙 정렬 */
+    // border-radius: 10px;
+    border-bottom: 2px solid black;
+  
+}
 
-    // RoomList.jsx
+.roomListTitle {
+    
+    font-size: 1.5rem; /* 글자 크기 */
+    font-weight: bold; /* 글자를 굵게 */
+    margin-right: auto; /* 오른쪽 여백을 자동으로 설정하여 버튼을 오른쪽 끝으로 밀어냄 */
+    
+}
+
+.btnRoom {
+    padding: 10px 15px;
+    margin: 10px; /* 여백 조정 */
+    width: 120px; /* 버튼 너비 */
+    font-weight: 600;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 10px;
+    transition: all 0.2s;
+    cursor: pointer; /* 마우스 오버 시 포인터로 변경 */
+    background-color: #f1f1f1; /* 배경색 추가 */
+    border: none; /* 테두리 없앰 */
+  }
+
+.btnJoin {
+    background-color: aliceblue;
+    z-index: 0px;
+}
+
+.btnJoin.btnPush {
+    box-shadow: 0px 1px 0px 0px rgb(0, 0, 0);
+}
+
+.btnJoin:hover {
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+
+    /* RoomList.jsx */
     .RoomList {
-        .ListRoom {
-            ul {
-                padding: 10px;
-                width: 780px;
-                height: 100px;
-                margin-left: 20px;
-                li {
-                    list-style: none;
-                    position: relative;
-                    padding: 6px 6px;
-                    margin-bottom: 15px;
-                    background-color: #c8c8c8;
-                }
-            }
-        }
+        width: 100%; /* 부모 컨테이너에 맞게 너비 설정 */
+        max-width: 780px; /* 최대 너비 설정 */
+        margin: 20px auto; /* 상하 여백 지정, 좌우는 자동으로 중앙 정렬 */
+        padding: 20px; /* 패딩 설정 */
+        
+      
+       
     }
-    // [ 모달 ]
-    .modal-outside {
-        position: absolute;
-        // display: none;
-
-        justify-content: center;
-        top: 0;
-        left: 0;
-
-        justify-content: center;
-        top: 0;
-        left: 0;
-
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.4);
-        // 모달 내부
-        .CreateRoom {
-            z-index: 1;
-            .modal {
-                .modal-body {
-                    position: absolute;
-                    top: 50%;
-                    left: 30%;
-                    width: 400px;
-                    height: 600px;
-                    padding: 40px;
-                    text-align: center;
-                    background-color: rgb(255, 255, 255);
-                    border-radius: 10px;
-                    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
-                    transform: translateY(-50%);
-                    label {
-                        margin: 10px;
-                    }
-                }
-            }
-        }
+    
+    .ShowRoomList {
+        margin-bottom: 10px; /* 섹션 사이의 여백 */
     }
-
-    // [사이드 바]
-    .sidebar {
-        background-color: #e3ecf1;
-        border-left: 4px solid #202020;
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        right: 0;
-        transition: 0.4s ease;
-        color: #202020;
-        height: 100%;
-        z-index: 99;
+    
+    .ListRoom ul {
+        list-style-type: none; /* 기본 목록 스타일 제거 */
+        padding: 0; /* 기본 패딩 제거 */
     }
-    // 토글 버튼
-    .toggleBtn {
-        position: relative;
-        left: -60px;
-        top: 10px;
-        width: 50px;
-        height: 50px;
-        z-index: 99;
-        transition: 0.8s ease;
-        border: 2px solid #202020;
-        border-radius: 40px;
-        overflow: hidden;
-        // 토글 버튼 이미지
-        .openBtn {
-            width: 100%;
-            height: 100%;
-        }
+    
+    .ListRoom li {
+
+        border: 1px solid #333; /* 테두리 */
+        border-radius: 5px; /* 모서리 둥글게 */
+        margin-bottom: 10px; /* 요소 사이의 마진 */
+        padding: 15px; /* 내부 여백 */
+        display: flex;
+        align-items: center;
+        justify-content: space-between; /* 요소 내부 컨텐츠를 양쪽 끝으로 정렬 */
+        box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+        transition: background-color 0.3s; /* 호버 효과를 위한 전환 */
+    }
+    
+   
+    //방 제목
+    .ListRoom span {
+        font-size: 1.2rem; /* 방 제목의 폰트 사이즈 */
+        color: #333; /* 폰트 색상 */
+    }
+    //입장하기 버튼
+    .ListRoom button {
+        padding: 10px 20px; /* 버튼 패딩 */
+        background-color: white; /* 버튼 배경색 */
+        box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+        color: #333; /* 버튼 폰트 색상 */
+        border: 2px solid #333;
+        border-radius: 10px ;
+        border-bottom: 2px solid #333;
+        
+    }    
+    /* [ 방만들기  모달, 공통 모달 적용 X ] */
+.modal-outside {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    align-items: center;
+   
+}
+
+.CreateRoom {
+    background-color: white;
+    padding: 40px;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 10px;
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+}
+
+
+  
+  
+@media (max-width: 768px) {
+    .logo-and-menubar {
+      width: 95%;
     }
 
-    // 사이드바 리스트
-    .SideBarList {
-        padding: 40px 40px 0 20px;
-        position: relative;
-        width: 100%;
+    .ListTitle, .RoomList {
+        max-width: 100%; /* 모바일에서 최대 너비를 100%로 조정 */
+        padding: 10px; /* 모바일에서 패딩 감소 */
+    }
+
+    .ListRoom li {
+      width: 90%;
+    }
+
+    .btnRoom {
+        width: 15%; /* 모바일에서 버튼 너비를 100%로 조정 */
+        margin-right: 5%;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    /* 태블릿 크기 조정 */
+    .logo-and-menubar {
+        padding: 10px; /* 태블릿에서 패딩 조정 */
+    }
+}
+
+@media (min-width: 1025px) {
+    /* 데스크탑 크기 조정 */
+    .logo-and-menubar, .ListTitle, .RoomList {
+        max-width: 1024px; /* 데스크탑에서 최대 너비 설정 */
     }
 }
