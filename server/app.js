@@ -15,6 +15,10 @@ socketHandler(server);
 // 라우터 설정
 app.use("/api-server", router);
 
+// 대기방 임시 라우터
+const waitingRouter = require("./routes/waiting");
+app.use("/waiting", waitingRouter);
+
 // swagger
 const { swaggerUi, swaggerSpec } = require("./routes/swagger");
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
