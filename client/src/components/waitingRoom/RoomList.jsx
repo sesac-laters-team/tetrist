@@ -44,8 +44,8 @@ export default function RoomList({ socket }) {
                     <ul>
                         {rooms.map(room => (
                             <li key={room.roomId}>
-                                <span>{room.roomIndex} : {room.title}</span>
-                                <button onClick={() => gameJoin(room.roomId)}>입장하기</button>
+                                <span>{room.roomIndex}  {room.title}</span>
+                                <button onClick={() => gameJoin(room.roomId)}>입장</button>
                             </li>
                         ))}
                     </ul>
