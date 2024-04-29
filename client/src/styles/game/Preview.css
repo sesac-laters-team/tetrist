@@ -1,7 +1,16 @@
 .Preview {
     position: absolute;
     top: 0;
-    left: 30em;
+    left: 28em;
+    background: rgb(64, 67, 66);
+    border: 10px solid rgba(0, 0, 0, 0);
+    border-radius: 10px;
+}
+
+.Preview-other {
+    position: absolute;
+    top: 0;
+    right: 28em;
     background: rgb(64, 67, 66);
     border: 10px solid rgba(0, 0, 0, 0);
     border-radius: 10px;
