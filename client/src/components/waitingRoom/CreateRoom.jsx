@@ -72,9 +72,8 @@ export default function CreateRoom({ socket, setCreateModal }) {
                         </div>
                        
                         <label>
-                            {/* 시간 선택 */}
-                            {/* 시간 선택 라디오 그룹 */}
-                            {/* <TimerRadioGroup label="시간선택">
+                           
+                             <TimerRadioGroup label="시간선택">
                                 <TimerRadio
                                     name="time"
                                     value="sec30"
@@ -88,7 +87,7 @@ export default function CreateRoom({ socket, setCreateModal }) {
                                 <TimerRadio name="time" value="sec90">
                                     01:30
                                 </TimerRadio>
-                            </TimerRadioGroup> */}
+                            </TimerRadioGroup> 
                         </label>
                     
                         <div className="form-item">
