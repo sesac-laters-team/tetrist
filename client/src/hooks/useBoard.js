@@ -10,16 +10,16 @@ export const useBoard = ({
 }) => {
     const [board, setBoard] = useState(buildBoard({ rows, columns }));
 
-    // useEffect(() => {
-    //     setBoard((previousBoard) =>
-    //         nextBoard({
-    //             board: previousBoard,
-    //             player,
-    //             resetPlayer,
-    //             addLinesCleared,
-    //         })
-    //     );
-    // }, [player, resetPlayer, addLinesCleared]);
+    useEffect(() => {
+        setBoard((previousBoard) =>
+            nextBoard({
+                board: previousBoard,
+                player,
+                resetPlayer,
+                addLinesCleared,
+            })
+        );
+    }, [player, resetPlayer, addLinesCleared]);
 
     return [board];
 };
