@@ -1,0 +1,70 @@
+.main {
+    .modalOut {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.5);
+        .signInModal {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+            background-color: #ffffff;
+            width: 360px;
+            height: 210px;
+            padding: 15px;
+            border: 1px solid #c8c8c8;
+            border-radius: 16px;
+            box-shadow: 1px 1px 3px rgb(0, 0, 0, 0.5);
+            form {
+                .inputWrap + .pwWrap {
+                    height: 30px;
+                }
+                .input {
+                    width: 270px;
+                    height: 34px;
+                    border: 1px solid #c8c8c8;
+                    font-size: 24px;
+                    &:focus {
+                        border-style: none;
+                    }
+                }
+                display: flex;
+                .loginBtnWrap {
+                    width: 60px;
+                    height: 60px;
+                    input {
+                        padding: 0;
+                        width: 60px;
+                        height: 60px;
+                    }
+                }
+            }
+        }
+        .signUpModal {
+            background-color: #ffffff;
+            width: 450px;
+            height: 540px;
+            padding: 15px;
+            border: 1px solid #c8c8c8;
+            border-radius: 16px;
+            box-shadow: 1px 1px 3px rgb(0, 0, 0, 0.5);
+        }
+    }
+}
+.btn {
+    cursor: pointer;
+    &.text:hover {
+        font-weight: 700;
+        text-decoration: underline;
+    }
+}
+.hide {
+    display: none;
+}

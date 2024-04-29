@@ -1,9 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import RoomList from "./waitingRoom/RoomList";
-import GameContainer from "./inGame/GameContainer";
+// import RoomList from "./waitingRoom/RoomList";
+// import GameContainer from "./inGame/GameContainer";
 
-import "../styles/WaitingRoom.scss";
+// import "../styles/WaitingRoom.scss";
+import MainPage from "./page/MainPage";
 
 function App() {
     return (
@@ -15,8 +16,9 @@ function App() {
                     <Link to="/game">Game</Link>
                 </nav>
                 <Routes>
-                    <Route path="/" element={<RoomList />} />
-                    <Route path="/game" element={<GameContainer />} />
+                    <Route path="/main" element={<MainPage />} />
+                    {/* <Route path="/" element={<RoomList />} /> */}
+                    {/* <Route path="/game" element={<GameContainer />} /> */}
                 </Routes>
             </div>
         </Router>
