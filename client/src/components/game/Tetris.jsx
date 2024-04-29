@@ -4,7 +4,8 @@ import React from "react";
 import Board from "./Board";
 
 import GameStats from "./GameStats";
-// import Previews from "./Previews";
+import Previews from "./Previews";
+import PreviewsOther from "./PreviewsOther";
 // import GameController from "./GameController";
 
 import { useBoard } from "../../hooks/useBoard";
@@ -12,7 +13,7 @@ import { useBoardOther } from "../../hooks/useBoardOther";
 import BoardOther from "./BoardOther";
 import { useGameStats } from "../../hooks/useGameStats";
 import GameStatsOther from "./GameStatsOther";
-// import { usePlayer } from "../hooks/usePlayer";
+import { usePlayer } from "../../hooks/usePlayer";
 
 const Tetris = ({ rows, columns, setGameOver }) => {
     // 테트리스 컴포넌트
@@ -23,7 +24,7 @@ const Tetris = ({ rows, columns, setGameOver }) => {
     const [gameStats, addLinesCleared] = useGameStats();
 
     // usePlayer hook
-    // const [player, setPlayer, resetPlayer] = usePlayer();
+    const [player, setPlayer, resetPlayer] = usePlayer();
 
     // useBoard hook
     // 보드 상태를 생성 및 관리하는 훅
@@ -49,7 +50,7 @@ const Tetris = ({ rows, columns, setGameOver }) => {
         <div className="Tetris">
             <Board board={board} />
             <GameStats gameStats={gameStats} />
-            {/* <Previews tetrominoes={player.tetrominoes} /> */}
+            <Previews tetrominoes={player.tetrominoes} />
             {/* <GameController
                 board={board}
                 gameStats={gameStats}
@@ -59,6 +60,7 @@ const Tetris = ({ rows, columns, setGameOver }) => {
             /> */}
             <BoardOther board={board} />
             <GameStatsOther gameStats={gameStats} />
+            <PreviewsOther tetrominoes={player.tetrominoes} />
         </div>
     );
 };

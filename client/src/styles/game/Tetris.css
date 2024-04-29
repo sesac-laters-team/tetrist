@@ -1,6 +1,6 @@
 .Tetris {
     position: relative;
-    background-color: rgb(196, 211, 211);
+    background-color: white;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
