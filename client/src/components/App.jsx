@@ -1,30 +1,21 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import GameContainer from "./inGame/GameContainer";
-
-import "../styles/WaitingRoom.scss";
-import "../styles/menu-button.scss";
 import WaitingRoomPage from "./page/WaitingRoomPage";
-import "../styles/rankingmodal.scss";
-import "../styles/mypagemodal.scss";
 import MainPage from "./page/MainPage";
 import GamePage from "./page/GamePage";
-import "../styles/CreateRoommodal.scss"
-import "../styles/ShopModal.scss"
-
+import LoginPage from "./page/LoginPage";
 
 function App() {
+    const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태를 관리하는 상태
+    // const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
     return (
         <Router>
             <div className="App">
-                <nav>
-                    {/* <Link to="/">Home</Link>
-                    <Link to="/game">Play Gomoku</Link>
-                    <Link to="/waiting">Waiting Room</Link> */}
-                </nav>
-                {/* 들어갈때 http://localhost:3000/waiting 치고 들어가세요 */}
                 <Routes>
-                    <Route path="/waiting" element={<WaitingRoomPage />} />
+                    <Route path="/login" element={<LoginPage setIsLoggedIn={setIsLoggedIn} />} />
+                    {/* 로그인되어 있지 않은 경우에는 WaitingRoomPage로의 라우팅을 막음 */}
+                    <Route path="/waiting" element={isLoggedIn ? <WaitingRoomPage /> : <Navigate to="/login" />} />
                     <Route path="/game" element={<GameContainer />} />
                     <Route path="/main" element={<MainPage />} />
                     <Route path="/tetris" element={<GamePage />} />
