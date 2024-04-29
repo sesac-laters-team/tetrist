@@ -1,4 +1,7 @@
 .Tetris {
     position: relative;
-    background-color: aqua;
+    background-color: rgb(196, 211, 211);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
