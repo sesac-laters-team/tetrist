@@ -18,6 +18,16 @@ const userPurchaseModel = require("./UserPurchase")(sequelize, Sequelize);
 
 // 테이블 관계 설정
 
+// users > rooms
+usersModel.hasMany(roomsModel, {
+    foreignKey: "user_id",
+    allowNull: false,
+});
+roomsModel.belongsTo(usersModel, {
+    foreignKey: "user_id",
+    allowNull: false,
+});
+
 // users <> product_id
 usersModel.belongsToMany(productsModel, {
     through: userPurchaseModel,

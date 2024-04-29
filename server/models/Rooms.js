@@ -12,6 +12,10 @@ const roomsModel = (Sequelize, DataTypes) => {
                 type: DataTypes.STRING(64),
                 allowNull: false,
             },
+            r_password: {
+                type: DataTypes.STRING(64),
+                allowNull: true,
+            },
             r_status: {
                 type: DataTypes.BOOLEAN,
                 allowNull: false,
