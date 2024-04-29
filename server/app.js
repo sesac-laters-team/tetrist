@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
+const session = require("express-session");
 const router = require("./routes/router");
+const authRouter = require("./routes/auth");
 const { sequelize } = require("./models");
 const http = require("http");
 const server = http.createServer(app);
@@ -12,8 +14,27 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
 socketHandler(server);
+
+// 세션 설정
+const sessionConfig = {
+    secret: "secretKey",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        httpOnly: false,
+        // maxAge: 1000 * 60 * 60,
+        signed: true,
+    },
+};
+app.use(session(sessionConfig));
+app.use((req, res, next) => {
+    res.locals.session = req.session;
+    next();
+});
+
 // 라우터 설정
 app.use("/api-server", router);
+app.use("/api-server/auth", authRouter);
 
 // swagger
 const { swaggerUi, swaggerSpec } = require("./routes/swagger");
