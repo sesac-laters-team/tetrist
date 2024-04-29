@@ -1,51 +1,61 @@
 const initialState = {
     rooms: [
-        {
-            roomId: 1,
-            timer: "sec30",
-            title: "오목 한 판",
-            roomPw: "",
-            roomIndex: 0,
-        },
-        {
-            roomId: 2,
-            timer: "sec60",
-            title: "오목 초보 들어오셈",
-            roomPw: "1234",
-            roomIndex: 1,
-        },
+        // {
+        //     room_id: 0,
+        //     r_name: "오목 한 판",
+        //     r_status: true,
+        //     user_id: 0,
+        // },
+        // {
+        //     room_id: 2,
+        //     r_name: "오목 초보 ㄱㄱ",
+        //     r_status: false,
+        //     user_id: 1,
+        // },
     ],
 };
 
 let count = initialState.rooms.length;
 initialState["nextID"] = count;
 
+const INIT = "waiting/INIT";
 const CREATE = "waiting/CREATE";
+
+export const init = (rooms) => ({
+    type: INIT,
+    data: rooms,
+});
 
 export const create = (payload) => ({
     type: CREATE,
-    payload, // object {roomId, timer, title, roomPw, roomIndex}
+    payload, // {room_id, r_name, r_status, user_id}
 });
 
 export function waiting(state = initialState, action) {
     switch (action.type) {
-        case CREATE:
-            // 타이틀 값이 입력되지 않으면 그냥 현 상태 유지..
-            // if (action.payload.title.trim() === "") return state;
+        case INIT:
             return {
                 ...state,
-                rooms: state.rooms.concat({
-                    roomId: action.payload.Id,
-                    timer: action.payload.timer,
-                    title: action.payload.title,
-                    roomPw: action.payload.roomPw,
-                    roomIndex: action.payload.roomIndex,
-                }),
-                nextID: action.payload.roomIndex + 1,
+                rooms: action.data,
+                nextID:
+                    action.data.length > 0
+                        ? action.data[action.data.length - 1].room_id + 1
+                        : 1,
             };
-
-        // 추가
-        // console.log(action.payload.roomIndex)
+        case CREATE:
+            return {
+                ...state,
+                rooms: [
+                    ...state.rooms,
+                    {
+                        room_id: state.nextID,
+                        r_name: action.payload.r_name,
+                        r_status: action.payload.r_status,
+                        user_id: action.payload.user_id,
+                    },
+                ],
+                nextID: state.nextID + 1,
+            };
         default:
             return state;
     }

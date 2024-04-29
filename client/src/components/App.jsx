@@ -7,13 +7,12 @@ import "../styles/menu-button.scss";
 import WaitingRoomPage from "./page/WaitingRoomPage";
 import "../styles/rankingmodal.scss";
 import "../styles/mypagemodal.scss";
+import "../styles/pagination.scss";
 function App() {
     return (
         <Router>
             <div className="App">
-              
                 <nav>
-
                     {/* <Link to="/">Home</Link>
                     <Link to="/game">Play Gomoku</Link>
                     <Link to="/waiting">Waiting Room</Link> */}

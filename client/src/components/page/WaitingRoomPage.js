@@ -1,17 +1,21 @@
 import { useRef, useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import RoomList from "../waitingRoom/RoomList";
 import io from "socket.io-client";
 import CreateRoom from "../waitingRoom/CreateRoom";
 import Menubar from "../waitingRoom/Menubar";
+// 모듈 설치 필요
+import Pagination from "react-js-pagination";
 
 const socket = io.connect("http://localhost:8081", {
     autoConnect: false,
 });
 
 export default function WaitingRoomPage() {
+    const dispatch = useDispatch();
+
     // socket 연결
     const initSocketConnect = () => {
-        console.log("소켓 연결 완료. 웨이팅 페이지");
         if (!socket.connected) socket.connect();
     };
 
@@ -22,6 +26,13 @@ export default function WaitingRoomPage() {
     // 방 만들기 modal state
     const [createModal, setCreateModal] = useState(false);
     const outside = useRef();
+
+    // pagiation
+    const [page, setPage] = useState(1);
+
+    const handlePageChange = (page) => {
+        setPage(page);
+    };
 
     return (
         <div className="waiting-room">
@@ -42,7 +53,17 @@ export default function WaitingRoomPage() {
             </div>
 
             <RoomList socket={socket} />
+            {/* <RoomList /> */}
 
+            <Pagination
+                activePage={page} // 현재 페이지
+                itemsCountPerPage={5} // 한 페이지랑 보여줄 아이템 갯수
+                totalItemsCount={25} // 총 아이템 갯수
+                pageRangeDisplayed={5} // paginator의 페이지 범위
+                prevPageText={"<"} // "이전"을 나타낼 텍스트
+                nextPageText={">"} // "다음"을 나타낼 텍스트
+                onChange={handlePageChange} // 페이지 변경을 핸들링하는 함수
+            ></Pagination>
             {createModal && (
                 <div
                     className="modal-outside"
