@@ -8,13 +8,16 @@ import WaitingRoomPage from "./page/WaitingRoomPage";
 import "../styles/rankingmodal.scss";
 import "../styles/mypagemodal.scss";
 import MainPage from "./page/MainPage";
+import GamePage from "./page/GamePage";
+import "../styles/CreateRoommodal.scss"
+import "../styles/ShopModal.scss"
+
+
 function App() {
     return (
         <Router>
             <div className="App">
-              
                 <nav>
-
                     {/* <Link to="/">Home</Link>
                     <Link to="/game">Play Gomoku</Link>
                     <Link to="/waiting">Waiting Room</Link> */}
@@ -24,6 +27,7 @@ function App() {
                     <Route path="/waiting" element={<WaitingRoomPage />} />
                     <Route path="/game" element={<GameContainer />} />
                     <Route path="/main" element={<MainPage />} />
+                    <Route path="/tetris" element={<GamePage />} />
                 </Routes>
             </div>
         </Router>

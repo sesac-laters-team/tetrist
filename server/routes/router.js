@@ -1,9 +1,21 @@
 const express = require("express");
 const router = express.Router();
 
+const mainCtr = require("../controller/Cmain");
 const usersCtr = require("../controller/Cusers");
 
+// main
+
+router.get("/", mainCtr.index);
+
+// router.get("/rate", mainCtr.rate);
+
 // user
+// router.get("/mypage", usersCtr.mypage);
+// router.patch("/mypage", usersCtr.patchUser);
+// router.delete("/mypage", usersCtr.deleteUser);
+//
+
 /**
  * @swagger
  * paths:
@@ -43,5 +55,15 @@ const usersCtr = require("../controller/Cusers");
  *                          ]
  */
 router.get("/users", usersCtr.getAllUsers);
+
+// room
+// 방 조회
+
+// shop
+// 상품 리스트 조회
+// 유저 구매 목록 조회
+// 유저 구매
+
+// admin
 
 module.exports = router;

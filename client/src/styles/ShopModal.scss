@@ -1,0 +1,60 @@
+.shop-modal {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    
+    text-align: center;
+   
+  }
+  
+  .shop-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .shop-modal-title {
+    font-size: 1.5rem;
+    color: #333;
+    border-bottom: 2px solid #333;
+  }
+  
+  .shop-points {
+    font-size: 1.2rem;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  .shop-items {
+    /* 상점 아이템들을 위한 컨테이너 스타일링 */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 세 개의 컬럼으로 아이템을 배열 */
+    gap: 10px; /* 아이템 간의 간격 */
+  }
+  
+  .shop-item {
+    /* 각 상점 아이템의 스타일링 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .shop-item-color {
+    /* 아이템 색상 표시의 스타일링 */
+    width: 50px; /* 색상 표시 크기 */
+    height: 50px; /* 색상 표시 크기 */
+    border-radius: 50%; /* 원형으로 표시 */
+  }
+  .shop-item:hover {
+    transform: translateY(-5px);
+  }
+  
+  .shop-item-title {
+    /* 아이템 제목의 스타일링 */
+    margin-top: 5px; /* 색상 표시와의 간격 */
+  }
+  .shop-item-price {
+    font-size: 0.8rem;
+    color: #777;
+  }
+  
