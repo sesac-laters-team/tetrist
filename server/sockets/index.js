@@ -30,7 +30,7 @@ function socketHandler(server) {
         });
 
         // 방 만들기
-        socket.on("createRoom", (title, timer, roomPw, roomId) => {
+        socket.on("createRoom", (title, timer, roomPw, roomId, roomIndex) => {
             if (Object.values(rooms).includes(roomId)) {
                 // [입장 실패]
                 // 방 아이디가 이미 rooms에 존재할 때
@@ -43,6 +43,7 @@ function socketHandler(server) {
                     timer: timer,
                     roomPw: roomPw,
                     roomId: roomId,
+                    roomIndex: roomIndex,
                     players: [roomId],
                 };
 
@@ -56,23 +57,15 @@ function socketHandler(server) {
                     rooms[roomId].title,
                     rooms[roomId].timer,
                     rooms[roomId].roomPw,
-                    rooms[roomId].roomId
+                    rooms[roomId].roomId,
+                    rooms[roomId].roomIndex
                 );
             }
-
-            // socket.join(roomId);
-
-            // io.to(roomId).emit('roomCreated', rooms[roomId]);
         });
 
         // 방에 참가하기
         socket.on("joinRoom", (roomId) => {
             socket.join(roomId);
-            // rooms[roomId].players.push(socket.id);
-            // io.to(roomId).emit("joinedRoom", {
-            //     roomId, // 만든 사람 socket.id
-            //     players: rooms[roomId].players, // 만든 사람 + 참여한 사람
-            // });
             console.log(`${socket.id}가 '${roomId}' 방에 참가했습니다.`);
         });
 
@@ -87,33 +80,6 @@ function socketHandler(server) {
                 console.log(`방 '${roomId}'이 비었습니다.`);
             } else {
                 io.to(roomId).emit("leftRoom", socket.id);
-            }
-        });
-
-        // 게임 진행
-        socket.on("move", ({ x, y, player, roomId }) => {
-            const room = rooms[roomId]; // 방 ID에 따라 방 정보를 가져옴
-            if (room && room.board[x][y] === null && room.turn === player) {
-                room.board[x][y] = player; // 보드 업데이트
-                room.turn = player === "black" ? "white" : "black"; // 턴 교체
-                io.to(roomId).emit("game update", {
-                    board: room.board,
-                    turn: room.turn,
-                });
-            }
-        });
-
-        // 무르기 기능
-        socket.on("undo", ({ roomId }) => {
-            const room = rooms[roomId];
-            if (room && room.history.length > 0) {
-                const prevState = room.history.pop(); // 이전 상태를 히스토리에서 꺼냄
-                room.board = prevState; // 보드 상태를 이전 상태로 되돌림
-                room.turn = room.turn === "black" ? "white" : "black"; // 턴도 이전으로 되돌림
-                io.to(roomId).emit("game update", {
-                    board: room.board,
-                    turn: room.turn,
-                });
             }
         });
 

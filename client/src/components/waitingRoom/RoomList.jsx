@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { create } from "../../redux/store/module/waiting";
+import { useNavigate } from "react-router-dom";
 
 export default function RoomList({ socket }) {
     const dispatch = useDispatch();
     const rooms = useSelector((state) => state.waiting.rooms);
     const nextID = useSelector((state) => state.waiting.nextID);
+    const navigate = useNavigate();
 
     const initSocketConnect = () => {
         if (!socket.connected) socket.connect();
@@ -33,8 +35,8 @@ export default function RoomList({ socket }) {
 
     const gameJoin = (roomId) => {
         socket.emit("joinRoom", roomId); // 방 참가시 룸 아이디 보내기
-        console.log(roomId);
-        // navigate("/game"); // navigate 함수가 어디서 온 것인지 확인이 필요합니다.
+        console.log(`방 아이디는 ${roomId}`);
+        navigate("/game"); // navigate 함수가 어디서 온 것인지 확인이 필요합니다.
     };
 
     return (
@@ -44,9 +46,12 @@ export default function RoomList({ socket }) {
                     <ul>
                         {rooms.map((room) => (
                             <li key={room.roomId}>
-
-                                <span>{room.roomIndex}  {room.title}</span>
-                                <button onClick={() => gameJoin(room.roomId)}>입장</button>
+                                <span>
+                                    {room.roomIndex} {room.title}
+                                </span>
+                                <button onClick={() => gameJoin(room.roomId)}>
+                                    입장
+                                </button>
                             </li>
                         ))}
                     </ul>
