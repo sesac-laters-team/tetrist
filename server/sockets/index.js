@@ -24,6 +24,11 @@ function socketHandler(server) {
     io.on("connection", (socket) => {
         console.log("클라이언트 아이디 ::: ", socket.id);
 
+        socket.emit("resTest", "서버로 보내는 메세지");
+        socket.on("test", (msg) => {
+            console.log(msg);
+        });
+
         // 방 만들기
         socket.on("createRoom", (title, timer, roomPw, roomId) => {
             if (Object.values(rooms).includes(roomId)) {

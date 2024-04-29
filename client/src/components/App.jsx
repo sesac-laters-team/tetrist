@@ -13,6 +13,7 @@ function App() {
             <div className="App">
               
                 <nav>
+
                     {/* <Link to="/">Home</Link>
                     <Link to="/game">Play Gomoku</Link>
                     <Link to="/waiting">Waiting Room</Link> */}

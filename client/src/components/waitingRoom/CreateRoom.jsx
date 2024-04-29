@@ -38,7 +38,7 @@ export default function CreateRoom({ socket, setCreateModal }) {
             timer,
             roomPw.trim(),
             roomId,
-            roomIndex,
+            roomIndex
         ); // 방 생성자 socket.id
 
         navigate("/game");
