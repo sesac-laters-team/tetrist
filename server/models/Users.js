@@ -23,11 +23,11 @@ const usersModel = (Sequelize, DataTypes) => {
                 unique: true,
             },
             // 유저가 구매해서 설정한 커스텀들 중 선택한 커스텀
-            // ex) '{"profile": 1, "theme": 1}'
+            // ex) '{"p_type":product_id}'
             custom: {
                 type: DataTypes.JSON,
                 allowNull: false,
-                defaultValue: { profile: 1 },
+                defaultValue: { theme: 1, profile: 2, profileEdge: 3 },
             },
             point: {
                 type: DataTypes.INTEGER,
