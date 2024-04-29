@@ -11,6 +11,12 @@
     text-align: left;
 }
 
+.GameStats__other {
+    right: 12em;
+    top: 55vh;
+    text-align: left;
+}
+
 .GameStats .value {
     font-size: 2.8rem;
     margin-bottom: 0.5em;

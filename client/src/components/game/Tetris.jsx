@@ -2,14 +2,18 @@ import "../../styles/game/Tetris.css";
 import React from "react";
 
 import Board from "./Board";
-
+import BoardOther from "./BoardOther";
 import GameStats from "./GameStats";
+import GameStatsOther from "./GameStatsOther";
 import Previews from "./Previews";
 import GameController from "./GameController";
 
 import { useBoard } from "../../hooks/useBoard";
+import { useBoardOther } from "../../hooks/useBoardOther";
 import { useGameStats } from "../../hooks/useGameStats";
+import { useGameStatsOther } from "../../hooks/useGameStatsOther";
 import { usePlayer } from "../../hooks/usePlayer";
+import { usePlayerOther } from "../../hooks/usePlayerOther";
 
 const Tetris = ({ rows, columns, setGameOver }) => {
     // 테트리스 컴포넌트
@@ -18,9 +22,11 @@ const Tetris = ({ rows, columns, setGameOver }) => {
     // useGameStats hook
     // 게임 상태판 관리 훅
     const [gameStats, addLinesCleared] = useGameStats();
+    const [gameStatsOther, addLinesClearedOther] = useGameStatsOther();
 
     // usePlayer hook
     const [player, setPlayer, resetPlayer] = usePlayer();
+    const [playerOther, setPlayerOther, resetPlayerOther] = usePlayerOther();
 
     // useBoard hook
     // 보드 상태를 생성 및 관리하는 훅
@@ -30,6 +36,14 @@ const Tetris = ({ rows, columns, setGameOver }) => {
         player,
         resetPlayer,
         addLinesCleared,
+    });
+
+    const [boardOther, setBoardOther] = useBoardOther({
+        rows,
+        columns,
+        playerOther,
+        resetPlayerOther,
+        addLinesClearedOther,
     });
 
     return (
@@ -44,6 +58,8 @@ const Tetris = ({ rows, columns, setGameOver }) => {
                 setPlayer={setPlayer}
                 setGameOver={setGameOver}
             />
+            <BoardOther board={boardOther} />
+            <GameStatsOther gameStats={gameStatsOther} />
         </div>
     );
 };
