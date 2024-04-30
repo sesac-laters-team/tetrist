@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Notice from "../chat/Notice";
 import Speech from "../chat/Speech";
 
@@ -12,10 +12,17 @@ export default function WaitingChat({ socket }) {
         socket.on("notice", (notice) => {
             const newChatList = [
                 ...chatList,
-                { type: "notice", content: notice },
+                {
+                    type: notice.type,
+                    content: notice.content,
+                    userid: notice.userid,
+                },
             ];
 
+            setUser(notice.userid);
             setChatList(newChatList);
+
+            console.log("newchatlist>>", newChatList);
         });
     }, [chatList]);
 
@@ -25,12 +32,27 @@ export default function WaitingChat({ socket }) {
         });
     }, [socket]);
 
-    useEffect(() => {
-        socket.on("sendChat", (chat) => {
-            console.log(chatList);
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (chatInput.trim() === "") return setChatInput("");
 
-            const type = chat.userid === user ? "me" : "other";
-            const content = chat.chat;
+        const sendChat = {
+            chat: chatInput,
+            userid: user,
+        };
+        console.log("서버로 보내는 챗 :: ", sendChat);
+        // {chat, userid}
+        socket.emit("send", sendChat);
+        setChatInput("");
+    };
+
+    const addChatList = useCallback(
+        (chatContent) => {
+            // console.log("소켓아이디 확인용", chatList);
+            // {content, type, userid}
+            const type = chatContent.userid === user ? "me" : "other";
+            const content = chatContent.chat;
+            console.log("content가 안들어왔나요?", content);
             const newChatList = [
                 ...chatList,
                 {
@@ -40,27 +62,20 @@ export default function WaitingChat({ socket }) {
             ];
 
             setChatList(newChatList);
-        });
-    });
+            console.log("소켓아이디 확인용", newChatList);
+        },
+        [chatList]
+    );
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (chatInput.trim() === "") return setChatInput("");
-
-        const sendChat = {
-            chat: chatInput,
-            userid: user,
-        };
-
-        socket.emit("send", sendChat);
-        setChatInput("");
-    };
+    useEffect(() => {
+        socket.on("sendChat", addChatList);
+    }, [addChatList]);
 
     return (
         <>
             <ul>
                 <div className="chat-container">
-                    <span>채팅</span>
+                    <span className="chat-title">채팅</span>
                     <br />
                     <section>
                         {chatList.map((chat, i) =>

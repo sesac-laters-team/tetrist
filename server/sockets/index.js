@@ -55,18 +55,22 @@ function socketHandler(server) {
         // 입장 알림
         let userid = socket.id; // 임시
 
-        socket.emit("chatInfo", () => {
+        socket.emit("chatInfo", (id) => {
             chats[userid] = userid; // 현재는 socket.id를 받고 있음
-            socket.broadcast.emit(
-                "notice",
-                `${chats[userid]}님이 입장하셨습니다.`
-            );
+            // 여기서 socket.id를 보내줘야함....
+            id = userid;
+
+            socket.broadcast.emit("notice", {
+                type: "notice",
+                content: `${chats[userid]}님이 입장하셨습니다.`,
+                userid: userid, // socket.id 보냄
+            });
         });
 
         // 채팅 전송
         socket.on("send", (chatData) => {
             console.log(chatData);
-            // chatData = {chat, userid}
+            // chatData = // {chat, userid}
             io.emit("sendChat", {
                 chat: chatData.chat,
                 userid: chatData.userid,

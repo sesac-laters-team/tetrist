@@ -9,6 +9,7 @@ import "../styles/rankingmodal.scss";
 import "../styles/mypagemodal.scss";
 import "../styles/pagination.scss";
 import "../styles/font.scss";
+import "../styles/chat.scss";
 
 function App() {
     return (
