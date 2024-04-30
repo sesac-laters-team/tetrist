@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { registerUser, loginUser, logoutUser } from '../../redux/store/module/authModule';
+// import { registerUser, loginUser, logoutUser } from '../../redux/store/module/authModule';
+import { registerUser, loginUser } from '../../redux/store/module/authModule';
 import { useNavigate } from 'react-router-dom'; 
 
 const AuthForm = () => {
@@ -8,24 +9,31 @@ const AuthForm = () => {
   const [password, setPassword] = useState('');
   const [nickname, setNickname] = useState('');
   const dispatch = useDispatch();
-  const navigate = useNavigate(); // useNavigate 훅 추가
+  const navigate = useNavigate();
 
   const handleRegister = (e) => {
     e.preventDefault();
-    dispatch(registerUser(email, password, nickname));
-    console.log("회원가입 성공");
-    // 회원가입 시 이메일, 비밀번호, 닉네임을 로컬 스토리지에 저장
-    localStorage.setItem('user', JSON.stringify({ email, nickname, password }));
+    dispatch(registerUser(email, password, nickname))
+      .then(() => {
+        console.log("회원가입 성공");
+        localStorage.setItem('user', JSON.stringify({ email, nickname, password }));
+      })
+      .catch(error => {
+        console.error("회원가입 실패", error);
+      });
   };
 
   const handleLogin = (e) => {
     e.preventDefault();
-    dispatch(loginUser(email, password));
-    console.log("로그인 성공");
-
-    // 로그인 시 이메일과 비밀번호를 로컬 스토리지에 저장
-    localStorage.setItem('user', JSON.stringify({ email, password }));
-    navigate('/waiting'); 
+    dispatch(loginUser(email, password))
+      .then(() => {
+        console.log("로그인 성공");
+        localStorage.setItem('user', JSON.stringify({ email, password }));
+        navigate('/waiting'); // 로그인 성공 후 대기실 페이지로 이동
+      })
+      .catch(error => {
+        console.error("로그인 실패", error);
+      });
   };
 
   return (
