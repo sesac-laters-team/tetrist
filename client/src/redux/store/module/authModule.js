@@ -6,7 +6,8 @@ const REGISTER_FAIL = 'auth/REGISTER_FAIL';
 const LOGIN_SUCCESS = 'auth/LOGIN_SUCCESS';
 const LOGIN_FAIL = 'auth/LOGIN_FAIL';
 const LOGOUT = 'auth/LOGOUT';
-
+const LOGOUT_SUCCESS = 'auth/LOGOUT_SUCCESS';
+const LOGOUT_FAIL = 'auth/LOGOUT_FAIL';
 // Initial State
 const initialState = {
   userData: null,
@@ -40,14 +41,21 @@ export default function authReducer(state = initialState, action) {
         ...state,
         error: action.payload
       };
-      case LOGOUT:
-        return {
-          ...state,
-          userData: null,
-          isLoggedIn: false,  // 로그아웃 시 false로 설정
-        };
+      case LOGOUT_SUCCESS:
+      return {
+        ...state,
+        userData: null,
+        isLoggedIn: false,
+        error: null
+      };
+    case LOGOUT_FAIL:
+      return {
+        ...state,
+        error: action.payload
+      };
     default:
       return state;
+   
   }
 }
 
@@ -73,6 +81,20 @@ export const loginUser = (email, password) => async dispatch => {
   }
 };
 
-export const logoutUser = () => {
-  return { type: LOGOUT };
+export const logoutUser = () => async dispatch => {
+  try {
+    // 서버에 로그아웃 요청
+    await axios.get('http://localhost:8080/api-server/auth/logout');
+    
+    // 로컬 스토리지에서 isLoggedIn 및 user 정보 제거
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('user');
+
+    // 로그아웃 성공 액션 디스패치
+    dispatch({ type: LOGOUT_SUCCESS });
+  } catch (error) {
+    // 로그아웃 실패 액션 디스패치
+    console.error('Logout failed:', error);
+    dispatch({ type: LOGOUT_FAIL, payload: error.response ? error.response.data : "Unknown Error" });
+  }
 };
