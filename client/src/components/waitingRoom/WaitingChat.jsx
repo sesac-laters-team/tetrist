@@ -5,7 +5,7 @@ const socket = io.connect("http://localhost:8080", {
     autoConnect: false,
 });
 
-export default function WaitingChat() {
+export default function WaitingChat({ socket }) {
     const initSocketConnect = () => {
         if (!socket.connected) socket.connect();
     };
