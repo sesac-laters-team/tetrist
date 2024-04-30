@@ -1,4 +1,5 @@
 .waiting-room {
+    font-style: "@font-face";
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -27,28 +28,22 @@
 //     flex-shrink: 0;
 // }
 
-
-
-  .ListTitle {
+.ListTitle {
     display: flex;
     align-items: center;
     justify-content: flex-start; /* 왼쪽 정렬 */
-   
+
     padding: 10px 20px; /* 상단과 하단 패딩 */
     width: 100%; /* 전체 너비 */
     max-width: 780px; /* 최대 너비 설정 */
     margin: 20px auto; /* 위아래 마진 지정, 좌우는 자동으로 중앙 정렬 */
     // border-radius: 10px;
     border-bottom: 2px solid black;
-  
 }
 
 .roomListTitle {
-    
-    font-size: 1.5rem; /* 글자 크기 */
-    font-weight: bold; /* 글자를 굵게 */
+    font-size: 2rem; /* 글자 크기 */
     margin-right: auto; /* 오른쪽 여백을 자동으로 설정하여 버튼을 오른쪽 끝으로 밀어냄 */
-    
 }
 
 .btnRoom {
@@ -63,11 +58,12 @@
     cursor: pointer; /* 마우스 오버 시 포인터로 변경 */
     background-color: #f1f1f1; /* 배경색 추가 */
     border: none; /* 테두리 없앰 */
-  }
+}
 
 .btnJoin {
     background-color: aliceblue;
     z-index: 0px;
+    font-weight: bold;
 }
 
 .btnJoin.btnPush {
@@ -79,58 +75,51 @@
     margin-bottom: 5px;
 }
 
+/* RoomList.jsx */
+.RoomList {
+    width: 100%; /* 부모 컨테이너에 맞게 너비 설정 */
+    max-width: 780px; /* 최대 너비 설정 */
+    margin: 20px auto; /* 상하 여백 지정, 좌우는 자동으로 중앙 정렬 */
+    padding: 20px; /* 패딩 설정 */
+}
 
-    /* RoomList.jsx */
-    .RoomList {
-        width: 100%; /* 부모 컨테이너에 맞게 너비 설정 */
-        max-width: 780px; /* 최대 너비 설정 */
-        margin: 20px auto; /* 상하 여백 지정, 좌우는 자동으로 중앙 정렬 */
-        padding: 20px; /* 패딩 설정 */
-        
-      
-       
-    }
-    
-    .ShowRoomList {
-        margin-bottom: 10px; /* 섹션 사이의 여백 */
-    }
-    
-    .ListRoom ul {
-        list-style-type: none; /* 기본 목록 스타일 제거 */
-        padding: 0; /* 기본 패딩 제거 */
-    }
-    
-    .ListRoom li {
+.ShowRoomList {
+    margin-bottom: 10px; /* 섹션 사이의 여백 */
+}
 
-        border: 1px solid #333; /* 테두리 */
-        border-radius: 5px; /* 모서리 둥글게 */
-        margin-bottom: 10px; /* 요소 사이의 마진 */
-        padding: 15px; /* 내부 여백 */
-        display: flex;
-        align-items: center;
-        justify-content: space-between; /* 요소 내부 컨텐츠를 양쪽 끝으로 정렬 */
-        box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
-        transition: background-color 0.3s; /* 호버 효과를 위한 전환 */
-    }
-    
-   
-    //방 제목
-    .ListRoom span {
-        font-size: 1.2rem; /* 방 제목의 폰트 사이즈 */
-        color: #333; /* 폰트 색상 */
-    }
-    //입장하기 버튼
-    .ListRoom button {
-        padding: 10px 20px; /* 버튼 패딩 */
-        background-color: white; /* 버튼 배경색 */
-        box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
-        color: #333; /* 버튼 폰트 색상 */
-        border: 2px solid #333;
-        border-radius: 10px ;
-        border-bottom: 2px solid #333;
-        
-    }    
-    /* [ 방만들기  모달, 공통 모달 적용 X ] */
+.ListRoom ul {
+    list-style-type: none; /* 기본 목록 스타일 제거 */
+    padding: 0; /* 기본 패딩 제거 */
+}
+
+.ListRoom li {
+    border: 1px solid #333; /* 테두리 */
+    border-radius: 5px; /* 모서리 둥글게 */
+    margin-bottom: 10px; /* 요소 사이의 마진 */
+    padding: 15px; /* 내부 여백 */
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* 요소 내부 컨텐츠를 양쪽 끝으로 정렬 */
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    transition: background-color 0.3s; /* 호버 효과를 위한 전환 */
+}
+
+//방 제목
+.ListRoom span {
+    font-size: 1.2rem; /* 방 제목의 폰트 사이즈 */
+    color: #333; /* 폰트 색상 */
+}
+//입장하기 버튼
+.ListRoom button {
+    padding: 10px 20px; /* 버튼 패딩 */
+    background-color: white; /* 버튼 배경색 */
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+    color: #333; /* 버튼 폰트 색상 */
+    border: 2px solid #333;
+    border-radius: 10px;
+    border-bottom: 2px solid #333;
+}
+/* [ 방만들기  모달, 공통 모달 적용 X ] */
 .modal-outside {
     display: flex;
     position: fixed;
@@ -141,7 +130,6 @@
     background-color: rgba(0, 0, 0, 0.4);
     justify-content: center;
     align-items: center;
-   
 }
 
 .CreateRoom {
@@ -153,21 +141,19 @@
     box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
 }
 
-
-  
-  
 @media (max-width: 768px) {
     .logo-and-menubar {
-      width: 95%;
+        width: 95%;
     }
 
-    .ListTitle, .RoomList {
+    .ListTitle,
+    .RoomList {
         max-width: 100%; /* 모바일에서 최대 너비를 100%로 조정 */
         padding: 10px; /* 모바일에서 패딩 감소 */
     }
 
     .ListRoom li {
-      width: 90%;
+        width: 90%;
     }
 
     .btnRoom {
@@ -185,7 +171,9 @@
 
 @media (min-width: 1025px) {
     /* 데스크탑 크기 조정 */
-    .logo-and-menubar, .ListTitle, .RoomList {
+    .logo-and-menubar,
+    .ListTitle,
+    .RoomList {
         max-width: 1024px; /* 데스크탑에서 최대 너비 설정 */
     }
 }

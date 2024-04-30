@@ -8,6 +8,8 @@ import WaitingRoomPage from "./page/WaitingRoomPage";
 import "../styles/rankingmodal.scss";
 import "../styles/mypagemodal.scss";
 import "../styles/pagination.scss";
+import "../styles/font.scss";
+
 function App() {
     return (
         <Router>
