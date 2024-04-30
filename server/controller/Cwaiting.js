@@ -1,10 +1,11 @@
 const { roomsModel } = require("../models");
+const { usersModel } = require("../models");
 
 // GET /waiting
 exports.getWaiting = async (req, res) => {
     try {
         const waitingList = await roomsModel.findAll();
-        console.log("서버에 저장된 데이터 입니다.....", waitingList);
+        // console.log("서버에 저장된 데이터 입니다.....", waitingList);
         res.json(waitingList);
     } catch (err) {
         console.log("server error!");

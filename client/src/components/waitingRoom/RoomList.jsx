@@ -15,7 +15,7 @@ export default function RoomList({ socket }) {
 
     // pagiation
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 5; // 한 페이지에 표시할 아이템의 최대 개수
+    const itemsPerPage = 5;
 
     // 페이지 변경 핸들러
     const handlePageChange = (pageNumber) => {
@@ -35,7 +35,7 @@ export default function RoomList({ socket }) {
         }
     }
 
-    // 새로운 방을 서버에 추가하는 함수
+    // 새로운 방 추가
     async function postWaitingList(r_name, r_status) {
         try {
             // axios post
@@ -61,19 +61,19 @@ export default function RoomList({ socket }) {
                 create({
                     r_name: r_name,
                     room_id: nextID,
-                    user_id: Number(socket.id),
+                    user_id: Number(socket.id), // 임시로 socket.id로 받아 놓았음
                     r_status: r_status,
                 })
             );
             console.log(`${r_name} 방 생성 완료`);
 
-            // 새로운 방을 생성할 때마다 서버에 데이터 추가
+            // 새로운 방 생성 시 서버에 추가
             postWaitingList(r_name, r_status);
         });
     }, []);
 
     const gameJoin = (room_id) => {
-        socket.emit("joinRoom", room_id); // 방 참가시 룸 아이디 보내기
+        socket.emit("joinRoom", room_id);
         console.log(`방 아이디는 ${room_id}`);
         navigate("/game");
     };
@@ -104,13 +104,13 @@ export default function RoomList({ socket }) {
                 </div>
             </section>
             <Pagination
-                activePage={currentPage} // 현재 페이지
-                itemsCountPerPage={itemsPerPage} // 한 페이지에 보여줄 아이템 수
-                totalItemsCount={rooms.length} // 전체 아이템 수는 방 목록의 길이
-                pageRangeDisplayed={5} // 표시할 페이지 범위
-                prevPageText={"<"} // 이전 페이지로 가는 버튼 텍스트
-                nextPageText={">"} // 다음 페이지로 가는 버튼 텍스트
-                onChange={handlePageChange} // 페이지 변경 핸들러
+                activePage={currentPage}
+                itemsCountPerPage={itemsPerPage}
+                totalItemsCount={rooms.length}
+                pageRangeDisplayed={5}
+                prevPageText={"<"}
+                nextPageText={">"}
+                onChange={handlePageChange}
             />
         </div>
     );

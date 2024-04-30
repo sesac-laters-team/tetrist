@@ -7,8 +7,8 @@ function socketHandler(server) {
         },
     });
 
-    // {room_id, r_name, r_status, user_id}
-    let rooms = {}; // 방 정보를 저장하는 객체
+    let rooms = {}; // {room_id, r_name, r_status, user_id}
+    let chats = {}; // {userid, chat}
 
     io.on("connection", (socket) => {
         console.log("클라이언트 아이디 ::: ", socket.id);
@@ -49,6 +49,28 @@ function socketHandler(server) {
         socket.on("joinRoom", (roomId) => {
             socket.join(roomId);
             console.log(`${socket.id}가 '${roomId}' 방에 참가했습니다.`);
+        });
+
+        // 채팅
+        // 입장 알림
+        let userid = socket.id; // 임시
+
+        socket.emit("chatInfo", () => {
+            chats[userid] = userid; // 현재는 socket.id를 받고 있음
+            socket.broadcast.emit(
+                "notice",
+                `${chats[userid]}님이 입장하셨습니다.`
+            );
+        });
+
+        // 채팅 전송
+        socket.on("send", (chatData) => {
+            console.log(chatData);
+            // chatData = {chat, userid}
+            io.emit("sendChat", {
+                chat: chatData.chat,
+                userid: chatData.userid,
+            });
         });
 
         // 연결 해제
