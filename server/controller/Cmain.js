@@ -11,7 +11,7 @@ exports.index = async (req, res) => {
     }
 };
 
-// GET /rooms
+// GET /api-server/rooms
 // 방 목록 전체 조회
 exports.roomsList = async (req, res) => {
     try {
@@ -23,7 +23,8 @@ exports.roomsList = async (req, res) => {
     }
 };
 
-// POST /room
+// POST /api-server/room
+// 방 추가
 exports.postRoom = async (req, res) => {
     try {
         const { name, password } = req.body;
@@ -40,7 +41,8 @@ exports.postRoom = async (req, res) => {
     }
 };
 
-// PATCH /room/:roomId
+// PATCH /api-server/room/:roomId
+// 방 게임 상태 전환
 exports.patchRoom = async (req, res) => {
     try {
         const { roomId } = req.params;
@@ -50,14 +52,17 @@ exports.patchRoom = async (req, res) => {
         );
         isUpdated
             ? res.status(200).send({ result: true, roomId })
-            : res.status(404).send({ result: false }); // 존재하지 않는 room_id
+            : res
+                  .status(404)
+                  .send({ result: false, msg: "존재하지 않는 방입니다." });
     } catch (error) {
         console.log("error", error);
         res.status(500).send("server error");
     }
 };
 
-// DELETE /room/:roomId
+// DELETE /api-server/room/:roomId
+// 방 삭제
 exports.deleteRoom = async (req, res) => {
     try {
         const { roomId } = req.params;
@@ -68,7 +73,9 @@ exports.deleteRoom = async (req, res) => {
         console.log(isDeleted);
         isDeleted
             ? res.status(200).send({ result: true, roomId: roomId })
-            : res.status(404).send({ result: false }); // 존재하지 않는 room_id
+            : res
+                  .status(404)
+                  .send({ result: false, msg: "존재하지 않는 방입니다." });
     } catch (error) {
         console.log("error", error);
         res.status(500).send("server error");

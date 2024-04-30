@@ -36,7 +36,7 @@ authRouter.post("/register", usersCtr.postRegister);
 /**
  * @swagger
  * paths:
- *  /api-server/auth/emailDuplicate:
+ *  /api-server/auth/register/emailDuplicate:
  *    post:
  *      summary: "이메일 중복 검사"
  *      description: ""
@@ -61,12 +61,12 @@ authRouter.post("/register", usersCtr.postRegister);
 }
  *                          ]
  */
-authRouter.post("/emailDuplicate", usersCtr.emailDuplicate);
+authRouter.post("/register/emailDuplicate", usersCtr.emailDuplicate);
 
 /**
  * @swagger
  * paths:
- *  /api-server/auth/nicknameDuplicate:
+ *  /api-server/auth/register/nicknameDuplicate:
  *    post:
  *      summary: "닉네임 중복 검사"
  *      description: ""
@@ -91,7 +91,7 @@ authRouter.post("/emailDuplicate", usersCtr.emailDuplicate);
 }
  *                          ]
  */
-authRouter.post("/nicknameDuplicate", usersCtr.nickDuplicate);
+authRouter.post("/register/nicknameDuplicate", usersCtr.nickDuplicate);
 
 /**
  * @swagger
@@ -118,7 +118,8 @@ authRouter.post("/nicknameDuplicate", usersCtr.nickDuplicate);
  *                              {
     "result": true,
     "msg": "로그인 성공",
-    "userId": 1
+    "userId": 1,
+    "email": "user1@email.com"
 }
  *                          ]
  */
@@ -152,5 +153,140 @@ authRouter.post("/login", usersCtr.postLogin);
  *                          ]
  */
 authRouter.get("/logout", usersCtr.logout);
+
+/**
+ * @swagger
+ * paths:
+ *  /api-server/auth/mypage:
+ *    get:
+ *      summary: "로그인 한 유저 정보 조회"
+ *      description: ""
+ *      tags: [User]
+ *      responses:
+ *        "200":
+ *          description: 유저 정보 확인 성공
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                    ok:
+ *                      type: boolean
+ *                    users:
+ *                      type: object
+ *                      example:
+ *                          [
+ *                              {
+    "result": true,
+    "data": {
+        "user_id": 1,
+        "email": "user1@test.com",
+        "password": "$2b$10$AeNo7Q.xNySfcEBINGAT0.lrWBSSf3j5zH.GZ0t9rJ7QlaZQnV6uy",
+        "nickname": "user1pw",
+        "custom": {
+            "theme": 3,
+            "profile": 1,
+            "profileEdge": 2
+        },
+        "point": 0,
+        "connecting": false,
+        "chat_penalty": false,
+        "access_penalty": false
+    },
+    "msg": "유저 정보 확인"
+}
+ *                          ]
+ */
+authRouter.get("/mypage", usersCtr.getOneUser);
+
+/**
+ * @swagger
+ * paths:
+ *  /api-server/auth/mypage/changePassword:
+ *    patch:
+ *      summary: "로그인 한 유저 비밀번호 변경"
+ *      description: ""
+ *      tags: [User]
+ *      responses:
+ *        "200":
+ *          description: 비밀번호 변경 성공
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                    ok:
+ *                      type: boolean
+ *                    users:
+ *                      type: object
+ *                      example:
+ *                          [
+ *                              {
+    "result": true,
+    "msg": "비밀번호가 변경되었습니다."
+}
+ *                          ]
+ */
+authRouter.patch("/mypage/changePassword", usersCtr.patchUserPassword);
+
+/**
+ * @swagger
+ * paths:
+ *  /api-server/auth/mypage/changeNickname:
+ *    patch:
+ *      summary: "로그인 한 유저 닉네임 변경"
+ *      description: ""
+ *      tags: [User]
+ *      responses:
+ *        "200":
+ *          description: 닉네임 변경 성공
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                    ok:
+ *                      type: boolean
+ *                    users:
+ *                      type: object
+ *                      example:
+ *                          [
+ *                              {
+    "result": true,
+    "msg": "닉네임이 변경되었습니다."
+}
+ *                          ]
+ */
+authRouter.patch("/mypage/changeNickname", usersCtr.patchUserNickname);
+
+/**
+ * @swagger
+ * paths:
+ *  /api-server/auth/mypage/delete:
+ *    delete:
+ *      summary: "로그인 한 유저 회원 탈퇴"
+ *      description: ""
+ *      tags: [User]
+ *      responses:
+ *        "200":
+ *          description: 탈퇴 성공
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                    ok:
+ *                      type: boolean
+ *                    users:
+ *                      type: object
+ *                      example:
+ *                          [
+ *                              {
+    "result": true,
+    "msg": "탈퇴 완료되었습니다."
+}
+ *                          ]
+ */
+authRouter.delete("/mypage/delete", usersCtr.deleteUserData);
 
 module.exports = authRouter;
