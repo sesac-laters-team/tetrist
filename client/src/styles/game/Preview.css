@@ -7,6 +7,15 @@
     border-radius: 10px;
 }
 
+.Preview-me {
+    position: absolute;
+    top: 0;
+    left: 28em;
+    background: rgb(64, 67, 66);
+    border: 10px solid rgba(0, 0, 0, 0);
+    border-radius: 10px;
+}
+
 .Preview-other {
     position: absolute;
     top: 0;

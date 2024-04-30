@@ -59,11 +59,24 @@ const Tetris = ({ rows, columns, setGameOver }) => {
 
     useEffect(() => {
         initSocketConnect();
-        socket.emit("test", "접속했다");
+        socket.emit("enter");
     }, []);
+
+    useEffect(() => {
+        socket.emit("send_states_to_server", { gameStats, player, board });
+    }, [gameStats, player, board]);
+
+    useEffect(() => {
+        socket.on("send_states_to_client", (object) => {
+            setBoardOther(object.board);
+            setPlayerOther(object.player);
+        });
+    }, [gameStatsOther, playerOther, boardOther]);
 
     return (
         <div className="Tetris">
+            <h2 className="me">ME</h2>
+            <h2 className="other">Other</h2>
             <Board board={board} />
             <GameStats gameStats={gameStats} />
             <Previews tetrominoes={player.tetrominoes} />
@@ -77,13 +90,6 @@ const Tetris = ({ rows, columns, setGameOver }) => {
             <BoardOther board={boardOther} />
             <GameStatsOther gameStats={gameStatsOther} />
             <PreviewsOther tetrominoes={playerOther.tetrominoes} />
-            {/* <GameControllerOther
-                board={boardOther}
-                gameStats={gameStatsOther}
-                player={playerOther}
-                setPlayer={setPlayerOther}
-                setGameOver={setGameOver}
-            /> */}
         </div>
     );
 };

@@ -21,5 +21,5 @@ export const useBoardOther = ({
         );
     }, [playerOther, resetPlayerOther, addLinesClearedOther]);
 
-    return [boardOther];
+    return [boardOther, setBoardOther];
 };

@@ -11,7 +11,7 @@ const Preview = ({ tetromino, index }) => {
 
     const board = buildBoard({ rows: 4, columns: 4 });
 
-    const style = { top: `${index * 7}vw ` };
+    const style = { top: `${index * 7 + 6}vw ` };
 
     board.rows = transferToBoard({
         className,
@@ -22,7 +22,7 @@ const Preview = ({ tetromino, index }) => {
     });
 
     return (
-        <div className="Preview" style={style}>
+        <div className="Preview Preview-me" style={style}>
             <div className="Preview-board">
                 {board.rows.map((row, y) =>
                     row.map((cell, x) => (
