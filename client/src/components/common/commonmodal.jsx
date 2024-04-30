@@ -6,6 +6,7 @@ import RegisterModalContent from "../auth/RegisterModalContent"
 
 const Modal = ({ type, closeModal }) => {
   const renderModalContent = () => {
+    
     switch (type) {
       case 'Rank':
         return <RankingModalContent />;
@@ -25,7 +26,9 @@ const Modal = ({ type, closeModal }) => {
 
   return (
     <div className="modal-backdrop" onClick={closeModal}>
+     
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+      
         {renderModalContent()}
     
       </div>

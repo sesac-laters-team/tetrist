@@ -11,22 +11,33 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    text-align: center;
     margin-bottom: 20px;
   }
   
   .shop-modal-title {
-    font-size: 1.5rem;
-    color: #333;
-    border-bottom: 2px solid #333;
+    margin-top: 20px;
+    width: 100%; /* 전체 너비를 차지하도록 설정 */
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-align: center;
+    padding-bottom: 25px;
+    margin-bottom: 20px;
+    border-bottom:3px solid #333;
   }
   
   .shop-points {
+    margin-top: -10px;
     font-size: 1.2rem;
     color: #333;
     font-weight: bold;
+    margin-left: 65%; /* 왼쪽의 모든 공간을 밀어내고 오른쪽 정렬 */
+    margin-bottom: 30px;
   }
   
   .shop-items {
+    
+    margin-top: 20px;
     /* 상점 아이템들을 위한 컨테이너 스타일링 */
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 세 개의 컬럼으로 아이템을 배열 */
@@ -52,6 +63,8 @@
   .shop-item-title {
     /* 아이템 제목의 스타일링 */
     margin-top: 5px; /* 색상 표시와의 간격 */
+    display: flex; /* 수직 가운데 정렬을 위해 추가 */
+    align-items: center; /* 수직 가운데 정렬을 위해 추가 */
   }
   .shop-item-price {
     font-size: 0.8rem;
