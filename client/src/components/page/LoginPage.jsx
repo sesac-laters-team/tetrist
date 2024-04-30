@@ -27,7 +27,7 @@ const AuthForm = () => {
           .then(() => {
             console.log("로그인 성공");
             localStorage.setItem('user', JSON.stringify({ email, password }));
-            navigate('/waiting');
+         
             
             // 회원가입 후 이메일과 비밀번호 초기화
             setEmail('');
@@ -54,6 +54,7 @@ const AuthForm = () => {
         console.log("로그인 성공");
         localStorage.setItem('user', JSON.stringify({ email, password }));
         navigate('/waiting');
+       
       })
       .catch(error => {
         console.error("로그인 실패", error);
