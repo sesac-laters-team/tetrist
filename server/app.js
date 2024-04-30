@@ -6,7 +6,9 @@ const authRouter = require("./routes/auth");
 const { sequelize } = require("./models");
 const http = require("http");
 const server = http.createServer(app);
+const gameServer = http.createServer(app);
 const socketHandler = require("./sockets/index");
+const tetrisSocketHandler = require("./sockets/tetris");
 const cors = require("cors");
 require("dotenv").config();
 
@@ -14,6 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
 socketHandler(server);
+tetrisSocketHandler(gameServer);
 
 // 세션 설정
 const sessionConfig = {
@@ -55,4 +58,9 @@ sequelize
 // 소켓 서버 설정
 server.listen(process.env.PORT_SOCKET, () => {
     console.log("socket server open");
+});
+
+// 게임서버 소켓 설정
+gameServer.listen(process.env.PORT_SOCKET_GAME, () => {
+    console.log(`game server open port ${process.env.PORT_SOCKET_GAME}`);
 });
