@@ -1,4 +1,4 @@
-import { defaultCell } from "./Cell";
+import { defaultCell, lockedCell } from "./Cell";
 import { movePlayer } from "../business/PlayerController";
 import { transferToBoard } from "./Tetrominoes";
 
@@ -89,7 +89,13 @@ const findDropPosition = ({ board, position, shape }) => {
 };
 
 // 다음 보드 생성함수
-export const nextBoard = ({ board, player, resetPlayer, addLinesCleared }) => {
+export const nextBoard = ({
+    board,
+    player,
+    resetPlayer,
+    addLinesCleared,
+    attack,
+}) => {
     const { tetromino, position } = player;
 
     let rows = board.rows.map((row) =>
@@ -153,6 +159,22 @@ export const nextBoard = ({ board, player, resetPlayer, addLinesCleared }) => {
 
     return {
         rows,
+        size: { ...board.size },
+    };
+};
+
+//
+export const addUnremovableLineToMyBoard = ({ board }) => {
+    const blankRow = Array(board.size.columns).fill({ ...lockedCell });
+    const newRows = Array.from({ length: 1 }, () => [...blankRow]);
+
+    const updatedRows = [
+        ...board.rows.slice(0, board.size.rows - 1),
+        ...newRows,
+    ];
+
+    return {
+        rows: updatedRows,
         size: { ...board.size },
     };
 };

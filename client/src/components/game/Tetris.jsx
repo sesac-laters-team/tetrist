@@ -1,5 +1,5 @@
 import "../../styles/game/Tetris.css";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import Board from "./Board";
 import BoardOther from "./BoardOther";
@@ -8,7 +8,6 @@ import GameStatsOther from "./GameStatsOther";
 import Previews from "./Previews";
 import PreviewsOther from "./PreviewsOther";
 import GameController from "./GameController";
-import GameControllerOther from "./GameControllerOther";
 
 import { useBoard } from "../../hooks/useBoard";
 import { useBoardOther } from "../../hooks/useBoardOther";
@@ -18,6 +17,7 @@ import { usePlayer } from "../../hooks/usePlayer";
 import { usePlayerOther } from "../../hooks/usePlayerOther";
 
 import io from "socket.io-client";
+import { addUnremovableLineToMyBoard } from "../../business/Board";
 
 const socket = io.connect("http://localhost:8082", {
     autoConnect: false,
@@ -27,20 +27,13 @@ const Tetris = ({ rows, columns, setGameOver }) => {
     const initSocketConnect = () => {
         if (!socket.connected) socket.connect();
     };
-    // 테트리스 컴포넌트
-    // 관리하는 스테이트 : 보드, 게임상태, 플레이어(나), 플레이어(상대)
 
-    // useGameStats hook
-    // 게임 상태판 관리 훅
     const [gameStats, addLinesCleared] = useGameStats();
     const [gameStatsOther, addLinesClearedOther] = useGameStatsOther();
 
-    // usePlayer hook
     const [player, setPlayer, resetPlayer] = usePlayer();
     const [playerOther, setPlayerOther, resetPlayerOther] = usePlayerOther();
 
-    // useBoard hook
-    // 보드 상태를 생성 및 관리하는 훅
     const [board, setBoard] = useBoard({
         rows,
         columns,
@@ -57,6 +50,8 @@ const Tetris = ({ rows, columns, setGameOver }) => {
         addLinesClearedOther,
     });
 
+    const [attackFlag, setAttackFlag] = useState(false);
+
     useEffect(() => {
         initSocketConnect();
         socket.emit("enter");
@@ -71,7 +66,13 @@ const Tetris = ({ rows, columns, setGameOver }) => {
             setBoardOther(object.board);
             setPlayerOther(object.player);
         });
-    }, [gameStatsOther, playerOther, boardOther]);
+    }, []);
+
+    // useEffect(() => {
+    //     setBoard((prevBoard) =>
+    //         addUnremovableLineToMyBoard({ board: prevBoard })
+    //     );
+    // }, [gameStatsOther.linesCompleted]);
 
     return (
         <div className="Tetris">
