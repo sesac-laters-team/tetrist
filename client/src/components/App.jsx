@@ -2,6 +2,13 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import GameContainer from "./inGame/GameContainer";
 import WaitingRoomPage from "./page/WaitingRoomPage";
+import "../styles/CreateRoommodal.scss";
+import "../styles/WaitingRoom.scss";
+import "../styles/menu-button.scss";
+import "../styles/mypagemodal.scss";
+import "../styles/rankingmodal.scss";
+import "../styles/ShopModal.scss";
+
 // import MainPage from "./page/MainPage";
 import GamePage from "./page/GamePage";
 import LoginPage from "./page/LoginPage";

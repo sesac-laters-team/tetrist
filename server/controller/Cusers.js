@@ -33,7 +33,7 @@ exports.postRegister = async (req, res) => {
                 nickname: nickname,
             },
         });
-        if (checkDupEmail && checkDupNick) {
+        if (checkDupEmail || checkDupNick) {
             return res.status(409).send({
                 result: false,
                 msg: "이메일과 닉네임 중복 확인을 다시 해주세요.",
