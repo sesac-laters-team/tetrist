@@ -1,17 +1,20 @@
 import { useRef, useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import RoomList from "../waitingRoom/RoomList";
 import io from "socket.io-client";
 import CreateRoom from "../waitingRoom/CreateRoom";
 import Menubar from "../waitingRoom/Menubar";
+import WaitingChat from "../chat/WaitingChat";
 
 const socket = io.connect("http://localhost:8081", {
     autoConnect: false,
 });
 
 export default function WaitingRoomPage() {
+    const dispatch = useDispatch();
+
     // socket 연결
     const initSocketConnect = () => {
-        console.log("소켓 연결 완료. 웨이팅 페이지");
         if (!socket.connected) socket.connect();
     };
 
@@ -42,6 +45,10 @@ export default function WaitingRoomPage() {
             </div>
 
             <RoomList socket={socket} />
+
+            <div>
+                <WaitingChat socket={socket}></WaitingChat>
+            </div>
 
             {createModal && (
                 <div
