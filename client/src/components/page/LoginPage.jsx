@@ -111,6 +111,7 @@ const AuthForm = () => {
             e.preventDefault();
             dispatch(loginUser(email, password));
             // 로그인 시 이메일과 비밀번호를 로컬 스토리지에 저장
+            navigate("/waiting");
         }
     };
     useEffect(() => {

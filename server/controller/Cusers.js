@@ -139,7 +139,6 @@ exports.postLogin = async (req, res) => {
                     userId: findUserData.user_id,
                     email: findUserData.email,
                 });
-                res.redirect("/waiting");
             } else {
                 res.send({
                     result: false,
