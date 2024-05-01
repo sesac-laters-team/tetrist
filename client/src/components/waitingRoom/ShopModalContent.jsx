@@ -18,11 +18,12 @@ const shopItems = [
   const ShopModalContent = () => {
     return (
       <div className="shop-modal">
+        
         <div className="shop-modal-header">
-          <h2 className="shop-modal-title">SHOP</h2>
-          <div className="shop-points">Point : 1,000</div>
+          <h2 className="shop-modal-title">상점</h2>
+         
         </div>
-  
+            <div className="shop-points">Point : 1,000</div>
         <div className="shop-items">
           {shopItems.map((item) => (
             <div className="shop-item" key={item.id}>

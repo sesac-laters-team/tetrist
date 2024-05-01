@@ -7,6 +7,11 @@
   border-radius: 5px; /* 모서리를 둥글게 처리합니다. */
 }
 
+
+.close-button:hover {
+  opacity: 1; /* 호버 시 투명도 조정 */
+}
+
 .menubar-button {
   margin: 0 10px;
   padding: 10px 20px;
@@ -47,6 +52,25 @@
   transition: transform 0.3s ease-out; /* 변형 애니메이션을 부드럽게 조정 */
 }
 
+.modal-content button {
+  position: relative;
+  padding: 10px 20px; /* 버튼 패딩 */
+  background-color: white; /* 버튼 배경색 */
+  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+  color: #333; /* 버튼 폰트 색상 */
+  border: 2px solid #333;
+  border-radius: 10px ;
+  border-bottom: 2px solid #333;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s; 
+}
+
+.modal-content button:last-child {
+  margin-right: 0; /* 마지막 버튼은 오른쪽 마진 제거 */
+}
+
+.modal-content button:hover {
+  background-color: #2980b9;
+}
 @media (min-width: 600px) {
   .modal-content {
     width: 50%; /* 태블릿 및 데스크톱에서는 너비를 50%로 설정 */
@@ -65,25 +89,7 @@
   }
 }
 
-/* 버튼 스타일 */
-.modal-content button {
-  padding: 10px 20px; /* 버튼 패딩 */
-  background-color: white; /* 버튼 배경색 */
-  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
-  color: #333; /* 버튼 폰트 색상 */
-  border: 2px solid #333;
-  border-radius: 10px ;
-  border-bottom: 2px solid #333;
-  transition: background-color 0.3s, color 0.3s, border-color 0.3s; 
-}
 
-.modal-content button:last-child {
-  margin-right: 0; /* 마지막 버튼은 오른쪽 마진 제거 */
-}
-
-.modal-content button:hover {
-  background-color: #2980b9;
-}
 
 @media (min-width: 1024px) {
   .modal-content {
@@ -95,7 +101,3 @@
   }
 }
 
-/* 그리드 항목의 크기가 너무 작아지지 않도록 최소 너비 설정 */
-.shop-item {
-  min-width: 100px;
-}
