@@ -70,13 +70,22 @@ export const loginUser = (email, password) => async (dispatch) => {
             "http://localhost:8080/api-server/auth/login",
             { email, password }
         );
-        dispatch({ type: LOGIN_SUCCESS, payload: response.data });
-        alert(response.data.msg);
         if (response.data.result) {
+            dispatch({ type: LOGIN_SUCCESS, payload: response.data });
+            localStorage.setItem("isLoggedIn", "true");
             localStorage.setItem("user", JSON.stringify({ email, password }));
+            return Promise.resolve();
+        } else {
+            return Promise.reject("Login failed: Invalid credentials");
         }
     } catch (error) {
-        dispatch({ type: LOGIN_FAIL, payload: error.response.data });
+        dispatch({
+            type: LOGIN_FAIL,
+            payload: error.response
+                ? error.response.data
+                : "Login failed: Network error",
+        });
+        return Promise.reject(error);
     }
 };
 

@@ -1,0 +1,84 @@
+.chat-container {
+    background-color: #c2c2c2;
+    height: 300px;
+    width: 780px; /* 부모 컨테이너에 맞게 너비 설정 */
+    max-width: 780px; /* 최대 너비 설정 */
+    margin: 20px auto; /* 상하 여백 지정, 좌우는 자동으로 중앙 정렬 */
+    padding: 20px; /* 패딩 설정 */
+    display: flex;
+    flex-direction: column;
+    .chat-title {
+        width: 100%;
+        box-shadow: 0px 2px 2px #7a7a7a20;
+        display: flex;
+        // align-items: center;
+        // justify-content: center;
+        flex-basis: 10%;
+        .chat-section {
+            padding: 16px;
+            overflow-y: auto;
+            flex-basis: 80%;
+            // position: absolute;
+            .speech {
+                .chat-box {
+                    display: inline-block;
+                    box-shadow: 1px 1px 5px #7a7a7a;
+                    border-radius: 8px;
+                    padding: 0.3rem;
+                    margin: 0.5rem 0;
+                    max-width: 60%;
+                }
+                .speech .me {
+                    text-align: right;
+                    .chat-box {
+                        background-color: #fef01b;
+                    }
+                }
+
+                .speech .other {
+                    position: relative;
+                    margin: 10px 0;
+                    .chat-box {
+                        background-color: #ffffff;
+                    }
+                }
+            }
+        }
+    }
+
+    // chat-form
+    .container .chat-form {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 16px;
+        flex-basis: 10%;
+        input {
+            flex-basis: 75%;
+            border: none;
+            outline: none;
+            border-radius: 100px;
+            padding: 8px 16px;
+        }
+        input:focus + button {
+            background-color: #fef01b;
+        }
+
+        button {
+            flex-basis: 12%;
+            border: none;
+            border-radius: 3px;
+        }
+    }
+
+    // 입장 알림
+    .notice {
+        width: 80%;
+        background-color: #fff5;
+        border-radius: 50px;
+        text-align: center;
+        padding: 2px;
+        color: #4449;
+        margin: 8px auto;
+        font-size: 14px;
+    }
+}
