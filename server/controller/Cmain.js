@@ -96,11 +96,11 @@ exports.roomsList = async (req, res) => {
 // 방 추가
 exports.postRoom = async (req, res) => {
     try {
-        const { name, password } = req.body;
-        console.log(req.session.userId, name, password);
+        const { r_name, password } = req.body;
+        console.log(req.session.userId, r_name, password);
         await roomsModel.create({
             user_id: req.session.userId,
-            r_name: name,
+            r_name: r_name,
             r_password: password,
         });
         res.send({ result: true });
