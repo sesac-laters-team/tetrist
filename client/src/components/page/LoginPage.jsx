@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
     registerUser,
     loginUser,
@@ -10,7 +10,6 @@ import axios from "axios";
 
 const AuthForm = () => {
     const dispatch = useDispatch();
-    const state = useSelector((state) => state.auth);
     const navigate = useNavigate(); // useNavigate 훅 추가
 
     // 입력값 저장 state
@@ -82,7 +81,7 @@ const AuthForm = () => {
         }
     };
 
-    const handleRegister = (e) => {
+    const handleRegister = async (e) => {
         e.preventDefault();
         if (!emailDuplicateCheck) {
             alert("이메일 중복확인을 해주세요.");
@@ -97,13 +96,6 @@ const AuthForm = () => {
             confirmPw
         ) {
             dispatch(registerUser(email, password, nickname));
-            alert(state.userData.msg);
-            if (state.userData.result) {
-                localStorage.setItem(
-                    "user",
-                    JSON.stringify({ email, nickname, password })
-                );
-            }
             // 회원가입 시 이메일, 비밀번호, 닉네임을 로컬 스토리지에 저장
         }
     };
@@ -118,10 +110,7 @@ const AuthForm = () => {
         } else {
             e.preventDefault();
             dispatch(loginUser(email, password));
-            console.log(state);
-
             // 로그인 시 이메일과 비밀번호를 로컬 스토리지에 저장
-            localStorage.setItem("user", JSON.stringify({ email, password }));
             navigate("/waiting");
         }
     };
