@@ -1,84 +1,110 @@
+/* chat.scss */
 .chat-container {
-    background-color: #c2c2c2;
+    background-color: white;
     height: 300px;
-    width: 780px; /* 부모 컨테이너에 맞게 너비 설정 */
-    max-width: 780px; /* 최대 너비 설정 */
-    margin: 20px auto; /* 상하 여백 지정, 좌우는 자동으로 중앙 정렬 */
-    padding: 20px; /* 패딩 설정 */
+    width: 1000px;
+    max-width: 2000px;
+    margin: 20px auto;
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    .chat-title {
-        width: 100%;
-        box-shadow: 0px 2px 2px #7a7a7a20;
-        display: flex;
-        // align-items: center;
-        // justify-content: center;
-        flex-basis: 10%;
-        .chat-section {
-            padding: 16px;
-            overflow-y: auto;
-            flex-basis: 80%;
-            // position: absolute;
-            .speech {
-                .chat-box {
-                    display: inline-block;
-                    box-shadow: 1px 1px 5px #7a7a7a;
-                    border-radius: 8px;
-                    padding: 0.3rem;
-                    margin: 0.5rem 0;
-                    max-width: 60%;
-                }
-                .speech .me {
-                    text-align: right;
-                    .chat-box {
-                        background-color: #fef01b;
-                    }
-                }
+    position: relative;
+    border-radius: 10px; /* 라운드 처리 */
+}
 
-                .speech .other {
-                    position: relative;
-                    margin: 10px 0;
-                    .chat-box {
-                        background-color: #ffffff;
-                    }
-                }
-            }
-        }
+.chat-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+/* 채팅 컨테이너 */
+.chat-section {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* 채팅 간 간격 추가 */
+}
+
+/* 채팅 박스 */
+.speech {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1px;
+    word-break: break-word;
+    font-size: 12px;
+}
+
+.my-message .username {
+    color: blue; /* 내 메시지일 때만 사용자 이름을 파란색으로 */
+}
+.my-message .chat-box {
+    background-color: #d0e6f2; /* 내 메시지일 때만 배경색 변경 */
+    color: blue;
+}
+
+.username {
+    font-weight: bold;
+    margin-bottom: 5px; /* 메시지와 간격 */
+}
+
+.chat-box {
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    background-color: #f0f0f0;
+    max-width: 100%;
+}
+.notice {
+    align-self: center;
+    font-size: 11.5px;
+    background-color: #ffeeba;
+    padding: 8px 12px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+}
+
+.waiting-chat {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.waiting-chat input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    outline: none;
+}
+
+.waiting-chat button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.waiting-chat button:active {
+    background-color: aliceblue;
+}
+@media (min-width: 500px) and (max-width: 1024px) {
+    .chat-container {
+        width: 100%; /* 너비를 95%로 설정하여 화면에 가득 차도록 합니다. */
+        max-width: 900px; /* 최대 너비를 더 큰 값으로 설정합니다. */
     }
-
-    // chat-form
-    .container .chat-form {
-        display: flex;
-        justify-content: space-between;
-        padding: 8px 16px;
-        flex-basis: 10%;
-        input {
-            flex-basis: 75%;
-            border: none;
-            outline: none;
-            border-radius: 100px;
-            padding: 8px 16px;
-        }
-        input:focus + button {
-            background-color: #fef01b;
-        }
-
-        button {
-            flex-basis: 12%;
-            border: none;
-            border-radius: 3px;
-        }
-    }
-
-    // 입장 알림
-    .notice {
-        width: 80%;
-        background-color: #fff5;
-        border-radius: 50px;
-        text-align: center;
-        padding: 2px;
-        color: #4449;
-        margin: 8px auto;
-        font-size: 14px;
+}
+/* 미디어 쿼리: 1025px 이상일 때 */
+@media (min-width: 1025px) {
+    .chat-container {
+        max-width: 950px; /* 데스크탑에서 최대 너비를 더 크게 설정합니다. */
     }
 }

@@ -39,33 +39,26 @@ export default function WaitingChat({ socket }) {
 
         const sendChat = {
             chat: chatInput,
-            userid: user,
+            userid: socket.id, // 본인의 소켓 ID를 직접 넣어줍니다.
         };
-        console.log("서버로 보내는 챗 :: ", sendChat);
-        // {chat, userid}
+
         socket.emit("send", sendChat);
         setChatInput("");
     };
-
     const addChatList = useCallback(
         (chatContent) => {
-            // console.log("소켓아이디 확인용", chatList);
-            // {content, type, userid}
-            const type = chatContent.userid === user ? "me" : "other";
+            const type = chatContent.userid === socket.id ? "me" : "other"; // socket.id와 비교하여 나인지 판단합니다.
             const content = chatContent.chat;
-            console.log("content가 안들어왔나요?", content);
-            const newChatList = [
-                ...chatList,
+
+            setChatList((prevList) => [
+                ...prevList,
                 {
                     type: type,
                     content: content,
                 },
-            ];
-
-            setChatList(newChatList);
-            console.log("소켓아이디 확인용", newChatList);
+            ]);
         },
-        [chatList]
+        [] // 의존성 배열에서 socket.id 제거
     );
 
     useEffect(() => {
