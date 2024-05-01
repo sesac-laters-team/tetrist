@@ -98,7 +98,7 @@ const AuthForm = () => {
         ) {
             dispatch(registerUser(email, password, nickname));
             alert(state.userData.msg);
-            if (state.userDate.result) {
+            if (state.userData.result) {
                 localStorage.setItem(
                     "user",
                     JSON.stringify({ email, nickname, password })
