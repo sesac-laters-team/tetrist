@@ -46,7 +46,10 @@ function App() {
                     />
                     <Route path="/waiting" element={<WaitingRoomPage />} />
                     <Route path="/game" element={<GameContainer />} />
-                    <Route path="/tetris" element={<GamePage />} />
+                    <Route
+                        path="/tetris"
+                        element={<GamePage owner={"nick1"} guest={null} />}
+                    />
                 </Routes>
             </div>
         </Router>

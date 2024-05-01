@@ -1,5 +1,5 @@
 import "../../styles/game/Tetris.css";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import Board from "./Board";
 import BoardOther from "./BoardOther";
@@ -15,6 +15,7 @@ import { useGameStats } from "../../hooks/useGameStats";
 import { useGameStatsOther } from "../../hooks/useGameStatsOther";
 import { usePlayer } from "../../hooks/usePlayer";
 import { usePlayerOther } from "../../hooks/usePlayerOther";
+import { useGameOver } from "../../hooks/useGameOver";
 
 import io from "socket.io-client";
 
@@ -22,11 +23,11 @@ const socket = io.connect("http://localhost:8082", {
     autoConnect: false,
 });
 
-const Tetris = ({ rows, columns, setGameOver }) => {
+const Tetris = ({ rows, columns, setGameOver, owner, guest }) => {
     const initSocketConnect = () => {
         if (!socket.connected) socket.connect();
     };
-
+    const [gameOver, resetGameOver] = useGameOver();
     const [gameStats, addLinesCleared] = useGameStats();
     const [gameStatsOther, addLinesClearedOther] = useGameStatsOther();
 
@@ -55,7 +56,11 @@ const Tetris = ({ rows, columns, setGameOver }) => {
     }, []);
 
     useEffect(() => {
-        socket.emit("send_states_to_server", { gameStats, player, board });
+        socket.emit("send_states_to_server", {
+            gameStats,
+            player,
+            board,
+        });
     }, [player, board, gameStats]);
 
     socket.on("send_states_to_client", (object) => {
@@ -65,8 +70,8 @@ const Tetris = ({ rows, columns, setGameOver }) => {
 
     return (
         <div className="Tetris">
-            <h2 className="me">ME</h2>
-            <h2 className="other">Other</h2>
+            <h2 className="me">{owner}</h2>
+            <h2 className="other">{guest}</h2>
             <Board board={board} />
             <GameStats gameStats={gameStats} />
             <Previews tetrominoes={player.tetrominoes} />
