@@ -21,5 +21,5 @@ export const useBoard = ({
         );
     }, [player, resetPlayer, addLinesCleared]);
 
-    return [board, setBoard];
+    return [board];
 };

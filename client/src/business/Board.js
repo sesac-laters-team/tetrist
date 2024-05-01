@@ -1,4 +1,4 @@
-import { defaultCell, lockedCell } from "./Cell";
+import { defaultCell } from "./Cell";
 import { movePlayer } from "../business/PlayerController";
 import { transferToBoard } from "./Tetrominoes";
 
@@ -89,13 +89,7 @@ const findDropPosition = ({ board, position, shape }) => {
 };
 
 // 다음 보드 생성함수
-export const nextBoard = ({
-    board,
-    player,
-    resetPlayer,
-    addLinesCleared,
-    attack,
-}) => {
+export const nextBoard = ({ board, player, resetPlayer, addLinesCleared }) => {
     const { tetromino, position } = player;
 
     let rows = board.rows.map((row) =>
@@ -163,18 +157,18 @@ export const nextBoard = ({
     };
 };
 
-//
-export const addUnremovableLineToMyBoard = ({ board }) => {
-    const blankRow = Array(board.size.columns).fill({ ...lockedCell });
-    const newRows = Array.from({ length: 1 }, () => [...blankRow]);
+// 지울 수 없는 블록을 상대방의 보드에 추가하는 함수
+// export const addUnremovableLineToMyBoard = ({ board }) => {
+//     const blankRow = Array(board.size.columns).fill({ ...lockedCell });
+//     const newRows = Array.from({ length: 1 }, () => [...blankRow]);
 
-    const updatedRows = [
-        ...board.rows.slice(0, board.size.rows - 1),
-        ...newRows,
-    ];
+//     const updatedRows = [
+//         ...board.rows.slice(1), // 기존의 행 유지하고 첫 번째 행을 제거
+//         ...newRows,
+//     ];
 
-    return {
-        rows: updatedRows,
-        size: { ...board.size },
-    };
-};
+//     return {
+//         rows: updatedRows,
+//         size: { ...board.size },
+//     };
+// };

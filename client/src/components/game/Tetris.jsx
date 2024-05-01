@@ -1,5 +1,5 @@
 import "../../styles/game/Tetris.css";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 import Board from "./Board";
 import BoardOther from "./BoardOther";
@@ -17,7 +17,6 @@ import { usePlayer } from "../../hooks/usePlayer";
 import { usePlayerOther } from "../../hooks/usePlayerOther";
 
 import io from "socket.io-client";
-import { addUnremovableLineToMyBoard } from "../../business/Board";
 
 const socket = io.connect("http://localhost:8082", {
     autoConnect: false,
@@ -50,8 +49,6 @@ const Tetris = ({ rows, columns, setGameOver }) => {
         addLinesClearedOther,
     });
 
-    const [attackFlag, setAttackFlag] = useState(false);
-
     useEffect(() => {
         initSocketConnect();
         socket.emit("enter");
@@ -59,20 +56,12 @@ const Tetris = ({ rows, columns, setGameOver }) => {
 
     useEffect(() => {
         socket.emit("send_states_to_server", { gameStats, player, board });
-    }, [gameStats, player, board]);
+    }, [player, board, gameStats]);
 
-    useEffect(() => {
-        socket.on("send_states_to_client", (object) => {
-            setBoardOther(object.board);
-            setPlayerOther(object.player);
-        });
-    }, []);
-
-    // useEffect(() => {
-    //     setBoard((prevBoard) =>
-    //         addUnremovableLineToMyBoard({ board: prevBoard })
-    //     );
-    // }, [gameStatsOther.linesCompleted]);
+    socket.on("send_states_to_client", (object) => {
+        setBoardOther(object.board);
+        setPlayerOther(object.player);
+    });
 
     return (
         <div className="Tetris">

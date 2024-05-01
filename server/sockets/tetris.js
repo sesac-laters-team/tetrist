@@ -19,6 +19,11 @@ function tetrisSocketHandler(server) {
         socket.on("send_states_to_server", (object) => {
             socket.to("room").emit("send_states_to_client", object);
         });
+
+        socket.on("send_attack_to_server", (msg) => {
+            console.log(msg);
+            socket.to("room").emit("send_attack_to_client");
+        });
     });
 }
 
