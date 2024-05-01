@@ -2,3 +2,15 @@
     position: relative;
     background-color: white;
 }
+
+.me {
+    position: absolute;
+    top: 0;
+    left: 2vw;
+}
+
+.other {
+    position: absolute;
+    top: 0;
+    right: 2vw;
+}

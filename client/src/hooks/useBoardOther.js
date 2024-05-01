@@ -11,15 +11,15 @@ export const useBoardOther = ({
     const [boardOther, setBoardOther] = useState(buildBoard({ rows, columns }));
 
     useEffect(() => {
-        // setBoardOther((previousBoard) =>
-        //     nextBoard({
-        //         board: previousBoard,
-        //         playerOther,
-        //         resetPlayerOther,
-        //         addLinesClearedOther,
-        //     })
-        // );
+        setBoardOther((previousBoard) =>
+            nextBoard({
+                board: previousBoard,
+                player: playerOther,
+                resetPlayer: resetPlayerOther,
+                addLinesCleared: addLinesClearedOther,
+            })
+        );
     }, [playerOther, resetPlayerOther, addLinesClearedOther]);
 
-    return [boardOther];
+    return [boardOther, setBoardOther];
 };

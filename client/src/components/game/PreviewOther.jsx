@@ -6,7 +6,7 @@ import { transferToBoard } from "../../business/Tetrominoes";
 
 import BoardCell from "./BoardCell";
 
-const Preview = ({ tetromino, index }) => {
+const PreviewOther = ({ tetromino, index }) => {
     const { shape, className } = tetromino;
 
     const board = buildBoard({ rows: 4, columns: 4 });
@@ -22,7 +22,7 @@ const Preview = ({ tetromino, index }) => {
     });
 
     return (
-        <div className="Preview Preview-me" style={style}>
+        <div className="Preview-other" style={style}>
             <div className="Preview-board">
                 {board.rows.map((row, y) =>
                     row.map((cell, x) => (
@@ -37,4 +37,4 @@ const Preview = ({ tetromino, index }) => {
     );
 };
 
-export default React.memo(Preview);
+export default React.memo(PreviewOther);
