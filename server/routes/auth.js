@@ -61,7 +61,7 @@ authRouter.post("/register", usersCtr.postRegister);
 }
  *                          ]
  */
-authRouter.post("/register/emailDuplicate", usersCtr.emailDuplicate);
+authRouter.post("/emailDuplicate", usersCtr.emailDuplicate);
 
 /**
  * @swagger
@@ -91,7 +91,7 @@ authRouter.post("/register/emailDuplicate", usersCtr.emailDuplicate);
 }
  *                          ]
  */
-authRouter.post("/register/nicknameDuplicate", usersCtr.nickDuplicate);
+authRouter.post("/nicknameDuplicate", usersCtr.nickDuplicate);
 
 /**
  * @swagger

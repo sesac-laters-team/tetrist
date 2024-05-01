@@ -30,22 +30,6 @@ exports.postRegister = async (req, res) => {
             });
         }
 
-        const checkDupEmail = await usersModel.findOne({
-            where: {
-                email: email,
-            },
-        });
-        const checkDupNick = await usersModel.findOne({
-            where: {
-                nickname: nickname,
-            },
-        });
-        if (checkDupEmail || checkDupNick) {
-            return res.status(409).send({
-                result: false,
-                msg: "이메일과 닉네임 중복 확인을 다시 해주세요.",
-            });
-        }
         // 유저 정보 DB 추가
         const registUser = await usersModel.create({
             email: email,
