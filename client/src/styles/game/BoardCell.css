@@ -53,3 +53,7 @@
 .tetromino__z {
     background-color: rgba(240, 80, 195, 1);
 }
+
+.locked {
+    background-color: black;
+}

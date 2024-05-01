@@ -8,8 +8,6 @@ import "../styles/menu-button.scss";
 import "../styles/mypagemodal.scss";
 import "../styles/rankingmodal.scss";
 import "../styles/ShopModal.scss";
-
-// import MainPage from "./page/MainPage";
 import GamePage from "./page/GamePage";
 import LoginPage from "./page/LoginPage";
 
@@ -34,9 +32,7 @@ function App() {
                     <Route path="/" element={<Navigate replace to="/login" />} />
                     <Route path="/login" element={<LoginPage setIsLoggedIn={setIsLoggedIn} />} />
                     <Route path="/waiting" element={ <WaitingRoomPage />} />
-                    {/* <Route path="/waiting" element={isLoggedIn ? <WaitingRoomPage /> : <Navigate to="/login" />} /> */}
                     <Route path="/game" element={<GameContainer />} />
-                    {/* <Route path="/main" element={<MainPage />} /> */}
                     <Route path="/tetris" element={<GamePage />} />
                 </Routes>
             </div>

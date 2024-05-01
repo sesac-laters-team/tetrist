@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 // Action Types
 const REGISTER_SUCCESS = 'auth/REGISTER_SUCCESS';
@@ -24,7 +24,7 @@ const initialState = {
 // Reducer
 export default function authReducer(state = initialState, action) {
   switch (action.type) {
-    case REGISTER_SUCCESS:
+    case REGISTER_SUCCESS:=
       return {
         ...state,
         userData: action.payload,
