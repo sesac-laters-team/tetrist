@@ -2,31 +2,54 @@ const express = require("express");
 const router = express.Router();
 
 const mainCtr = require("../controller/Cmain");
-const usersCtr = require("../controller/Cusers");
 
 // main
 
 router.get("/", mainCtr.index);
 
-// router.get("/rate", mainCtr.rate);
-
-// user
-// router.get("/mypage", usersCtr.mypage);
-// router.patch("/mypage", usersCtr.patchUser);
-// router.delete("/mypage", usersCtr.deleteUser);
-//
+// rank
 
 /**
  * @swagger
  * paths:
- *  /api-server/users:
- *    get:
- *      summary: "유저 데이터 전체조회"
- *      description: "서버에 데이터를 보내지 않고 Get방식으로 요청"
- *      tags: [User]
+ *  /api-server/patchPoint:
+ *    patch:
+ *      summary: "유저 포인트 변경"
+ *      description: " 1: 승리 시 승점 +, 0: 패배 시 승점 -"
+ *      tags: [rank]
  *      responses:
  *        "200":
- *          description: 전체 유저 정보
+ *          description: 게임 종료 후 승패에 따라 유저 포인트 변경
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                    ok:
+ *                      type: boolean
+ *                    users:
+ *                      type: object
+ *                      example:
+ *                          [
+ *{
+    "result": true,
+    "msg": "포인트가 변경되었습니다."
+}
+ *                          ]
+ */
+router.patch("/patchPoint", mainCtr.patchPoint);
+
+/**
+ * @swagger
+ * paths:
+ *  /api-server/rank:
+ *    get:
+ *      summary: "포인트 랭킹 조회"
+ *      description: ""
+ *      tags: [rank]
+ *      responses:
+ *        "200":
+ *          description: 포인트 높은 순 10개 데이터를 포인트와 닉네임만 조회
  *          content:
  *            application/json:
  *              schema:
@@ -39,22 +62,18 @@ router.get("/", mainCtr.index);
  *                      example:
  *                          [
  *                              {
-                                    "user_id": 1,
-                                    "email": "user1@test.com",
-                                    "password": "user1pw",
-                                    "nickname": "유저1",
-                                    "custom": {
-                                      "theme": 1,
-                                      "profile": 1
-                                    },
-                                    "point": 1000,
-                                    "connecting": true,
-                                    "chat_penalty": true,
-                                    "access_penalty": false
-                                },
+        "point": 4000,
+        "nickname": "유저4"
+    },
+    {
+        "point": 3000,
+        "nickname": "유저3"
+    },
  *                          ]
  */
-router.get("/users", usersCtr.getAllUsers);
+router.get("/rank", mainCtr.rank);
+
+// rooms
 
 /**
  * @swagger

@@ -27,7 +27,7 @@ const usersModel = (Sequelize, DataTypes) => {
             custom: {
                 type: DataTypes.JSON,
                 allowNull: false,
-                defaultValue: { theme: 1, profile: 2, profileEdge: 3 },
+                defaultValue: { profile: 1, profileEdge: 2, theme: 3 },
             },
             point: {
                 type: DataTypes.INTEGER,
