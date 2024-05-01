@@ -100,20 +100,20 @@ const AuthForm = () => {
         }
     };
 
-    const handleLogin = (e) => {
-        if (email === "") {
-            alert("이메일 아이디를 입력해주세요.");
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        if (email === "" || password === "") {
+            alert("이메일과 비밀번호를 모두 입력해주세요.");
             return;
-        } else if (password === "") {
-            alert("비밀번호를 입력해주세요");
-            return;
-        } else {
-            e.preventDefault();
-            dispatch(loginUser(email, password));
-            // 로그인 시 이메일과 비밀번호를 로컬 스토리지에 저장
-            navigate("/waiting");
+        }
+        try {
+            await dispatch(loginUser(email, password));
+            navigate("/waiting"); // 로그인 성공 시 /waiting 페이지로 이동
+        } catch (error) {
+            alert("로그인에 실패했습니다. 다시 시도해주세요.");
         }
     };
+
     useEffect(() => {
         // 이메일 유효성 검사
         setEmailDuplicateCheck(false);
