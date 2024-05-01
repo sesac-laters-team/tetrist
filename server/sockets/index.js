@@ -7,8 +7,9 @@ function socketHandler(server) {
         },
     });
 
-    let rooms = {}; // {room_id, r_name, r_status, user_id}
+    let rooms = {}; // {room_id, r_name, r_password, userId}
     let chats = {}; // {userid, chat}
+    let users = {}; // {userId}
 
     io.on("connection", (socket) => {
         console.log("클라이언트 아이디 ::: ", socket.id);
@@ -19,36 +20,42 @@ function socketHandler(server) {
         });
 
         // 방 만들기
-        socket.on("createRoom", (r_name, r_status) => {
-            if (Object.values(rooms).includes(r_name)) {
+        socket.on("createRoom", (r_name, r_password, userId) => {
+            if (Object.values(users).includes(userId)) {
                 // [입장 실패]
-                // 방 제목이 이미 rooms에 존재할 때
+                // 아이디 하나 당 방 하나
                 socket.emit("err", "이미 존재하는 방입니다.");
             } else {
                 // [입장 성공]
                 // rooms에 방 정보 넣기
-                rooms[r_name] = {
+                rooms[userId] = {
                     r_name: r_name,
-                    r_status: r_status,
+                    r_password: r_password,
+                    userId: userId,
                 };
 
                 console.log(
-                    `${socket.id}의 제목은 ${r_name}, 방 상태는 ${r_status}.`
+                    `${userId}의 제목은 ${r_name}, 방 비밀번호는 ${r_password}.`
                 );
 
-                // 모두에게 방 리스트 전달
+                // // 모두에게 방 리스트 전달
                 io.emit(
                     "newRoomList",
-                    rooms[r_name].r_name,
-                    rooms[r_name].r_status
+                    rooms[userId].r_name,
+                    rooms[userId].r_password,
+                    rooms[userId].userId
+                    // rooms[r_name].r_status
                 );
             }
         });
 
         // 방에 참가하기
-        socket.on("joinRoom", (roomId) => {
-            socket.join(roomId);
-            console.log(`${socket.id}가 '${roomId}' 방에 참가했습니다.`);
+        socket.on("joinRoom", (roomId, joinUser, userId) => {
+            socket.join(`${roomId}`, () => {
+                console.log(
+                    `${userId}가 'state : ${roomId}, server: ${joinUser}' 방에 참가했습니다.`
+                );
+            });
         });
 
         // 채팅

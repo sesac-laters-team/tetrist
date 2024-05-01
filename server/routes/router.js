@@ -203,4 +203,8 @@ router.delete("/room/:roomId", mainCtr.deleteRoom);
 
 // admin
 
+router.get("/room/:roomId", mainCtr.roomData);
+router.post("/room/enter/:roomId", mainCtr.enterRoom);
+router.post("/room/leave/:roomId", mainCtr.leaveRoom);
+
 module.exports = router;
