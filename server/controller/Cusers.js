@@ -131,6 +131,7 @@ exports.postLogin = async (req, res) => {
                 password,
                 findUserData.password
             );
+
             if (isPasswordMatch) {
                 req.session.userId = findUserData.user_id;
                 res.send({
@@ -164,6 +165,7 @@ exports.logout = (req, res) => {
 
 // GET /api-server/auth/mypage
 exports.getOneUser = async (req, res) => {
+    console.log("마이페이지는 :: ", req.data);
     if (!req.session.userId)
         return res
             .status(401)

@@ -53,7 +53,7 @@ function socketHandler(server) {
         socket.on("joinRoom", (roomId, joinUser, userId) => {
             socket.join(`${roomId}`, () => {
                 console.log(
-                    `${userId}가 'state : ${roomId}, server: ${joinUser}' 방에 참가했습니다.`
+                    `~~~~${userId}의 'state : ${roomId}, server: ${joinUser}' 방에 참가했습니다.`
                 );
             });
         });

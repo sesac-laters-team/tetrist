@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Pagination from "react-js-pagination";
 import axios from "axios";
 import { init } from "../../redux/store/module/waiting";
+import { createGame } from "../../redux/store/module/gameRoom";
 
 export default function RoomList({ socket }) {
     const dispatch = useDispatch();
@@ -36,46 +37,9 @@ export default function RoomList({ socket }) {
             console.error("Error fetching waiting list: ", error);
         }
     }
-
-    // // 새로운 방 추가
-    // async function postWaitingList(r_name) {
-    //     try {
-    //         // axios post
-    //         const res = await axios.post(
-    //             `http://localhost:8080/api-server/room`,
-    //             {
-    //                 r_name,
-    //                 // r_password,
-    //             }
-    //         );
-    //         console.log("postWaitingList :: ", res.data);
-    //     } catch (error) {
-    //         console.error("Error posting waiting list: ", error);
-    //     }
-    // }
-
     useEffect(() => {
         getWaitingList();
     }, [currentPage]);
-
-    // useEffect(() => {
-    //     // 새 방 만들기
-    //     socket.on("newRoomList", (r_name, r_status) => {
-    //         // {room_id, r_name, r_status, user_id}
-    //         dispatch(
-    //             create({
-    //                 r_name: r_name,
-    //                 room_id: nextID,
-    //                 user_id: Number(socket.id), // 임시로 socket.id로 받아 놓았음
-    //                 r_status: r_status,
-    //             })
-    //         );
-    //         console.log(`${r_name} 방 생성 완료`);
-
-    //         // 새로운 방 생성 시 서버에 추가
-    //         postWaitingList(r_name, r_status);
-    //     });
-    // }, []);
 
     useEffect(() => {
         socket.on("newRoomList", (r_name) => {
@@ -96,11 +60,21 @@ export default function RoomList({ socket }) {
 
         socket.emit(
             "joinRoom",
-            room.room_id,
-            joinUser.room,
-            joinUser.creatorData
+            room.room_id, // redux
+            joinUser.data.roomData.room_id,
+            joinUser.data.roomData.user_id
         );
         console.log(`참여방 제목은 ${room.r_name}`);
+
+        dispatch(
+            createGame({
+                room_id: joinUser.room,
+                user_id: joinUser.creatorData,
+                //guest_id 필요
+                test: "확인",
+            })
+        );
+
         navigate("/tetris");
     };
 

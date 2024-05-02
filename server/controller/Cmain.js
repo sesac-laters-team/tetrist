@@ -1,10 +1,11 @@
 const { usersModel, roomsModel, sequelize } = require("../models");
 
+// GET /api-server
 exports.index = async (req, res) => {
     if (req.session.userId) {
         res.send({
             isLogin: true,
-            userId: req.session.userId,
+            userId: req.session.userId, // cookie : {}
         });
     } else {
         res.send({ isLogin: false });
@@ -98,7 +99,7 @@ exports.postRoom = async (req, res) => {
     try {
         const { r_name, r_password } = req.body;
         const createRoom = await roomsModel.create({
-            user_id: req.session.userId,
+            user_id: req.session.userId, // null 값 뜨는중
             r_name: r_name,
             r_password: r_password,
         });
@@ -140,8 +141,8 @@ exports.roomData = async (req, res) => {
         if (room) {
             res.status(200).send({
                 result: true,
-                roomData: room, // roomId
-                creatorData: creator, // userId
+                roomData: room,
+                creatorData: creator,
                 guestData: guest,
                 msg: "룸 정보 확인",
             });
