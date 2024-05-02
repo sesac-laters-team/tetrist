@@ -6,11 +6,12 @@ const {
     sequelize,
 } = require("../models");
 
+// GET /api-server
 exports.index = async (req, res) => {
     if (req.session.userId) {
         res.send({
             isLogin: true,
-            userId: req.session.userId,
+            userId: req.session.userId, // cookie : {}
         });
     } else {
         res.send({ isLogin: false });
@@ -174,7 +175,6 @@ exports.enterRoom = async (req, res) => {
                 room_id: roomId,
             },
         });
-
         // 공개방인 경우
         if (!findRoom.r_password) {
             if (!findRoom.guest_id) {
@@ -240,26 +240,6 @@ exports.leaveRoom = async (req, res) => {
             { where: { room_id: roomId } }
         );
         res.send({ result: true, roomId: roomId });
-    } catch (error) {
-        console.log("error", error);
-        res.status(500).send("server error");
-    }
-};
-
-// PATCH /api-server/room/:roomId
-// 방 게임 상태 전환
-exports.patchRoom = async (req, res) => {
-    try {
-        const { roomId } = req.params;
-        const [isUpdated] = await roomsModel.update(
-            { r_status: sequelize.literal("NOT r_status") }, // 현재값과 반대
-            { where: { room_id: roomId } }
-        );
-        isUpdated
-            ? res.status(200).send({ result: true, roomId })
-            : res
-                  .status(404)
-                  .send({ result: false, msg: "존재하지 않는 방입니다." });
     } catch (error) {
         console.log("error", error);
         res.status(500).send("server error");

@@ -1,5 +1,6 @@
 -- rooms
 desc rooms;
+
 select * from rooms;
 INSERT INTO rooms
 (room_id, user_id, r_name, r_password, r_status, guest_id)

@@ -14,9 +14,17 @@ require("dotenv").config();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors());
+// app.use(cors());
 socketHandler(server);
 tetrisSocketHandler(gameServer);
+
+// cors
+app.use(cors());
+app.use(
+    cors({
+        origin: [`http://localhost:8080`],
+    })
+);
 
 // 세션 설정
 const sessionConfig = {
@@ -25,7 +33,7 @@ const sessionConfig = {
     saveUninitialized: false,
     cookie: {
         httpOnly: false,
-        // maxAge: 1000 * 60 * 60,
+        maxAge: 1000 * 60 * 60,
         signed: true,
     },
 };

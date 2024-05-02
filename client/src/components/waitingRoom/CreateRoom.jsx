@@ -15,7 +15,7 @@ export default function CreateRoom({ socket }) {
         e.preventDefault();
 
         const r_name = e.target.roomTitle.value;
-        const r_status = false; // 일단 처음 만들어질 때 방을 true로 설정
+        const r_password = e.target.roomPw.value.trim();
 
         if (r_name.trim() === "") {
             alert("방 제목은 공백일 수 없습니다.");
@@ -26,23 +26,51 @@ export default function CreateRoom({ socket }) {
                     `http://localhost:8080/api-server/room`,
                     {
                         r_name,
-                        r_status,
+                        r_password,
                     }
                 );
-                console.log("postWaitingList :: ", res.data);
+
+                // 방 정보, 방장 정보
+                const userId = res.data.userId;
+                const roomId = res.data.roomId;
 
                 // 새로운 방 정보를 Redux store에 추가
                 dispatch(
                     create({
                         r_name: r_name,
-                        room_id: res.data.room_id,
-                        user_id: socket.id,
-                        r_status: r_status,
+                        room_id: roomId,
+                        user_id: userId,
                     })
                 );
 
+                socket.emit("createRoom", r_name, r_password, userId);
+                socket.on("err", (errMsg) => {
+                    alert(errMsg);
+                    setPwInput("");
+                    r_name = "";
+                });
+
+                // useEffect(() => {
+                //     // 새 방 만들기
+                //     socket.on("newRoomList", (r_name, r_status) => {
+                //         // {room_id, r_name, r_status, user_id}
+                //         dispatch(
+                //             create({
+                //                 r_name: r_name,
+                //                 room_id: nextID,
+                //                 user_id: Number(socket.id), // 임시로 socket.id로 받아 놓았음
+                //                 r_status: r_status,
+                //             })
+                //         );
+                //         console.log(`${r_name} 방 생성 완료`);
+
+                //         // 새로운 방 생성 시 서버에 추가
+                //         postWaitingList(r_name, r_status);
+                //     });
+                // }, []);
+
                 // 게임 페이지로 이동
-                navigate("/game");
+                navigate("/tetris");
             } catch (error) {
                 console.error("Error creating new room:", error);
             }
@@ -72,9 +100,8 @@ export default function CreateRoom({ socket }) {
                             />
                         </label>
                         <br />
-                        <label>
+                        {/* <label>
                             시간 선택
-                            {/* 시간 선택 라디오 그룹 */}
                             <TimerRadioGroup label="시간선택">
                                 <TimerRadio
                                     name="time"
@@ -91,12 +118,13 @@ export default function CreateRoom({ socket }) {
                                 </TimerRadio>
                             </TimerRadioGroup>
                         </label>
-                        <br />
+                        <br /> */}
                         <label>
                             비밀번호
                             <input
                                 type="text"
                                 name="roomPw"
+                                className="roomPw"
                                 value={pwInput.trim()}
                                 onKeyDown={checkSpacebar}
                                 onChange={(e) => setPwInput(e.target.value)}
