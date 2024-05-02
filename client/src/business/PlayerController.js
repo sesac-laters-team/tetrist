@@ -62,7 +62,14 @@ export const movePlayer = ({ delta, position, shape, board }) => {
 };
 
 // 블록 이동 시도 함수
-const attemptMovement = ({ board, action, player, setPlayer, setGameOver }) => {
+const attemptMovement = ({
+    board,
+    action,
+    player,
+    setPlayer,
+    setOver,
+    setGameOver,
+}) => {
     const delta = { row: 0, column: 0 };
     let isFastDropping = false;
 
@@ -85,8 +92,12 @@ const attemptMovement = ({ board, action, player, setPlayer, setGameOver }) => {
 
     // 게임 즉시 종료 여부 판별
     const isGameOver = collided && player.position.row === 0;
+
     if (isGameOver) {
-        setGameOver(isGameOver);
+        setOver(isGameOver);
+        setTimeout(() => {
+            setGameOver(isGameOver);
+        }, 500);
     }
 
     setPlayer({
@@ -103,11 +114,19 @@ export const playerController = ({
     player,
     setPlayer,
     setGameOver,
+    setOver,
 }) => {
     if (!action) return;
     if (action === Action.Rotate) {
         attemptRotation({ board, player, setPlayer });
     } else {
-        attemptMovement({ board, action, player, setPlayer, setGameOver });
+        attemptMovement({
+            board,
+            action,
+            player,
+            setPlayer,
+            setGameOver,
+            setOver,
+        });
     }
 };

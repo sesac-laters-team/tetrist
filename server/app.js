@@ -14,7 +14,13 @@ require("dotenv").config();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-// app.use(cors());
+app.use(
+    cors({
+        origin: "http://localhost:3000",
+        credentials: true,
+    })
+);
+
 socketHandler(server);
 tetrisSocketHandler(gameServer);
 
@@ -32,7 +38,9 @@ const sessionConfig = {
     resave: false,
     saveUninitialized: false,
     cookie: {
-        httpOnly: false,
+
+        httpOnly: true,
+        sameSite: "none",
         maxAge: 1000 * 60 * 60,
         signed: true,
     },
