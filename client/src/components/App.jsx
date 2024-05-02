@@ -1,24 +1,32 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
     BrowserRouter as Router,
     Routes,
     Route,
     Navigate,
 } from "react-router-dom";
-
-import WaitingRoomPage from "./page/WaitingRoomPage";
-import LoginPage from "./page/LoginPage";
-import GameContainer from "./inGame/GameContainer";
-import GamePage from "./page/GamePage";
 import { useSelector, useDispatch } from "react-redux";
 import {
     loginUserFromLocalStorage,
     logoutUser,
 } from "../redux/module/authModule";
-
+import LoginPage from "./page/LoginPage";
+import WaitingRoomPage from "./page/WaitingRoomPage";
+import GameContainer from "./inGame/GameContainer";
+import GamePage from "./page/GamePage";
+import "../styles/CreateRoommodal.scss";
+import "../styles/WaitingRoom.scss";
+import "../styles/menu-button.scss";
+import "../styles/mypagemodal.scss";
+import "../styles/rankingmodal.scss";
+import "../styles/ShopModal.scss";
+import "../styles/pagination.scss";
+import "../styles/font.scss";
 function App() {
     const dispatch = useDispatch();
-    const isLoggedIn = useSelector((state) => state.auth.isLoggedIn); // isLoggedIn 상태 가져오기
+    const isLoggedIn = useSelector((state) => state.auth.userData !== null);
+    const [isWaitingPageAccessAllowed, setIsWaitingPageAccessAllowed] =
+        useState(true); // 초기값을 true로 설정하여 기본적으로 대기 페이지 액세스를 허용
 
     useEffect(() => {
         const storedLoggedIn = localStorage.getItem("isLoggedIn") === "true";
@@ -31,6 +39,8 @@ function App() {
                 console.error("Invalid user data in localStorage", error);
                 dispatch(logoutUser());
             }
+        } else {
+            dispatch(logoutUser());
         }
     }, [dispatch]);
 
@@ -46,7 +56,7 @@ function App() {
                     <Route
                         path="/waiting"
                         element={
-                            isLoggedIn ? (
+                            isWaitingPageAccessAllowed ? (
                                 <WaitingRoomPage />
                             ) : (
                                 <Navigate replace to="/login" />
