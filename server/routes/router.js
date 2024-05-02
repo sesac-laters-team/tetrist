@@ -353,10 +353,206 @@ router.patch("/room/:roomId", mainCtr.patchRoom);
 router.delete("/room/:roomId", mainCtr.deleteRoom);
 
 // shop
-// 상품 리스트 조회
-// 유저 구매 목록 조회
-// 유저 구매
+
+/**
+ * @swagger
+ * paths:
+ *  /api-server/shop:
+ *    get:
+ *      summary: "상품 목록 전체조회"
+ *      description: ""
+ *      tags: [Shop]
+ *      responses:
+ *        "200":
+ *          description: 전체 상품 목록
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                    ok:
+ *                      type: boolean
+ *                    users:
+ *                      type: object
+ *                      example:
+ *                          [
+ *                                  {
+        "product_id": 1,
+        "p_name": "기본",
+        "p_type": "profile",
+        "p_img": "default",
+        "p_price": 0
+    },
+ *                          ]
+ */
+router.get("/shop", mainCtr.productsList);
+
+/**
+ * @swagger
+ * paths:
+ *  /api-server/shop/user:
+ *    get:
+ *      summary: "유저가 구매한 상품 조회"
+ *      description: ""
+ *      tags: [Shop]
+ *      responses:
+ *        "200":
+ *          description: 현재 접속 중인 유저가 이미 구매한 상품의 product_id를 조회
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                    ok:
+ *                      type: boolean
+ *                    users:
+ *                      type: object
+ *                      example:
+ *                          [
+ *                                  {
+        "purchase_id": 17,
+        "user_id": 11,
+        "product_id": 5
+    },
+ *                          ]
+ */
+router.get("/shop/user", mainCtr.ownedList);
+
+/**
+ * @swagger
+ * paths:
+ *  /api-server/shop/buy:
+ *    post:
+ *      summary: "상품 구매 요청"
+ *      description: "클라이언트에서 productId, price를 전달받음"
+ *      tags: [Shop]
+ *      responses:
+ *        "200":
+ *          description: 현재 접속 중인 유저가 상품을 구매
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                    ok:
+ *                      type: boolean
+ *                    users:
+ *                      type: object
+ *                      example:
+ *                          [
+ *                              {
+    "result": true,
+    "addList": {
+        "purchase_id": 24,
+        "user_id": 11,
+        "product_id": "6"
+    }
+}
+ *                          ]
+ */
+router.post("/shop/buy", mainCtr.postBuy);
 
 // admin
+
+/**
+ * @swagger
+ * paths:
+ *  /api-server/admin/shop/add:
+ *    post:
+ *      summary: "상점 상품 추가"
+ *      description: ""
+ *      tags: [Shop/admin]
+ *      responses:
+ *        "200":
+ *          description:
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                    ok:
+ *                      type: boolean
+ *                    users:
+ *                      type: object
+ *                      example:
+ *                          [
+ *                              {
+    "result": true,
+    "newProduct": {
+        "product_id": 1,
+        "p_name": "상품1",
+        "p_type": "타입1",
+        "p_img": "product1",
+        "p_price": "100"
+    }
+}
+ *                          ]
+ */
+router.post("/admin/shop/add", mainCtr.postProduct);
+
+/**
+ * @swagger
+ * paths:
+ *  /api-server/admin/shop/:productId:
+ *    patch:
+ *      summary: "상점 상품 수정"
+ *      description: ""
+ *      tags: [Shop/admin]
+ *      responses:
+ *        "200":
+ *          description:
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                    ok:
+ *                      type: boolean
+ *                    users:
+ *                      type: object
+ *                      example:
+ *                          [
+ *                              {
+    "result": true,
+    "updatedProduct": {
+        "p_name": "상품11",
+        "p_type": "타입1",
+        "p_img": "product11",
+        "p_price": "200"
+    }
+}
+ *                          ]
+ */
+router.patch("/admin/shop/:productId", mainCtr.patchProduct);
+
+/**
+ * @swagger
+ * paths:
+ *  /api-server/admin/shop/:productId:
+ *    delete:
+ *      summary: "상점 상품 삭제"
+ *      description: ""
+ *      tags: [Shop/admin]
+ *      responses:
+ *        "200":
+ *          description:
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                    ok:
+ *                      type: boolean
+ *                    users:
+ *                      type: object
+ *                      example:
+ *                          [
+ *                              {
+    "result": true,
+    "msg": "상품 삭제 성공"
+}
+ *                          ]
+ */
+router.delete("/admin/shop/:productId", mainCtr.deleteProduct);
 
 module.exports = router;
