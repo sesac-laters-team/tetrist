@@ -21,6 +21,10 @@ const roomsModel = (Sequelize, DataTypes) => {
                 allowNull: false,
                 defaultValue: false,
             },
+            guest_id: {
+                type: DataTypes.INTEGER,
+                allowNull: true,
+            },
         },
         {
             tableName: "rooms",

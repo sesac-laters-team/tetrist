@@ -139,6 +139,162 @@ router.post("/room", mainCtr.postRoom);
 /**
  * @swagger
  * paths:
+ *  /api-server/rooms/:roomId:
+ *    get:
+ *      summary: "특정 방 정보 조회"
+ *      description: ""
+ *      tags: [Room]
+ *      responses:
+ *        "200":
+ *          description: 방 정보, 방을 만든 유저 정보, 게스트 유저(allowNull) 정보 조회
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                    ok:
+ *                      type: boolean
+ *                    users:
+ *                      type: object
+ *                      example:
+ *                          [
+ *                              {
+    "result": true,
+    "roomData": {
+        "room_id": 1,
+        "r_name": "방 1번",
+        "r_password": null,
+        "r_status": false,
+        "guest_id": null,
+        "user_id": 1
+    },
+    "creatorData": {
+        "user_id": 1,
+        "email": "user1@test.com",
+        "password": "user1pw",
+        "nickname": "유저1",
+        "custom": {
+            "theme": 3,
+            "profile": 1,
+            "profileEdge": 2
+        },
+        "point": 1000,
+        "connecting": true,
+        "chat_penalty": true,
+        "access_penalty": false
+    },
+    "guestData": null,
+    "msg": "룸 정보 확인"
+}, 
+{
+    "result": true,
+    "roomData": {
+        "room_id": 2,
+        "r_name": "방 2번",
+        "r_password": null,
+        "r_status": true,
+        "guest_id": 2,
+        "user_id": 3
+    },
+    "creatorData": {
+        "user_id": 3,
+        "email": "user3@test.com",
+        "password": "user3pw",
+        "nickname": "유저3",
+        "custom": {
+            "theme": 3,
+            "profile": 1,
+            "profileEdge": 2
+        },
+        "point": 3000,
+        "connecting": true,
+        "chat_penalty": false,
+        "access_penalty": false
+    },
+    "guestData": {
+        "user_id": 2,
+        "email": "user2@test.com",
+        "password": "user2pw",
+        "nickname": "유저2",
+        "custom": {
+            "theme": 3,
+            "profile": 1,
+            "profileEdge": 2
+        },
+        "point": 2000,
+        "connecting": false,
+        "chat_penalty": false,
+        "access_penalty": true
+    },
+    "msg": "룸 정보 확인"
+}
+ *                          ]
+ */
+router.get("/room/:roomId", mainCtr.roomData);
+
+/**
+ * @swagger
+ * paths:
+ *  /api-server/room/enter/:roomId:
+ *    post:
+ *      summary: "방 입장"
+ *      description: ""
+ *      tags: [Room]
+ *      responses:
+ *        "200":
+ *          description: 만들어진 방에 유저가 입장
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                    ok:
+ *                      type: boolean
+ *                    users:
+ *                      type: object
+ *                      example:
+ *                          [
+ *                              {
+    "result": true,
+    "guestId": 8
+}
+ *                          ]
+ */
+router.post("/room/enter/:roomId", mainCtr.enterRoom);
+
+/**
+ * @swagger
+ * paths:
+ *  /api-server/room/leave/:roomId:
+ *    post:
+ *      summary: "방 나가기"
+ *      description: ""
+ *      tags: [Room]
+ *      responses:
+ *        "200":
+ *          description: 게스트 유저가 나가는 경우 
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                    ok:
+ *                      type: boolean
+ *                    users:
+ *                      type: object
+ *                      example:
+ *                          [
+ *                              {
+    "result": true,
+    "roomId": "5"
+}
+ *                          ]
+ */
+router.post("/room/leave/:roomId", mainCtr.leaveRoom);
+
+/**
+ * @swagger
+ * paths:
  *  /api-server/room/:roomId:
  *    patch:
  *      summary: "방 게임 상태 변경"
