@@ -10,6 +10,7 @@
     flex-direction: column;
     position: relative;
     border-radius: 10px; /* 라운드 처리 */
+    z-index: 0;
 }
 
 .chat-title {

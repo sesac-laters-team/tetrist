@@ -128,6 +128,7 @@ export default function CreateRoom({ socket }) {
                                 value={pwInput.trim()}
                                 onKeyDown={checkSpacebar}
                                 onChange={(e) => setPwInput(e.target.value)}
+                                placeholder="비밀번호"
                             />
                         </label>
                         <label>
