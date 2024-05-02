@@ -37,8 +37,8 @@ export function waiting(state = initialState, action) {
                     {
                         room_id: state.nextID,
                         r_name: action.payload.r_name,
-                        r_status: action.payload.r_status,
-                        user_id: action.payload.user_id,
+                        r_password: action.payload.r_password, // 수정
+                        userId: action.payload.user_id,
                     },
                 ],
                 nextID: state.nextID + 1,

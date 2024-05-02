@@ -20,8 +20,17 @@ app.use(
         credentials: true,
     })
 );
+
 socketHandler(server);
 tetrisSocketHandler(gameServer);
+
+// cors
+app.use(cors());
+app.use(
+    cors({
+        origin: [`http://localhost:8080`],
+    })
+);
 
 // 세션 설정
 const sessionConfig = {
@@ -29,6 +38,7 @@ const sessionConfig = {
     resave: false,
     saveUninitialized: false,
     cookie: {
+
         httpOnly: true,
         sameSite: "none",
         maxAge: 1000 * 60 * 60,
