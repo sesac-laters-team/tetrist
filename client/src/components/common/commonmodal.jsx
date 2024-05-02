@@ -64,6 +64,7 @@ const Modal = ({ type, closeModal }) => {
 
             case "Register":
                 return <RegisterModalContent />;
+
             default:
                 return <div>내용이 없습니다.</div>;
         }
