@@ -63,20 +63,31 @@ export const registerUser = (email, password, nickname) => async (dispatch) => {
         dispatch({ type: REGISTER_FAIL, payload: error.response.data });
     }
 };
-
+// loginUser 액션 수정
 export const loginUser = (email, password) => async (dispatch) => {
     try {
         const response = await axios.post(
             "http://localhost:8080/api-server/auth/login",
-            { email, password }
+            {
+                email,
+                password,
+            }
         );
+
         if (response.data.result) {
-            dispatch({ type: LOGIN_SUCCESS, payload: response.data });
+            // 서버에서 받은 userId와 email만 저장
+            const userData = {
+                userId: response.data.userId,
+                email: response.data.email,
+            };
+            dispatch({ type: LOGIN_SUCCESS, payload: userData });
+
+            // 로컬 스토리지에 필요한 정보 저장
             localStorage.setItem("isLoggedIn", "true");
-            localStorage.setItem("user", JSON.stringify({ email, password }));
-            return Promise.resolve();
+            localStorage.setItem("user", JSON.stringify(userData));
+            console.log("성공");
         } else {
-            return Promise.reject("Login failed: Invalid credentials");
+            return Promise.reject(response.data.msg); // 오류 메시지 반환
         }
     } catch (error) {
         dispatch({
@@ -88,6 +99,15 @@ export const loginUser = (email, password) => async (dispatch) => {
         return Promise.reject(error);
     }
 };
+
+// loginUserFromLocalStorage 액션 수정
+export const loginUserFromLocalStorage = (user) => ({
+    type: LOGIN_SUCCESS,
+    payload: {
+        userId: user.userId,
+        email: user.email,
+    },
+});
 
 export const logoutUser = () => async (dispatch) => {
     try {

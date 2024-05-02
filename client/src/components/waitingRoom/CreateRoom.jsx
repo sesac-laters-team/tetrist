@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import TimerRadio from "./TimerRadio";
 import TimerRadioGroup from "./TimerRadioGroup";
 import axios from "axios";
-import { create } from "../../redux/store/module/waiting";
+import { create } from "../../redux/module/waiting";
 
 export default function CreateRoom({ socket }) {
     const dispatch = useDispatch();

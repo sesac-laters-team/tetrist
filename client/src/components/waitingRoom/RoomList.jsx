@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { create } from "../../redux/store/module/waiting";
+import { create } from "../../redux/module/waiting";
 import { useNavigate } from "react-router-dom";
 // 모듈 설치 필요
 import Pagination from "react-js-pagination";
 import axios from "axios";
-import { init } from "../../redux/store/module/waiting";
+import { init } from "../../redux/module/waiting";
 
 export default function RoomList({ socket }) {
     const dispatch = useDispatch();

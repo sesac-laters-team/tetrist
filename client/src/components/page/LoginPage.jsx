@@ -4,7 +4,7 @@ import {
     registerUser,
     loginUser,
     logoutUser,
-} from "../../redux/store/module/authModule";
+} from "../../redux/module/authModule";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -108,7 +108,6 @@ const AuthForm = () => {
         }
         try {
             await dispatch(loginUser(email, password));
-            navigate("/waiting"); // 로그인 성공 시 /waiting 페이지로 이동
         } catch (error) {
             alert("로그인에 실패했습니다. 다시 시도해주세요.");
         }

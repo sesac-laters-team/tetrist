@@ -5,28 +5,32 @@ import {
     Route,
     Navigate,
 } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import GameContainer from "./inGame/GameContainer";
+
 import WaitingRoomPage from "./page/WaitingRoomPage";
 import LoginPage from "./page/LoginPage";
-import { logoutUser } from "../redux/store/module/authModule";
-import "../styles/CreateRoommodal.scss";
-import "../styles/WaitingRoom.scss";
-import "../styles/menu-button.scss";
-import "../styles/mypagemodal.scss";
-import "../styles/rankingmodal.scss";
-import "../styles/ShopModal.scss";
-import "../styles/pagination.scss";
+import GameContainer from "./inGame/GameContainer";
 import GamePage from "./page/GamePage";
+import { useSelector, useDispatch } from "react-redux";
+import {
+    loginUserFromLocalStorage,
+    logoutUser,
+} from "../redux/module/authModule";
 
 function App() {
-    const isLoggedIn = useSelector((state) => state.auth.userData !== null);
     const dispatch = useDispatch();
+    const isLoggedIn = useSelector((state) => state.auth.isLoggedIn); // isLoggedIn 상태 가져오기
 
     useEffect(() => {
         const storedLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-        if (!storedLoggedIn) {
-            dispatch(logoutUser());
+        const userString = localStorage.getItem("user");
+        if (storedLoggedIn && userString) {
+            try {
+                const user = JSON.parse(userString);
+                dispatch(loginUserFromLocalStorage(user));
+            } catch (error) {
+                console.error("Invalid user data in localStorage", error);
+                dispatch(logoutUser());
+            }
         }
     }, [dispatch]);
 
@@ -34,7 +38,6 @@ function App() {
         <Router>
             <div className="App">
                 <Routes>
-                    {/* 기본 페이지를 /login으로 설정 */}
                     <Route
                         path="/"
                         element={<Navigate replace to="/login" />}
