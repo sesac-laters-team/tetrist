@@ -1,5 +1,6 @@
 import axios from "axios";
 
+axios.defaults.withCredentials = true;
 // Action Types
 const REGISTER_SUCCESS = "auth/REGISTER_SUCCESS";
 const REGISTER_FAIL = "auth/REGISTER_FAIL";
@@ -68,7 +69,8 @@ export const loginUser = (email, password) => async (dispatch) => {
     try {
         const response = await axios.post(
             "http://localhost:8080/api-server/auth/login",
-            { email, password }
+            { email, password },
+            { withCredentials: true }
         );
         if (response.data.result) {
             dispatch({ type: LOGIN_SUCCESS, payload: response.data });

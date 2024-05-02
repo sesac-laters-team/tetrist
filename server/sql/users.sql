@@ -1,3 +1,4 @@
+-- Active: 1707101283311@@127.0.0.1@3306@tetrist
 desc users;
 select * from users;
 INSERT INTO users (user_id, email, password, nickname, point, custom, connecting, chat_penalty, access_penalty)
