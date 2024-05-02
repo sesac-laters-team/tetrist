@@ -6,13 +6,11 @@ import Tetris from "./Tetris";
 const Game = ({ rows, columns, owner, guest }) => {
     const [gameOver, setGameOver, resetGameOver] = useGameOver();
 
-    const [guestState, setGuestState] = useState(guest);
+    const [guestState] = useState(guest);
 
     useEffect(() => {
         resetGameOver();
-    }, [guestState]);
-
-    console.log(gameOver);
+    }, [guestState, resetGameOver]);
 
     return (
         <div className="Game">
@@ -37,7 +35,6 @@ const Game = ({ rows, columns, owner, guest }) => {
                     rows={rows}
                     columns={columns}
                     setGameOver={setGameOver}
-                    gameOver={gameOver}
                     owner={owner}
                     guest={guest}
                 />
