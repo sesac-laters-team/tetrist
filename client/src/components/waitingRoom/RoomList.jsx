@@ -7,6 +7,7 @@ import Pagination from "react-js-pagination";
 import axios from "axios";
 import { init } from "../../redux/store/module/waiting";
 import { createGame } from "../../redux/store/module/gameRoom";
+axios.defaults.withCredentials = true;
 
 export default function RoomList({ socket }) {
     const dispatch = useDispatch();

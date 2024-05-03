@@ -12,6 +12,7 @@ const socket = io.connect("http://localhost:8081", {
 
 export default function WaitingRoomPage() {
     const dispatch = useDispatch();
+    // const [userSess, setUserSess] = useState(null);
 
     // socket 연결
     const initSocketConnect = () => {
@@ -20,6 +21,12 @@ export default function WaitingRoomPage() {
 
     useEffect(() => {
         initSocketConnect();
+
+        // [ 추가 ]
+        // 여기서 로그인 상태 관리하는 값 필요..
+        // const getSession = axios.get(`http://localhost:8080/api-server`);
+        // setUserSess(getSession);
+        // console.log("getSession: ");
     }, []);
 
     // 방 만들기 modal state

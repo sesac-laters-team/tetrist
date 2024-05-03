@@ -5,6 +5,7 @@ import ShopModalContent from "../waitingRoom/ShopModalContent";
 import RegisterModalContent from "../auth/RegisterModalContent";
 import axios from "axios";
 import { useState, useEffect } from "react";
+axios.defaults.withCredentials = true;
 
 const Modal = ({ type, closeModal }) => {
     const [ranking, setRanking] = useState(null);
@@ -18,7 +19,6 @@ const Modal = ({ type, closeModal }) => {
                     `http://localhost:8080/api-server/rank`
                 );
                 setRanking(response.data);
-                // console.log("랭킹 데이터 :: ", response.data); // ranking.data = [{},{},{}]
             } catch (error) {
                 console.error("랭킹을 불러오는 중 오류가 발생했습니다:", error);
             }
@@ -27,7 +27,7 @@ const Modal = ({ type, closeModal }) => {
         if (type === "Rank") {
             fetchRanking();
         }
-    }, [type]); // type이 변경될 때마다 랭킹을 다시 가져오도록 함
+    }, [type]);
 
     // mypage
     useEffect(() => {
@@ -37,7 +37,7 @@ const Modal = ({ type, closeModal }) => {
                     `http://localhost:8080/api-server/auth/mypage`
                 );
                 setMyInfo(response.data);
-                console.log("마이페이지 데이터 :: ", response.data);
+                console.log("서버에서 받은 유저 :: ", response.data);
             } catch (error) {
                 console.error("정보를 불러오는 중 오류가 발생했습니다:", error);
             }
