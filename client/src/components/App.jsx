@@ -43,6 +43,14 @@ function App() {
         }
     }, [dispatch]);
 
+    const games = useSelector((state) => state.gameRoom.gameInfo);
+
+    games.map((game) => {
+        console.log("방번호 : ", game.room_id); // 1 ,2 ,3
+        console.log("방장 : ", game.user_id); // 1, 1, 1
+        console.log("손님 : ", game.guest_id); // 1, 1, 1
+    });
+
     return (
         <Router>
             <div className="App">
@@ -62,7 +70,18 @@ function App() {
                             )
                         }
                     />
-                    <Route path="/tetris" element={<GamePage />} />
+                    {games.map((game) => (
+                        <Route
+                            key={game.room_id}
+                            path={`/waiting/${game.room_id}`}
+                            element={
+                                <GamePage
+                                    owner={game.user_id}
+                                    guest={game.guest_id}
+                                />
+                            }
+                        />
+                    ))}
                 </Routes>
             </div>
         </Router>

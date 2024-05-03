@@ -49,7 +49,7 @@ const RegisterModalContent = ({ closeModal }) => {
                 return;
             } else {
                 const response = await axiosInstance.post(
-                    `${process.env.REACT_API_SERVER}/auth/emailDuplicate`,
+                    `${process.env.REACT_APP_API_SERVER}/auth/emailDuplicate`,
                     { email: value }
                 );
                 alert(response.data.msg);

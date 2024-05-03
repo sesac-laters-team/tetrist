@@ -19,6 +19,7 @@ export function gameRoom(state = initialState, action) {
                 gameInfo: [
                     ...state.gameInfo,
                     {
+                        r_name: action.payload.r_name,
                         room_id: action.payload.room_id,
                         guest_id: action.payload.guest_id,
                         user_id: action.payload.user_id,
