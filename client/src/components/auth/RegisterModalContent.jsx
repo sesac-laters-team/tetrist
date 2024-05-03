@@ -43,7 +43,7 @@ const RegisterModalContent = ({ closeModal }) => {
                 return;
             } else {
                 const response = await axiosInstance.post(
-                    "http://localhost:8080/api-server/auth/emailDuplicate",
+                    `${process.env.REACT_API_SERVER}/auth/emailDuplicate`,
                     { email: value }
                 );
                 alert(response.data.msg);
@@ -62,7 +62,7 @@ const RegisterModalContent = ({ closeModal }) => {
                 return;
             } else {
                 const response = await axiosInstance.post(
-                    "http://localhost:8080/api-server/auth/nicknameDuplicate",
+                    `${process.env.REACT_APP_API_SERVER}/auth/nicknameDuplicate`,
                     { nickname: value }
                 );
                 alert(response.data.msg);

@@ -54,7 +54,7 @@ export default function authReducer(state = initialState, action) {
 export const registerUser = (email, password, nickname) => async (dispatch) => {
     try {
         const response = await axios.post(
-            "http://localhost:8080/api-server/auth/register",
+            `${process.env.REACT_APP_API_SERVER}/auth/register`,
             { email, password, nickname }
         );
         dispatch({ type: REGISTER_SUCCESS, payload: response.data });
@@ -67,7 +67,7 @@ export const registerUser = (email, password, nickname) => async (dispatch) => {
 export const loginUser = (email, password) => async (dispatch) => {
     try {
         const response = await axios.post(
-            "http://localhost:8080/api-server/auth/login",
+            `${process.env.REACT_APP_API_SERVER}/auth/login`,
             {
                 email,
                 password,
@@ -112,7 +112,7 @@ export const loginUserFromLocalStorage = (user) => ({
 export const logoutUser = () => async (dispatch) => {
     try {
         // 서버에 로그아웃 요청
-        await axios.get("http://localhost:8080/api-server/auth/logout");
+        await axios.get(`${process.env.REACT_APP_API_SERVER}/auth/logout`);
         // 로컬 스토리지에서 isLoggedIn 및 user 정보 제거
         localStorage.removeItem("isLoggedIn");
         localStorage.removeItem("user");
