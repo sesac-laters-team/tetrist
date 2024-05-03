@@ -2,6 +2,7 @@ const express = require("express");
 const authRouter = express.Router();
 
 const usersCtr = require("../controller/Cusers");
+const { checkAuth } = require("../utils/routerUtils");
 
 /**
  * @swagger
@@ -124,6 +125,7 @@ authRouter.post("/nicknameDuplicate", usersCtr.nickDuplicate);
  *                          ]
  */
 authRouter.post("/login", usersCtr.postLogin);
+
 /**
  * @swagger
  * paths:
@@ -152,7 +154,7 @@ authRouter.post("/login", usersCtr.postLogin);
 }
  *                          ]
  */
-authRouter.get("/logout", usersCtr.logout);
+authRouter.get("/logout", checkAuth, usersCtr.logout);
 
 /**
  * @swagger
@@ -197,7 +199,7 @@ authRouter.get("/logout", usersCtr.logout);
 }
  *                          ]
  */
-authRouter.get("/mypage", usersCtr.getOneUser);
+authRouter.get("/mypage", checkAuth, usersCtr.getOneUser);
 
 /**
  * @swagger
@@ -227,7 +229,11 @@ authRouter.get("/mypage", usersCtr.getOneUser);
 }
  *                          ]
  */
-authRouter.patch("/mypage/changePassword", usersCtr.patchUserPassword);
+authRouter.patch(
+    "/mypage/changePassword",
+    checkAuth,
+    usersCtr.patchUserPassword
+);
 
 /**
  * @swagger
@@ -257,7 +263,11 @@ authRouter.patch("/mypage/changePassword", usersCtr.patchUserPassword);
 }
  *                          ]
  */
-authRouter.patch("/mypage/changeNickname", usersCtr.patchUserNickname);
+authRouter.patch(
+    "/mypage/changeNickname",
+    checkAuth,
+    usersCtr.patchUserNickname
+);
 
 /**
  * @swagger
@@ -287,6 +297,6 @@ authRouter.patch("/mypage/changeNickname", usersCtr.patchUserNickname);
 }
  *                          ]
  */
-authRouter.delete("/mypage/delete", usersCtr.deleteUserData);
+authRouter.delete("/mypage/delete", checkAuth, usersCtr.deleteUserData);
 
 module.exports = authRouter;
