@@ -1,103 +1,104 @@
 /* 공통 스타일 */
 .menubar {
-  display: flex;
-  justify-content: center; /* 버튼들을 중앙에 위치시킵니다. */
-  padding: 10px;
-  background-color: white;
-  border-radius: 5px; /* 모서리를 둥글게 처리합니다. */
+    display: flex;
+    justify-content: center; /* 버튼들을 중앙에 위치시킵니다. */
+    padding: 10px;
+    background-color: white;
+    border-radius: 5px; /* 모서리를 둥글게 처리합니다. */
 }
 
-
 .close-button:hover {
-  opacity: 1; /* 호버 시 투명도 조정 */
+    opacity: 1; /* 호버 시 투명도 조정 */
 }
 
 .menubar-button {
-  margin: 0 10px;
-  padding: 10px 20px;
-  background-color: white;
-  border: 1px solid #333; /* 버튼 테두리를 설정합니다. */
-  border-radius: 10px;
-  cursor: pointer;
-  transition: all 0.3s ease; /* 부드러운 색상 전환 효과를 위해 설정합니다. */
-  font-weight: 600; /* 폰트를 두껍게 합니다. */
+    margin: 0 10px;
+    padding: 10px 20px;
+    background-color: white;
+    border: 1px solid #333; /* 버튼 테두리를 설정합니다. */
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease; /* 부드러운 색상 전환 효과를 위해 설정합니다. */
+    font-weight: 600; /* 폰트를 두껍게 합니다. */
 }
 
 .menubar-button:hover {
-  background-color: #e2e2e2; /* 호버 상태의 배경색을 변경합니다. */
-  border-color: #c0c0c0; /* 호버 상태의 테두리 색상을 변경합니다. */
+    background-color: #e2e2e2; /* 호버 상태의 배경색을 변경합니다. */
+    border-color: #c0c0c0; /* 호버 상태의 테두리 색상을 변경합니다. */
 }
 
 .modal-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6); /* 배경 색상을 약간 더 진하게 조정 */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow-y: auto;
-  animation: fadeIn 0.3s ease-out; /* 등장 애니메이션 추가 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* 배경 색상을 약간 더 진하게 조정 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto;
+    animation: fadeIn 0.3s ease-out; /* 등장 애니메이션 추가 */
+    z-index: 999;
 }
 
 .modal-content {
-  background: #ffffff;
-  padding: 25px; /* 패딩을 늘려 좀 더 여유롭게 조정 */
-  border-radius: 12px; /* 모서리 둥글기를 조금 더 증가 */
-  width: 100%; /* 모바일 기기에서 너비를 100%로 설정 */
-  max-width: 400px; /* 최대 너비 증가 */
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* 그림자를 더 선명하게 조정 */
-  transition: transform 0.3s ease-out; /* 변형 애니메이션을 부드럽게 조정 */
+    background: #ffffff;
+    padding: 25px; /* 패딩을 늘려 좀 더 여유롭게 조정 */
+    border-radius: 12px; /* 모서리 둥글기를 조금 더 증가 */
+    width: 100%; /* 모바일 기기에서 너비를 100%로 설정 */
+    max-width: 400px; /* 최대 너비 증가 */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* 그림자를 더 선명하게 조정 */
+    transition: transform 0.3s ease-out; /* 변형 애니메이션을 부드럽게 조정 */
+    z-index: 1000;
 }
 
 .modal-content button {
-  position: relative;
-  padding: 10px 20px; /* 버튼 패딩 */
-  background-color: white; /* 버튼 배경색 */
-  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
-  color: #333; /* 버튼 폰트 색상 */
-  border: 2px solid #333;
-  border-radius: 10px ;
-  border-bottom: 2px solid #333;
-  transition: background-color 0.3s, color 0.3s, border-color 0.3s; 
+    position: relative;
+    padding: 10px 20px; /* 버튼 패딩 */
+    background-color: white; /* 버튼 배경색 */
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+    color: #333; /* 버튼 폰트 색상 */
+    border: 2px solid #333;
+    border-radius: 10px;
+    border-bottom: 2px solid #333;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
 .modal-content button:last-child {
-  margin-right: 0; /* 마지막 버튼은 오른쪽 마진 제거 */
+    margin-right: 0; /* 마지막 버튼은 오른쪽 마진 제거 */
 }
 
 .modal-content button:hover {
-  background-color: #2980b9;
+    background-color: #2980b9;
 }
 @media (min-width: 600px) {
-  .modal-content {
-    width: 50%; /* 태블릿 및 데스크톱에서는 너비를 50%로 설정 */
-    padding: 30px;
-  }
+    .modal-content {
+        width: 50%; /* 태블릿 및 데스크톱에서는 너비를 50%로 설정 */
+        padding: 30px;
+    }
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
-
-
 
 @media (min-width: 1024px) {
-  .modal-content {
-    width: 47%; /* 데스크탑에서는 너비를 50%로 설정 */
-  }
+    .modal-content {
+        width: 47%; /* 데스크탑에서는 너비를 50%로 설정 */
+    }
 
-  .modal-content.shop {
-    grid-template-columns: repeat(4, 1fr); /* 데스크탑에서는 4개의 컬럼으로 표시 */
-  }
+    .modal-content.shop {
+        grid-template-columns: repeat(
+            4,
+            1fr
+        ); /* 데스크탑에서는 4개의 컬럼으로 표시 */
+    }
 }
-
