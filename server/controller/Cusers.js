@@ -8,7 +8,7 @@ exports.postRegister = async (req, res) => {
         const { email, password, nickname } = req.body;
         // email, password, nickname 중 입력 값이 없을 시 예외처리
         if (!email || !password || !nickname) {
-            return res.send({
+            return res.status(400).send({
                 result: false,
                 msg: "항목을 모두 작성해주세요.",
             });
@@ -45,9 +45,12 @@ exports.postRegister = async (req, res) => {
 
         if (registUser) {
             req.session.userId = registUser.users_id;
-            res.send({ result: true, msg: "회원가입 성공" });
+            res.status(201).send({ result: true, msg: "회원가입 성공" });
         } else {
-            res.send({ result: false, msg: "회원가입 실패" });
+            res.status(400).send({
+                result: false,
+                msg: "회원가입 실패, 다시 시도해주세요.",
+            });
         }
     } catch (error) {
         console.log("error", error);
@@ -115,7 +118,7 @@ exports.postLogin = async (req, res) => {
         const { email, password } = req.body;
         // 입력값이 없을 시 예외처리
         if (!email || !password) {
-            return res.send({
+            return res.status(400).send({
                 result: false,
                 msg: "이메일과 비밀번호를 모두 입력해주세요.",
             });
@@ -134,21 +137,23 @@ exports.postLogin = async (req, res) => {
 
             if (isPasswordMatch) {
                 req.session.userId = findUserData.user_id;
-                console.log("req.session.userId ::: ", req.session.userId);
-                res.send({
+                res.status(200).send({
                     result: true,
                     msg: "로그인 성공",
                     userId: findUserData.user_id,
                     email: findUserData.email,
                 });
             } else {
-                res.send({
+                res.status(401).send({
                     result: false,
                     msg: "비밀번호가 일치하지 않습니다.",
                 });
             }
         } else {
-            res.send({ result: false, msg: "등록되지 않은 이메일입니다." });
+            res.status(401).send({
+                result: false,
+                msg: "등록되지 않은 이메일입니다.",
+            });
         }
     } catch (error) {
         console.log("error", error);
@@ -161,16 +166,12 @@ exports.logout = (req, res) => {
     req.session.destroy((err) => {
         if (err) throw err;
     });
-    res.send({ result: true, msg: "로그아웃 성공" });
+    res.status(200).send({ result: true, msg: "로그아웃 성공" });
 };
 
 // GET /api-server/auth/mypage
 exports.getOneUser = async (req, res) => {
     console.log("서버 마이페이지 세션 id:: ", req.session.userId);
-    if (!req.session.userId)
-        return res
-            .status(401)
-            .send({ result: false, msg: "로그인 후 이용할 수 있습니다." });
     try {
         const userData = await usersModel.findOne({
             where: {
@@ -198,10 +199,6 @@ exports.getOneUser = async (req, res) => {
 
 // PATCH /api-server/auth/mypage/changePassword
 exports.patchUserPassword = async (req, res) => {
-    if (!req.session.userId)
-        return res
-            .status(401)
-            .send({ result: false, msg: "로그인 후 이용할 수 있습니다." });
     try {
         const { password } = req.body;
 
@@ -228,7 +225,7 @@ exports.patchUserPassword = async (req, res) => {
                 msg: "비밀번호가 변경되었습니다.",
             });
         } else {
-            res.send({
+            res.status(400).send({
                 result: false,
                 msg: "유저 정보가 수정되지 않았습니다.",
             });
@@ -241,10 +238,6 @@ exports.patchUserPassword = async (req, res) => {
 
 // PATCH /api-server/auth/mypage/changeNickname
 exports.patchUserNickname = async (req, res) => {
-    if (!req.session.userId)
-        return res
-            .status(401)
-            .send({ result: false, msg: "로그인 후 이용할 수 있습니다." });
     try {
         const { nickname } = req.body;
 
@@ -265,7 +258,7 @@ exports.patchUserNickname = async (req, res) => {
                 msg: "닉네임이 변경되었습니다.",
             });
         } else {
-            res.send({
+            res.status(400).send({
                 result: false,
                 msg: "유저 정보가 수정되지 않았습니다.",
             });
@@ -278,10 +271,6 @@ exports.patchUserNickname = async (req, res) => {
 
 // DELETE /api-server/auth/mypage/delete
 exports.deleteUserData = async (req, res) => {
-    if (!req.session.userId)
-        return res
-            .status(401)
-            .send({ result: false, msg: "로그인 후 이용할 수 있습니다." });
     try {
         const isDeleted = await usersModel.destroy({
             where: {
@@ -293,9 +282,12 @@ exports.deleteUserData = async (req, res) => {
             req.session.destroy((err) => {
                 if (err) throw err;
             });
-            res.send({ result: true, msg: "탈퇴 완료되었습니다." });
+            res.status(200).send({ result: true, msg: "탈퇴 완료되었습니다." });
         } else {
-            res.send({ result: false, msg: "탈퇴 요청을 처리할 수 없습니다." });
+            res.status(400).send({
+                result: false,
+                msg: "탈퇴 요청을 처리할 수 없습니다.",
+            });
         }
     } catch (error) {
         console.log("error", error);

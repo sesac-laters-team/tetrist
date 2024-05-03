@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 
 const mainCtr = require("../controller/Cmain");
+const roomCtr = require("../controller/Crooms");
+const shopCtr = require("../controller/Cshop");
+const { checkAuth, userInRoom } = require("../utils/routerUtils");
 
 // main
 
@@ -100,12 +103,14 @@ router.get("/rank", mainCtr.rank);
  *                              {
         "room_id": 1,
         "r_name": "방 1번",
+        "r_password": null,
         "r_status": false,
+        "guest_id": null,
         "user_id": 1
     },
  *                          ]
  */
-router.get("/rooms", mainCtr.roomsList);
+router.get("/rooms", roomCtr.roomsList);
 
 /**
  * @swagger
@@ -130,11 +135,13 @@ router.get("/rooms", mainCtr.roomsList);
  *                      example:
  *                          [
  *                              {
-    "result": true
+    "result": true,
+    "userId": 8,
+    "roomId": 5
 }
  *                          ]
  */
-router.post("/room", mainCtr.postRoom);
+router.post("/room", checkAuth, userInRoom, roomCtr.postRoom);
 
 /**
  * @swagger
@@ -230,7 +237,7 @@ router.post("/room", mainCtr.postRoom);
 }
  *                          ]
  */
-router.get("/room/:roomId", mainCtr.roomData);
+router.get("/room/:roomId", roomCtr.roomData);
 
 /**
  * @swagger
@@ -260,7 +267,7 @@ router.get("/room/:roomId", mainCtr.roomData);
 }
  *                          ]
  */
-router.post("/room/enter/:roomId", mainCtr.enterRoom);
+router.post("/room/enter/:roomId", checkAuth, userInRoom, roomCtr.enterRoom);
 
 /**
  * @swagger
@@ -290,7 +297,7 @@ router.post("/room/enter/:roomId", mainCtr.enterRoom);
 }
  *                          ]
  */
-router.post("/room/leave/:roomId", mainCtr.leaveRoom);
+router.post("/room/leave/:roomId", roomCtr.leaveRoom);
 
 /**
  * @swagger
@@ -320,7 +327,7 @@ router.post("/room/leave/:roomId", mainCtr.leaveRoom);
 }
  *                          ]
  */
-router.patch("/room/:roomId", mainCtr.patchRoom);
+router.patch("/room/:roomId", roomCtr.patchRoom);
 
 /**
  * @swagger
@@ -350,7 +357,7 @@ router.patch("/room/:roomId", mainCtr.patchRoom);
 }
  *                          ]
  */
-router.delete("/room/:roomId", mainCtr.deleteRoom);
+router.delete("/room/:roomId", roomCtr.deleteRoom);
 
 // shop
 
@@ -385,7 +392,7 @@ router.delete("/room/:roomId", mainCtr.deleteRoom);
     },
  *                          ]
  */
-router.get("/shop", mainCtr.productsList);
+router.get("/shop", shopCtr.productsList);
 
 /**
  * @swagger
@@ -416,7 +423,7 @@ router.get("/shop", mainCtr.productsList);
     },
  *                          ]
  */
-router.get("/shop/user", mainCtr.ownedList);
+router.get("/shop/user", checkAuth, shopCtr.ownedList);
 
 /**
  * @swagger
@@ -450,7 +457,7 @@ router.get("/shop/user", mainCtr.ownedList);
 }
  *                          ]
  */
-router.post("/shop/buy", mainCtr.postBuy);
+router.post("/shop/buy", checkAuth, shopCtr.postBuy);
 
 // admin
 
@@ -488,7 +495,7 @@ router.post("/shop/buy", mainCtr.postBuy);
 }
  *                          ]
  */
-router.post("/admin/shop/add", mainCtr.postProduct);
+router.post("/admin/shop/add", shopCtr.postProduct);
 
 /**
  * @swagger
@@ -523,7 +530,7 @@ router.post("/admin/shop/add", mainCtr.postProduct);
 }
  *                          ]
  */
-router.patch("/admin/shop/:productId", mainCtr.patchProduct);
+router.patch("/admin/shop/:productId", shopCtr.patchProduct);
 
 /**
  * @swagger
@@ -553,6 +560,6 @@ router.patch("/admin/shop/:productId", mainCtr.patchProduct);
 }
  *                          ]
  */
-router.delete("/admin/shop/:productId", mainCtr.deleteProduct);
+router.delete("/admin/shop/:productId", shopCtr.deleteProduct);
 
 module.exports = router;
