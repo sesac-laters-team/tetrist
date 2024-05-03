@@ -7,7 +7,7 @@ import {
 } from "../../redux/store/module/authModule";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+axios.defaults.withCredentials = true;
 const AuthForm = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate(); // useNavigate 훅 추가
@@ -49,7 +49,7 @@ const AuthForm = () => {
                 return;
             } else {
                 const response = await axiosInstance.post(
-                    "http://localhost:8080/api-server/auth/emailDuplicate",
+                    `${process.env.REACT_APP_API_SERVER}/auth/emailDuplicate`,
                     { email: value }
                 );
                 alert(response.data.msg);
@@ -68,7 +68,7 @@ const AuthForm = () => {
                 return;
             } else {
                 const response = await axiosInstance.post(
-                    "http://localhost:8080/api-server/auth/nicknameDuplicate",
+                    `${process.env.REACT_APP_API_SERVER}/auth/nicknameDuplicate`,
                     { nickname: value }
                 );
                 alert(response.data.msg);

@@ -1,6 +1,15 @@
 const Sequelize = require("sequelize");
-const config = require(__dirname + "/../config/config.json")["development"];
 require("dotenv").config();
+
+// 분기 처리
+// NODE_ENV 값이 존재할 경우 (npm run dev or npm start)
+// 그냥 nodemon 으로 실행할 경우 node_env 값이 비어 있을 경우가 있으므로 분기처리 해줘야함
+let config;
+if (process.env.NODE_ENV) {
+    config = require(__dirname + "/../config/config.js")[process.env.NODE_ENV];
+} else {
+    config = require(__dirname + "/../config/config.js")["development"];
+}
 
 const db = {};
 
