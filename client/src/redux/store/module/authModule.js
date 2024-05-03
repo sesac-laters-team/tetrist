@@ -51,18 +51,21 @@ export default function authReducer(state = initialState, action) {
 }
 
 // Action Creators
-export const registerUser = (email, password, nickname) => async (dispatch) => {
-    try {
-        const response = await axios.post(
-            `${process.env.REACT_APP_API_SERVER}/auth/register`,
-            { email, password, nickname }
-        );
-        dispatch({ type: REGISTER_SUCCESS, payload: response.data });
-        alert(response.data.msg);
-    } catch (error) {
-        dispatch({ type: REGISTER_FAIL, payload: error.response.data });
-    }
-};
+export const registerUser =
+    (email, password, nickname, callback) => async (dispatch) => {
+        try {
+            const response = await axios.post(
+                `${process.env.REACT_APP_API_SERVER}/auth/register`,
+                { email, password, nickname }
+            );
+            dispatch({ type: REGISTER_SUCCESS, payload: response.data });
+            callback(response.data.result, response.data.msg);
+        } catch (error) {
+            dispatch({ type: REGISTER_FAIL, payload: error.response.data });
+            callback(error.response.data.result, error.response.data.msg);
+        }
+    };
+
 // loginUser 액션 수정
 export const loginUser = (email, password) => async (dispatch) => {
     try {

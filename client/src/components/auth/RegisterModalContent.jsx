@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { registerUser } from "../../redux/store/module/authModule";
 import axios from "axios";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 axios.defaults.withCredentials = true;
 const RegisterModalContent = ({ closeModal }) => {
@@ -26,6 +27,11 @@ const RegisterModalContent = ({ closeModal }) => {
     const [nickValidMessage, setNickValidMessage] = useState("");
     const [pwValidMessage, setPwValidMessage] = useState("");
     const [pwConfirmMessage, setPwConfirmMessage] = useState("");
+
+    // 비밀번호 보이기/숨기기 값 저장 state
+    const [showPw, setShowPw] = useState(false);
+    const [showConfirmPw, setShowConfirmPw] = useState(false);
+
     // 중복 검사 증 데이터 중복 시 409 에러를 방지 => axiosInstance.post
     const axiosInstance = axios.create({
         validateStatus: function (status) {
@@ -145,64 +151,150 @@ const RegisterModalContent = ({ closeModal }) => {
 
     useEffect(() => {
         // 비밀번호 확인 검사
-        if (checkPassword === "") {
-            setPwConfirmMessage("비밀번호를 한 번 더 입력해주세요.");
-        } else if (password !== checkPassword) {
-            setConfirmPw(false);
-            setPwConfirmMessage("비밀번호가 일치하지 않습니다.");
+        if (!pwValidCheck) {
+            setPwConfirmMessage("비밀번호를 양식에 맞게 입력해주세요.");
         } else {
-            setConfirmPw(true);
-            setPwConfirmMessage("비밀번호가 일치합니다.");
+            if (checkPassword === "") {
+                setPwConfirmMessage("비밀번호를 한 번 더 입력해주세요.");
+            } else if (password !== checkPassword) {
+                setConfirmPw(false);
+                setPwConfirmMessage("비밀번호가 일치하지 않습니다.");
+            } else {
+                setConfirmPw(true);
+                setPwConfirmMessage("비밀번호가 일치합니다.");
+            }
         }
-    }, [password, checkPassword]);
+    }, [pwValidCheck, password, checkPassword]);
     return (
         <div>
-            <h2>회원가입</h2>
+            <h2 className="title">회원가입</h2>
             <form onSubmit={handleRegister}>
-                <div>
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="이메일"
-                    />
-                    <button
-                        type="button"
-                        onClick={() => checkDuplicate("email", email)} // 이메일 중복 검사를 위해 email type과 해당 값 전달
+                <div className="itemWrap">
+                    <div
+                        className={
+                            emailValidCheck
+                                ? "inputWrap"
+                                : email === ""
+                                ? "inputWrap"
+                                : "inputWrap fail"
+                        }
                     >
-                        중복확인
-                    </button>
-                    <p>{emailValidMessage}</p>
+                        <input
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="이메일"
+                        />
+                        <button
+                            type="button"
+                            onClick={() => checkDuplicate("email", email)} // 이메일 중복 검사를 위해 email type과 해당 값 전달
+                        >
+                            중복확인
+                        </button>
+                    </div>
+                    <div className="textWrap">
+                        <p className="guide">{emailValidMessage}</p>
+                    </div>
                 </div>
-                <div>
-                    <input
-                        type="text"
-                        value={nickname}
-                        onChange={(e) => setNickname(e.target.value)}
-                        placeholder="닉네임"
-                    />
-                    <button
-                        type="button"
-                        onClick={() => checkDuplicate("nickname", nickname)} // 닉네임 중복 검사를 위해 nickname type과 해당 값 전달
+                <div className="itemWrap">
+                    <div
+                        className={
+                            nickValidCheck
+                                ? "inputWrap"
+                                : nickname === ""
+                                ? "inputWrap"
+                                : "inputWrap fail"
+                        }
                     >
-                        중복확인
-                    </button>
-                    <p>{nickValidMessage}</p>
+                        <input
+                            type="text"
+                            value={nickname}
+                            onChange={(e) => setNickname(e.target.value)}
+                            placeholder="닉네임"
+                        />
+                        <button
+                            type="button"
+                            onClick={() => checkDuplicate("nickname", nickname)} // 닉네임 중복 검사를 위해 nickname type과 해당 값 전달
+                        >
+                            중복확인
+                        </button>
+                    </div>
+                    <div className="textWrap">
+                        <p className="guide">{nickValidMessage}</p>
+                    </div>
                 </div>
-                <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="비밀번호"
-                />
-                <p>{pwValidMessage}</p>
-                <input
-                    type="password"
-                    value={checkPassword}
-                    onChange={(e) => setCheckPassword(e.target.value)}
-                    placeholder="비밀번호 확인"
-                />
-                <p>{pwConfirmMessage}</p>
+                <div className="itemWrap">
+                    <div
+                        className={
+                            pwValidCheck
+                                ? "inputWrap"
+                                : password === ""
+                                ? "inputWrap"
+                                : "inputWrap fail"
+                        }
+                    >
+                        <input
+                            type={showPw ? "text" : "password"}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            placeholder="비밀번호"
+                        />
+                        {showPw ? (
+                            <FaEyeSlash
+                                className="eye"
+                                onClick={() => {
+                                    setShowPw(false);
+                                }}
+                            />
+                        ) : (
+                            <FaEye
+                                className="eye"
+                                onClick={() => {
+                                    setShowPw(true);
+                                }}
+                            />
+                        )}
+                    </div>
+                    <div className="textWrap">
+                        <p className="guide">{pwValidMessage}</p>
+                    </div>
+                </div>
+                <div className="itemWrap">
+                    <div
+                        className={
+                            confirmPw
+                                ? "inputWrap"
+                                : checkPassword === ""
+                                ? "inputWrap"
+                                : "inputWrap fail"
+                        }
+                    >
+                        <input
+                            type={showConfirmPw ? "text" : "password"}
+                            value={checkPassword}
+                            onChange={(e) => setCheckPassword(e.target.value)}
+                            placeholder="비밀번호 확인"
+                        />
+                        {showConfirmPw ? (
+                            <FaEyeSlash
+                                className="eye"
+                                onClick={() => {
+                                    setShowConfirmPw(false);
+                                }}
+                            />
+                        ) : (
+                            <FaEye
+                                className="eye"
+                                onClick={() => {
+                                    setShowConfirmPw(true);
+                                }}
+                            />
+                        )}
+                    </div>
+                    <div className="textWrap">
+                        <p className="guide">{pwConfirmMessage}</p>
+                    </div>
+                </div>
                 <button type="submit">회원가입</button>
             </form>
         </div>

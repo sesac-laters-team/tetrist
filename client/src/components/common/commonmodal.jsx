@@ -10,6 +10,15 @@ const Modal = ({ type, closeModal }) => {
     const [ranking, setRanking] = useState(null);
     const [myInfo, setMyInfo] = useState(null);
 
+    const closeModalOnRegister = () => {
+        if (
+            window.confirm(
+                "화면을 전환하시겠습니까? 작성하신 항목은 저장되지 않습니다."
+            )
+        ) {
+            closeModal();
+        }
+    };
     // rank
     useEffect(() => {
         const fetchRanking = async () => {
@@ -63,7 +72,7 @@ const Modal = ({ type, closeModal }) => {
                 return <ShopModalContent />;
 
             case "Register":
-                return <RegisterModalContent />;
+                return <RegisterModalContent closeModal={closeModal} />;
 
             default:
                 return <div>내용이 없습니다.</div>;
@@ -71,7 +80,10 @@ const Modal = ({ type, closeModal }) => {
     };
 
     return (
-        <div className="modal-backdrop" onClick={closeModal}>
+        <div
+            className="modal-backdrop"
+            onClick={type === "Register" ? closeModalOnRegister : closeModal}
+        >
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
                 {renderModalContent()}
             </div>
