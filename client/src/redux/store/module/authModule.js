@@ -1,5 +1,5 @@
 import axios from "axios";
-
+axios.defaults.withCredentials = true;
 // Action Types
 const REGISTER_SUCCESS = "auth/REGISTER_SUCCESS";
 const REGISTER_FAIL = "auth/REGISTER_FAIL";

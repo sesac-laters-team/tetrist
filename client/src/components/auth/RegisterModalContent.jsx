@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../redux/store/module/authModule";
 import axios from "axios";
 
+axios.defaults.withCredentials = true;
 const RegisterModalContent = ({ closeModal }) => {
     const dispatch = useDispatch();
 
