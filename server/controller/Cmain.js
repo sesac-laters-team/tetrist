@@ -18,11 +18,19 @@ exports.index = async (req, res) => {
     }
 };
 
-// PATCH /api-server/patchPoint
-exports.patchPoint = async (req, res) => {
+// PATCH /api-server/matchResult
+exports.matchResult = async (req, res) => {
     try {
-        // calc: 승패에 따른 승점을 계산하기 위한 값, 1 플러스, 0이 마이너스
-        const { userId, ratePoint, calc } = req.body;
+        // matchResult: 승패에 따른 값, 1이 승리, 0이 패배
+
+        /* 포인트를 프론트에서 지정
+        const { userId, ratePoint, shopPoint, matchResult } = req.body; */
+        /* 포인트를 백에서 지정 */
+        const { userId, matchResult } = req.body;
+        const winRP = 50;
+        const loseRP = 20;
+        const winSP = 100;
+        const loseSP = 50;
 
         // 기존 사용자의 point 조회
         const findUser = await usersModel.findOne({
@@ -38,32 +46,75 @@ exports.patchPoint = async (req, res) => {
             return;
         }
 
-        // 승패 여부에 따라 기존 point 값에 ratePoint 더하거나 빼기
-        const updatePoint = Number(calc)
-            ? findUser.point + Number(ratePoint)
-            : findUser.point - Number(ratePoint);
-
-        const isUpdated = await usersModel.update(
-            {
-                point: updatePoint,
-            },
-            {
-                where: {
-                    user_id: userId,
+        // 승패 여부에 따라 데이터 처리
+        if (matchResult > 0) {
+            // 승리 시
+            /*
+            const updateRating = findUser.rating + Number(ratePoint);
+            const updatePoint = findUser.point + Number(shopPoint); */
+            const updateRating = findUser.rating + winRP;
+            const updatePoint = findUser.point + winSP;
+            const winUser = await usersModel.update(
+                {
+                    rating: updateRating,
+                    point: updatePoint,
+                    win: findUser.win + 1,
                 },
-            }
-        );
+                {
+                    where: {
+                        user_id: userId,
+                    },
+                }
+            );
 
-        if (isUpdated > 0) {
-            res.status(200).send({
-                result: true,
-                msg: "포인트가 변경되었습니다.",
-            });
+            if (winUser > 0) {
+                res.status(200).send({
+                    result: true,
+                    msg: "승리 유저 정보가 변경되었습니다.",
+                });
+            } else {
+                res.status(400).send({
+                    result: false,
+                    msg: "승리 유저 정보가 변경되지 않았습니다.",
+                });
+            }
         } else {
-            res.send({
-                result: false,
-                msg: "포인트가 변경되지 않았습니다.",
-            });
+            // 패배 시
+            /*
+            let updateRating = findUser.rating - Number(ratePoint);
+            const updatePoint = findUser.point + Number(shopPoint);
+            // 승점이 -가 되지 않도록
+            if (updateRating < 0) {
+                updateRating = 0;
+            } */
+            // 승점이 -가 되지 않도록
+            const updateRating =
+                findUser.rating >= loseRP ? findUser.rating - loseRP : 0;
+            const updatePoint = findUser.point + loseSP;
+            const loseUser = await usersModel.update(
+                {
+                    rating: updateRating,
+                    point: updatePoint,
+                    lose: findUser.lose + 1,
+                },
+                {
+                    where: {
+                        user_id: userId,
+                    },
+                }
+            );
+
+            if (loseUser > 0) {
+                res.status(200).send({
+                    result: true,
+                    msg: "패배 유저 정보가 변경되었습니다.",
+                });
+            } else {
+                res.status(400).send({
+                    result: false,
+                    msg: "패배 유저 정보가 변경되지 않았습니다.",
+                });
+            }
         }
     } catch (error) {
         console.log("error", error);

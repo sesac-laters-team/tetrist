@@ -34,6 +34,21 @@ const usersModel = (Sequelize, DataTypes) => {
                 allowNull: false,
                 defaultValue: 0,
             },
+            win: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                defaultValue: 0,
+            },
+            lose: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                defaultValue: 0,
+            },
+            rating: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                defaultValue: 0,
+            },
             // true:온라인, false:오프라인
             connecting: {
                 type: DataTypes.BOOLEAN,
