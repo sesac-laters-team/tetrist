@@ -7,7 +7,7 @@ import Pagination from "react-js-pagination";
 import axios from "axios";
 import { init } from "../../redux/store/module/waiting";
 import { createGame } from "../../redux/store/module/gameRoom";
-
+axios.defaults.withCredentials = true;
 export default function RoomList({ socket }) {
     const dispatch = useDispatch();
     const rooms = useSelector((state) => state.waiting.rooms);
@@ -25,7 +25,8 @@ export default function RoomList({ socket }) {
 
     async function getWaitingList() {
         try {
-            const res = await axios.get(`http://localhost:8080/api-server/rooms
+            const res =
+                await axios.get(`${process.env.REACT_APP_API_SERVER}/rooms
             `);
             console.log("getWaitingList :: ", res.data);
             // {room_id, r_name, r_password, r_status, user_id}
@@ -50,7 +51,7 @@ export default function RoomList({ socket }) {
     const gameJoin = async (room) => {
         console.log("방 인덱스 :: ", room.room_id); // state에 저장되어 있는 방 전체 데이터
         const joinUser = await axios.get(
-            `http://localhost:8080/api-server/room/${room.room_id}`,
+            `${process.env.REACT_APP_API_SERVER}/room/${room.room_id}`,
             { roomId: room.room_id }
         );
         // 유저 아이디, 닉네임 필요.. 혹시 테마 적용할 시 구매 이력도 필요

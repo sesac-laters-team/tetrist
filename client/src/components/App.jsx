@@ -12,7 +12,6 @@ import {
 } from "../redux/store/module/authModule";
 import LoginPage from "./page/LoginPage";
 import WaitingRoomPage from "./page/WaitingRoomPage";
-import GameContainer from "./inGame/GameContainer";
 import GamePage from "./page/GamePage";
 import "../styles/CreateRoommodal.scss";
 import "../styles/WaitingRoom.scss";
@@ -63,7 +62,6 @@ function App() {
                             )
                         }
                     />
-                    <Route path="/game" element={<GameContainer />} />
                     <Route path="/tetris" element={<GamePage />} />
                 </Routes>
             </div>

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Modal from "../common/commonmodal";
 import "../../styles/Login.scss";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+
 const AuthForm = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();

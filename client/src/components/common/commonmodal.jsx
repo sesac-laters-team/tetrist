@@ -5,7 +5,7 @@ import ShopModalContent from "../waitingRoom/ShopModalContent";
 import RegisterModalContent from "../auth/RegisterModalContent";
 import axios from "axios";
 import { useState, useEffect } from "react";
-
+axios.defaults.withCredentials = true;
 const Modal = ({ type, closeModal }) => {
     const [ranking, setRanking] = useState(null);
     const [myInfo, setMyInfo] = useState(null);
