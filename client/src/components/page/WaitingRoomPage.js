@@ -6,7 +6,7 @@ import CreateRoom from "../waitingRoom/CreateRoom";
 import Menubar from "../waitingRoom/Menubar";
 import WaitingChat from "../chat/WaitingChat";
 
-const socket = io.connect("http://localhost:8081", {
+const socket = io.connect(`${process.env.REACT_APP_CHAT_SERVER}`, {
     autoConnect: false,
 });
 
