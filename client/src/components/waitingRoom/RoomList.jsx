@@ -60,7 +60,7 @@ export default function RoomList({ socket }) {
 
         // 서버에서 방 입장
         const joinRoom = await axios.post(
-            `http://localhost:8080/api-server/room/enter/${searchRoom.data.roomData.room_id}`,
+            `${process.env.REACT_APP_API_SERVER}/room/enter/${searchRoom.data.roomData.room_id}`,
             {
                 roomId: searchRoom.data.roomData.room_id,
                 r_password: searchRoom.data.roomData.r_password,

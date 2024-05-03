@@ -25,7 +25,7 @@ const Modal = ({ type, closeModal }) => {
         const fetchRanking = async () => {
             try {
                 const response = await axios.get(
-                    `http://localhost:8080/api-server/rank`
+                    `${process.env.REACT_APP_API_SERVER}/rank`
                 );
                 setRanking(response.data);
             } catch (error) {
@@ -43,7 +43,7 @@ const Modal = ({ type, closeModal }) => {
         const fetchMyPage = async () => {
             try {
                 const response = await axios.get(
-                    `http://localhost:8080/api-server/auth/mypage`
+                    `${process.env.REACT_APP_API_SERVER}/auth/mypage`
                 );
                 setMyInfo(response.data);
                 console.log("서버에서 받은 유저 :: ", response.data);

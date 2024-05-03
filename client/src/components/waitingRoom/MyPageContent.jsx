@@ -53,7 +53,7 @@ const MyPageContent = ({ myInfo }) => {
             // 닉네임이 변경되었을 때만 요청을 보냄
             axios
                 .patch(
-                    "http://localhost:8080/api-server/auth/mypage/changeNickname",
+                    `${process.env.REACT_APP_API_SERVER}/auth/mypage/changeNickname`,
                     { nickname: newNickname }
                 )
                 .then((response) => {
