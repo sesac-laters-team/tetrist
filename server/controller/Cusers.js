@@ -134,6 +134,7 @@ exports.postLogin = async (req, res) => {
 
             if (isPasswordMatch) {
                 req.session.userId = findUserData.user_id;
+                console.log("req.session.userId ::: ", req.session.userId);
                 res.send({
                     result: true,
                     msg: "로그인 성공",
