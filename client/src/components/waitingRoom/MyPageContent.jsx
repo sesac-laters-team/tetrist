@@ -19,14 +19,10 @@ const ConfirmationModal = ({ isOpen, onClose, onConfirm }) => {
 
 const MyPageContent = ({ myInfo }) => {
     const [isModalOpen, setModalOpen] = useState(false);
-    // const [nickname, setNickname] = useState();
+    const [nickname, setNickname] = useState("");
+    const [isEditing, setIsEditing] = useState(false);
+    const inputRef = useRef(null);
     const userInfo = myInfo && myInfo.data;
-
-    // if (userInfo.nickname == nickname) {
-    //     alert("현재 닉네임과 변경 닉네임이 같습니다.");
-    // }
-
-    // console.log("마이페이지 정보 :: ", userInfo);
 
     const handleDeleteAccount = () => {
         setModalOpen(true); // 모달을 열어줌
@@ -42,17 +38,32 @@ const MyPageContent = ({ myInfo }) => {
         // 회원 탈퇴 로직 실행
     };
 
-    // 편집하기 btn
-    const changeNick = () => {
-        // useNick.disabled = false;
-        // console.log(changeNick);
-        // console.log("변경할 닉네임 :: ", userNick);
+    const handleEditNickname = () => {
+        setIsEditing(true);
     };
-    const storeNick = () => {
-        // const changeNick = axios.post(
-        //     "http://localhost:8080/api-server/auth/mypage/chageNickname",
-        //     { nickname: userNick }
-        // );
+
+    const handleSaveNickname = () => {
+        setIsEditing(false);
+        const newNickname = inputRef.current.value.trim();
+        if (newNickname === "") {
+            alert("닉네임은 공백일 수 없습니다.");
+            return;
+        }
+        if (newNickname !== nickname) {
+            // 닉네임이 변경되었을 때만 요청을 보냄
+            axios
+                .patch(
+                    "http://localhost:8080/api-server/auth/mypage/changeNickname",
+                    { nickname: newNickname }
+                )
+                .then((response) => {
+                    console.log("닉네임 변경 요청 성공", response);
+                    setNickname(newNickname);
+                })
+                .catch((error) => {
+                    console.error("닉네임 변경 요청 실패", error);
+                });
+        }
     };
 
     return (
@@ -65,29 +76,39 @@ const MyPageContent = ({ myInfo }) => {
                     alt="Avatar"
                 />
                 <div className="user-details">
-                    {/* <div className="username">닉</div> */}
                     <input
                         className="username"
                         type="text"
-                        value={userInfo && userInfo.nickname}
-                        // ref={userNick}
-                        // onChange={(e)=>setNickname(e.target.value)}
-                        disabled
-                    ></input>
-
-                    <button className="edit-button">편집하기</button>
-                    {/* <button className="edit-button" onClick={changeNick}>
-                        편집
-                    </button> */}
-                    <button className="edit-button">저장</button>
+                        defaultValue={userInfo && userInfo.nickname}
+                        readOnly={!isEditing}
+                        ref={inputRef}
+                    />
+                    {isEditing ? (
+                        <button
+                            className="edit-button"
+                            onClick={handleSaveNickname}
+                        >
+                            저장
+                        </button>
+                    ) : (
+                        <button
+                            className="edit-button"
+                            onClick={handleEditNickname}
+                        >
+                            편집하기
+                        </button>
+                    )}
                 </div>
             </div>
             <div className="user-status">
                 <div className="status-item">
-                    {/* <span className="status-title">전적:</span> */}
-                    <span className="status-title">
-                        포인트 : {userInfo && userInfo.point}
-                    </span>
+                    <div>
+                        <span className="status-title">포인트:</span>
+                        <span className="status-value">
+                            {userInfo && userInfo.point}
+                        </span>
+                    </div>
+                    <span className="status-title">전적:</span>
                     <span className="status-value">7승 2패 (승률 70%)</span>
                 </div>
             </div>
