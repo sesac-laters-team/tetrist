@@ -19,7 +19,7 @@ import { useOver } from "../../hooks/useOver";
 
 import io from "socket.io-client";
 
-const socket = io.connect("http://localhost:8082", {
+const socket = io.connect(`${process.env.REACT_APP_GAME_SERVER}`, {
     autoConnect: false,
 });
 

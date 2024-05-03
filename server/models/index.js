@@ -14,7 +14,7 @@ if (process.env.NODE_ENV) {
 const db = {};
 
 const sequelize = new Sequelize(
-    config.databse,
+    config.database,
     config.username,
     config.password,
     config
