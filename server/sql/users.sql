@@ -1,6 +1,5 @@
--- Active: 1707101283581@@127.0.0.1@3306@tetrist
 desc users;
-
+show tables;
 select * from users;
 
 INSERT INTO

@@ -26,7 +26,8 @@ export default function RoomList({ socket }) {
 
     async function getWaitingList() {
         try {
-            const res = await axios.get(`http://localhost:8080/api-server/rooms
+            const res =
+                await axios.get(`${process.env.REACT_APP_API_SERVER}/rooms
             `);
             console.log("getWaitingList :: ", res.data);
             // {room_id, r_name, r_password, r_status, user_id, guest_id}
@@ -52,7 +53,7 @@ export default function RoomList({ socket }) {
         // console.log("방 인덱스 :: ", room.room_id); // state에 저장되어 있는 방 전체 데이터
         // 서버에서 방 조회
         const searchRoom = await axios.get(
-            `http://localhost:8080/api-server/room/${room.room_id}`,
+            `${process.env.REACT_APP_API_SERVER}/room/${room.room_id}`,
             { roomId: room.room_id }
         );
         console.log("서버에서 보내는 방 데이터:: ", searchRoom.data);
