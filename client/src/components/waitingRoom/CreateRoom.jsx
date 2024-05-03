@@ -6,6 +6,7 @@ import TimerRadioGroup from "./TimerRadioGroup";
 import axios from "axios";
 import { create } from "../../redux/store/module/waiting";
 axios.defaults.withCredentials = true;
+
 export default function CreateRoom({ socket }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();

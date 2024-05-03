@@ -20,7 +20,7 @@ export function gameRoom(state = initialState, action) {
                     ...state.gameInfo,
                     {
                         room_id: action.payload.room_id,
-                        // guest_id: action.payload.guest_id,
+                        guest_id: action.payload.guest_id,
                         user_id: action.payload.user_id,
                         test: action.payload.test,
                     },

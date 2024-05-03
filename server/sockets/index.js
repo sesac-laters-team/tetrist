@@ -22,10 +22,13 @@ function socketHandler(server) {
 
         // 방 만들기
         socket.on("createRoom", (r_name, r_password, userId) => {
-            if (Object.values(users).includes(userId)) {
+            if (Object.values(rooms).includes(userId)) {
                 // [입장 실패]
                 // 아이디 하나 당 방 하나
-                socket.emit("err", "이미 존재하는 방입니다.");
+                socket.emit(
+                    "err",
+                    "방은 한 아이디 당 하나만 만들 수 있습니다."
+                );
             } else {
                 // [입장 성공]
                 // rooms에 방 정보 넣기
@@ -36,7 +39,7 @@ function socketHandler(server) {
                 };
 
                 console.log(
-                    `${userId}의 제목은 ${r_name}, 방 비밀번호는 ${r_password}.`
+                    `방장 ${userId}의 방제는 ${r_name}, 방 비밀번호는 ${r_password}.`
                 );
 
                 // // 모두에게 방 리스트 전달
@@ -51,11 +54,9 @@ function socketHandler(server) {
         });
 
         // 방에 참가하기
-        socket.on("joinRoom", (roomId, joinUser, userId) => {
+        socket.on("joinRoom", (roomId, userId) => {
             socket.join(`${roomId}`, () => {
-                console.log(
-                    `~~~~${userId}의 'state : ${roomId}, server: ${joinUser}' 방에 참가했습니다.`
-                );
+                console.log(`~~~~${userId}의  ${roomId} 번 방에 참가했습니다.`);
             });
         });
 

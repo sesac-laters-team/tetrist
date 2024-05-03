@@ -3,8 +3,8 @@ import { useDispatch } from "react-redux";
 import { registerUser } from "../../redux/store/module/authModule";
 import axios from "axios";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-
 axios.defaults.withCredentials = true;
+
 const RegisterModalContent = ({ closeModal }) => {
     const dispatch = useDispatch();
 

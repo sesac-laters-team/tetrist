@@ -186,10 +186,16 @@ exports.enterRoom = async (req, res) => {
                 res.send({
                     result: true,
                     guestId: req.session.userId,
+                    // 추가
+                    nickname: findRoom.nickname,
                 });
             } else {
                 // 방에 guest_id가 이미 존재
-                res.status(409).send({
+                // res.status(409).send({
+                //     result: false,
+                //     msg: "인원이 가득 찼습니다. 입장할 수 없습니다.",
+                // });
+                res.send({
                     result: false,
                     msg: "인원이 가득 찼습니다. 입장할 수 없습니다.",
                 });
@@ -210,16 +216,24 @@ exports.enterRoom = async (req, res) => {
                     });
                 } else {
                     // 방에 guest_id가 이미 존재
-                    res.status(409).send({
+                    // res.status(409).send({
+                    //     result: false,
+                    //     msg: "인원이 가득 찼습니다. 입장할 수 없습니다.",
+                    // });
+                    res.send({
                         result: false,
                         msg: "인원이 가득 찼습니다. 입장할 수 없습니다.",
                     });
                 }
             } else {
                 // 비밀번호 불일치
-                res.status(401).send({
+                // res.status(401).send({
+                //     result: false,
+                //     msg: "비밀번호가 일치하지 않습니다.",
+                // });
+                res.send({
                     result: false,
-                    msg: "비밀번호가 일치하지 않습니다.",
+                    msg: "인원이 가득 찼습니다. 입장할 수 없습니다.",
                 });
             }
         }

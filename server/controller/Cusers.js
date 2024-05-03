@@ -166,7 +166,7 @@ exports.logout = (req, res) => {
 
 // GET /api-server/auth/mypage
 exports.getOneUser = async (req, res) => {
-    console.log("마이페이지는 :: ", req.data);
+    console.log("서버 마이페이지 세션 id:: ", req.session.userId);
     if (!req.session.userId)
         return res
             .status(401)

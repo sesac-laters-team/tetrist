@@ -1,4 +1,3 @@
--- Active: 1714636836094@@sesac-db.c3gm8eikkttp.ap-northeast-2.rds.amazonaws.com@3306@tetris
 desc users;
 show tables;
 select * from users;

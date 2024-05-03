@@ -8,6 +8,7 @@ import axios from "axios";
 import { init } from "../../redux/store/module/waiting";
 import { createGame } from "../../redux/store/module/gameRoom";
 axios.defaults.withCredentials = true;
+
 export default function RoomList({ socket }) {
     const dispatch = useDispatch();
     const rooms = useSelector((state) => state.waiting.rooms);
@@ -29,7 +30,7 @@ export default function RoomList({ socket }) {
                 await axios.get(`${process.env.REACT_APP_API_SERVER}/rooms
             `);
             console.log("getWaitingList :: ", res.data);
-            // {room_id, r_name, r_password, r_status, user_id}
+            // {room_id, r_name, r_password, r_status, user_id, guest_id}
             if (res.data) {
                 // 서버에서 받아온 데이터를 rooms에 추가
                 dispatch(init(res.data));
@@ -49,29 +50,45 @@ export default function RoomList({ socket }) {
     }, []);
 
     const gameJoin = async (room) => {
-        console.log("방 인덱스 :: ", room.room_id); // state에 저장되어 있는 방 전체 데이터
-        const joinUser = await axios.get(
+        // console.log("방 인덱스 :: ", room.room_id); // state에 저장되어 있는 방 전체 데이터
+        // 서버에서 방 조회
+        const searchRoom = await axios.get(
             `${process.env.REACT_APP_API_SERVER}/room/${room.room_id}`,
             { roomId: room.room_id }
         );
-        // 유저 아이디, 닉네임 필요.. 혹시 테마 적용할 시 구매 이력도 필요
-        console.log("서버에서 보내는 값:: ", joinUser.data);
+        console.log("서버에서 보내는 방 데이터:: ", searchRoom.data);
 
-        // 차후에 dispatch로 r_state 관리 필요
+        // 서버에서 방 입장
+        const joinRoom = await axios.post(
+            `http://localhost:8080/api-server/room/enter/${searchRoom.data.roomData.room_id}`,
+            {
+                roomId: searchRoom.data.roomData.room_id,
+                r_password: searchRoom.data.roomData.r_password,
+            }
+        );
+        console.log("서버에서 보내는 방 참가 :: ", joinRoom.data);
+
+        if (!searchRoom.data.result) {
+            alert(`${searchRoom.data.msg}`);
+        } else if (!joinRoom.data.result) {
+            alert(`${joinRoom.data.msg}`);
+            return;
+        }
 
         socket.emit(
             "joinRoom",
-            room.room_id, // redux
-            joinUser.data.roomData.room_id,
-            joinUser.data.roomData.user_id
+            searchRoom.data.roomData.room_id, // {room_id, r_name, r_password, r_status, guest_id}
+            searchRoom.data.creatorData.user_id, // {user_id, email, password, nickname}
+            joinRoom.data.guest_id // guset_id
         );
-        console.log(`참여방 제목은 ${room.r_name}`);
+        console.log(`참여방 제목은 ${searchRoom.data.roomData.r_name}`);
 
         dispatch(
             createGame({
-                room_id: joinUser.room,
-                user_id: joinUser.creatorData,
+                room_id: searchRoom.data.roomData.room_id,
+                user_id: searchRoom.data.creatorData.user_id,
                 //guest_id 필요
+                guest_id: joinRoom.data.guest_id,
                 test: "확인",
             })
         );
