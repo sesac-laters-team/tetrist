@@ -12,14 +12,14 @@ router.get("/", mainCtr.index);
 /**
  * @swagger
  * paths:
- *  /api-server/patchPoint:
+ *  /api-server/matchResult:
  *    patch:
- *      summary: "유저 포인트 변경"
- *      description: " 1: 승리 시 승점 +, 0: 패배 시 승점 -"
+ *      summary: "게임 종료 후 승패 처리"
+ *      description: " 1: 승리 시, 0: 패배 시"
  *      tags: [rank]
  *      responses:
  *        "200":
- *          description: 게임 종료 후 승패에 따라 유저 포인트 변경
+ *          description: 게임 종료 후 승패에 따라 데이터 처리
  *          content:
  *            application/json:
  *              schema:
@@ -33,11 +33,11 @@ router.get("/", mainCtr.index);
  *                          [
  *{
     "result": true,
-    "msg": "포인트가 변경되었습니다."
+    "msg": "승리 유저 정보가 변경되었습니다."
 }
  *                          ]
  */
-router.patch("/patchPoint", mainCtr.patchPoint);
+router.patch("/matchResult", mainCtr.matchResult);
 
 /**
  * @swagger
