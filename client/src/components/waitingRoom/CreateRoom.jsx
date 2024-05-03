@@ -5,6 +5,7 @@ import TimerRadio from "./TimerRadio";
 import TimerRadioGroup from "./TimerRadioGroup";
 import axios from "axios";
 import { create } from "../../redux/store/module/waiting";
+import { createGame } from "../../redux/store/module/gameRoom";
 axios.defaults.withCredentials = true;
 
 export default function CreateRoom({ socket }) {
@@ -24,7 +25,7 @@ export default function CreateRoom({ socket }) {
             try {
                 // 서버에 새로운 방 정보를 추가하는 POST 요청
                 const res = await axios.post(
-                    `http://localhost:8080/api-server/room`,
+                    `${process.env.REACT_APP_API_SERVER}/room`,
                     {
                         r_name,
                         r_password,
@@ -37,7 +38,7 @@ export default function CreateRoom({ socket }) {
 
                 // 새로운 방 정보를 Redux store에 추가
                 dispatch(
-                    create({
+                    createGame({
                         r_name: r_name,
                         room_id: roomId,
                         user_id: userId,
@@ -71,7 +72,7 @@ export default function CreateRoom({ socket }) {
                 // }, []);
 
                 // 게임 페이지로 이동
-                navigate("/tetris");
+                navigate(`/waiting/${roomId}`);
             } catch (error) {
                 console.error("Error creating new room:", error);
             }

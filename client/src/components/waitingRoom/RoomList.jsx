@@ -93,7 +93,7 @@ export default function RoomList({ socket }) {
             })
         );
 
-        navigate("/tetris");
+        navigate(`/waiting/${room.room_id}`);
     };
 
     return (
