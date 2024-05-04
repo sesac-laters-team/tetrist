@@ -19,9 +19,11 @@ function tetrisSocketHandler(server) {
         // });
 
         // 방에 참가하기
-        socket.on("joinRoom", (roomId, userId) => {
-            socket.join(`${roomId}`, () => {
-                console.log(`~~~~${userId}의  ${roomId} 번 방에 참가했습니다.`);
+        socket.on("joinRoom", (roomId, userId, guestId) => {
+            socket.join(`room`, () => {
+                console.log(
+                    `~~~~${guestId}가 ${userId}의  ${roomId} 번 방에 참가했습니다.`
+                );
             });
         });
         // 상태정보 이벤트

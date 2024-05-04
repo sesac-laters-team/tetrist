@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 // 모듈 설치 필요
 import Pagination from "react-js-pagination";
 import axios from "axios";
-import { init } from "../../redux/store/module/waiting";
+import { init, join } from "../../redux/store/module/waiting";
 import { createGame } from "../../redux/store/module/gameRoom";
 axios.defaults.withCredentials = true;
 
@@ -77,21 +77,20 @@ export default function RoomList({ socket }) {
             return;
         }
 
-        // socket.emit(
-        //     "joinRoom",
-        //     searchRoom.data.roomData.room_id, // {room_id, r_name, r_password, r_status, guest_id}
-        //     searchRoom.data.creatorData.user_id, // {user_id, email, password, nickname}
-        //     joinRoom.data.guest_id // guset_id
-        // );
+        socket.emit(
+            "joinRoom",
+            searchRoom.data.roomData.room_id, // {room_id, r_name, r_password, r_status, guest_id}
+            searchRoom.data.creatorData.user_id, // {user_id, email, password, nickname}
+            joinRoom.data.guest_id // guset_id
+        );
         console.log(`참여방 제목은 ${searchRoom.data.roomData.r_name}`);
 
         dispatch(
-            create({
-                room_id: searchRoom.data.roomData.room_id,
+            join({
+                // room_id: searchRoom.data.roomData.room_id,
                 user_id: searchRoom.data.creatorData.user_id,
-                r_name: searchRoom.data.roomData.r_name,
+                // r_name: searchRoom.data.roomData.r_name,
                 guest_id: joinRoom.data.guest_id,
-                test: "확인",
             })
         );
 
