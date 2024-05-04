@@ -5,10 +5,16 @@ const initialState = {
 };
 
 const CREATE_GAME = "gameRoom/CREATE_GAME";
+const DELETE_GAME = "gameRoom/DELETE_GAME";
 
 export const createGame = (payload) => ({
     type: CREATE_GAME,
     payload, //{room_id, guest_id, user_id}
+});
+
+export const deleteGame = (payload) => ({
+    type: DELETE_GAME,
+    payload, // {user_id}
 });
 
 export function gameRoom(state = initialState, action) {
@@ -26,6 +32,10 @@ export function gameRoom(state = initialState, action) {
                         test: action.payload.test,
                     },
                 ],
+            };
+        case DELETE_GAME:
+            return {
+                ...state,
             };
         default:
             return state;
