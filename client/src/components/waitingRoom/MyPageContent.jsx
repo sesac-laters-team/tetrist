@@ -39,7 +39,7 @@ const MyPageContent = ({ myInfo }) => {
         // console.log("회원 탈퇴 처리됨");
         setModalOpen(false);
         // 회원 탈퇴 로직 실행
-        axios
+        const response = axios
             .delete(`${process.env.REACT_APP_API_SERVER}/auth/mypage/delete`)
             .then(alert(`${response.data.msg}`));
     };
