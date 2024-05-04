@@ -38,10 +38,10 @@ export default function CreateRoom({ socket }) {
 
                 // 새로운 방 정보를 Redux store에 추가
                 dispatch(
-                    createGame({
+                    create({
                         r_name: r_name,
-                        room_id: roomId,
-                        user_id: userId,
+                        r_password: r_password,
+                        userId: userId,
                     })
                 );
 

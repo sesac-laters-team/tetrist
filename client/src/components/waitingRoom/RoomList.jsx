@@ -84,12 +84,11 @@ export default function RoomList({ socket }) {
         console.log(`참여방 제목은 ${searchRoom.data.roomData.r_name}`);
 
         dispatch(
-            createGame({
+            create({
                 room_id: searchRoom.data.roomData.room_id,
                 user_id: searchRoom.data.creatorData.user_id,
-                //guest_id 필요
                 guest_id: joinRoom.data.guest_id,
-                test: "확인",
+                r_name: searchRoom.data.roomData.r_name,
             })
         );
 

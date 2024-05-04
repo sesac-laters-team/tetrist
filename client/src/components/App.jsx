@@ -21,6 +21,7 @@ import "../styles/rankingmodal.scss";
 import "../styles/ShopModal.scss";
 import "../styles/pagination.scss";
 import "../styles/font.scss";
+
 function App() {
     const dispatch = useDispatch();
     const isLoggedIn = useSelector((state) => state.auth.userData !== null);
@@ -43,13 +44,7 @@ function App() {
         }
     }, [dispatch]);
 
-    const games = useSelector((state) => state.gameRoom.gameInfo);
-
-    games.map((game) => {
-        console.log("방번호 : ", game.room_id); // 1 ,2 ,3
-        console.log("방장 : ", game.user_id); // 1, 1, 1
-        console.log("손님 : ", game.guest_id); // 1, 1, 1
-    });
+    const rooms = useSelector((state) => state.waiting.rooms);
 
     return (
         <Router>
@@ -70,16 +65,15 @@ function App() {
                             )
                         }
                     />
-                    {games.map((game) => (
+                    <Route
+                        path="/tetris"
+                        element={<GamePage owner={"nick1"} guest={"nick2"} />}
+                    />
+                    {rooms.map((room) => (
                         <Route
-                            key={game.room_id}
-                            path={`/waiting/${game.room_id}`}
-                            element={
-                                <GamePage
-                                    owner={game.user_id}
-                                    guest={game.guest_id}
-                                />
-                            }
+                            key={room.room_id}
+                            path={`/tetris/${room.room_id}`}
+                            element={<GamePage roomId={room.room_id} />}
                         />
                     ))}
                 </Routes>

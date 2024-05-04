@@ -1,5 +1,27 @@
 const initialState = {
-    rooms: [],
+    rooms: [
+        {
+            room_id: 100,
+            r_name: "아무나 들어오셈",
+            guest_id: null,
+            r_password: null,
+            userId: "nickname3",
+        },
+        {
+            room_id: 200,
+            r_name: "고수만",
+            guest_id: "guest",
+            r_password: null,
+            userId: "owner",
+        },
+        {
+            room_id: 300,
+            r_name: "담타",
+            guest_id: null,
+            r_password: null,
+            userId: "nickname6",
+        },
+    ],
 };
 
 let count = initialState.rooms.length;
@@ -37,6 +59,7 @@ export function waiting(state = initialState, action) {
                     {
                         room_id: state.nextID,
                         r_name: action.payload.r_name,
+                        guest_id: action.payload.guest_id,
                         r_password: action.payload.r_password, // 수정
                         userId: action.payload.user_id,
                     },
