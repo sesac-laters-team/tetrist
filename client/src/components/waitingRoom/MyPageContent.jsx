@@ -88,7 +88,7 @@ const MyPageContent = ({ myInfo }) => {
                             className="edit-button"
                             onClick={handleSaveNickname}
                         >
-                            저장
+                            저장하기
                         </button>
                     ) : (
                         <button
