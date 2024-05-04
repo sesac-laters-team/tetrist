@@ -52,12 +52,12 @@ export default function CreateRoom({ socket }) {
                     `방 번호 ${roomId}의 제목은 ${r_name} 인 방이 추가 되었습니다.`
                 );
 
-                socket.emit("createRoom", r_name, r_password, userId);
-                socket.on("err", (errMsg) => {
-                    alert(errMsg);
-                    setPwInput("");
-                    r_name = "";
-                });
+                // socket.emit("createRoom", r_name, r_password, userId);
+                // socket.on("err", (errMsg) => {
+                //     alert(errMsg);
+                //     setPwInput("");
+                //     r_name = "";
+                // });
 
                 // 게임 페이지로 이동
                 navigate(`/waiting/${roomId}`);

@@ -43,19 +43,21 @@ export default function RoomList({ socket }) {
         getWaitingList();
     }, [currentPage]);
 
-    useEffect(() => {
-        socket.on("newRoomList", (r_name) => {
-            console.log("룸 이름은 :: ", r_name);
-        });
-    }, []);
+    // useEffect(() => {
+    //     socket.on("newRoomList", (r_name) => {
+    //         console.log("룸 이름은 :: ", r_name);
+    //     });
+    // }, []);
 
     const gameJoin = async (room) => {
         // console.log("방 인덱스 :: ", room.room_id); // state에 저장되어 있는 방 전체 데이터
+
         // 서버에서 방 조회
         const searchRoom = await axios.get(
             `${process.env.REACT_APP_API_SERVER}/room/${room.room_id}`,
             { roomId: room.room_id }
         );
+
         console.log("서버에서 보내는 방 데이터:: ", searchRoom.data);
 
         // 서버에서 방 입장
@@ -75,12 +77,12 @@ export default function RoomList({ socket }) {
             return;
         }
 
-        socket.emit(
-            "joinRoom",
-            searchRoom.data.roomData.room_id, // {room_id, r_name, r_password, r_status, guest_id}
-            searchRoom.data.creatorData.user_id, // {user_id, email, password, nickname}
-            joinRoom.data.guest_id // guset_id
-        );
+        // socket.emit(
+        //     "joinRoom",
+        //     searchRoom.data.roomData.room_id, // {room_id, r_name, r_password, r_status, guest_id}
+        //     searchRoom.data.creatorData.user_id, // {user_id, email, password, nickname}
+        //     joinRoom.data.guest_id // guset_id
+        // );
         console.log(`참여방 제목은 ${searchRoom.data.roomData.r_name}`);
 
         dispatch(

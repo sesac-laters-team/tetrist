@@ -1,8 +1,6 @@
 export default function Speech({ chat }) {
     const isMyMessage = chat.type === "me"; // 'me'이면 자신의 메시지
 
-    console.log("chat nick :: ", chat.nickname);
-
     return (
         <div className={`speech ${isMyMessage ? "my-message" : ""}`}>
             {chat.type === "other" && (
