@@ -13,6 +13,7 @@ import {
 import LoginPage from "./page/LoginPage";
 import WaitingRoomPage from "./page/WaitingRoomPage";
 import GamePage from "./page/GamePage";
+import GameResult from "./page/GameResult";
 import "../styles/CreateRoommodal.scss";
 import "../styles/WaitingRoom.scss";
 import "../styles/menu-button.scss";
@@ -59,6 +60,7 @@ function App() {
                         path="/"
                         element={<Navigate replace to="/login" />}
                     />
+                    <Route path="/result" element={<GameResult />} />
                     <Route path="/login" element={<LoginPage />} />
                     <Route
                         path="/waiting"
@@ -75,14 +77,13 @@ function App() {
                             key={game.room_id}
                             path={`/waiting/${game.room_id}`}
                             element={
-                                <GamePage owner={game.user_id} guest={"nik"} />
+                                <GamePage
+                                    owner={game.user_id}
+                                    guest={game.guest_id}
+                                />
                             }
                         />
                     ))}
-                    <Route
-                        path={`/test`}
-                        element={<GamePage owner={"nik1"} guest={"nik"} />}
-                    />
                 </Routes>
             </div>
         </Router>

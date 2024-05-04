@@ -1,0 +1,85 @@
+.GameResult {
+    display: flex;
+    flex-direction: column; /* 콘텐츠를 세로로 배치 */
+    align-items: center; /* 수평으로 중앙 정렬 */
+    justify-content: center; /* 수직으로 중앙 정렬 */
+    min-height: 100vh; /* 전체 화면 높이를 차지 */
+    background-color: #f4f4f4; /* 밝은 배경색 */
+    text-align: center;
+
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+.GameResult h1 {
+    font-size: 2.5rem; /* 큰 폰트 크기 */
+    margin-bottom: 5px; /* 아래 여백 */
+}
+
+.GameResult p {
+    font-size: 1.2rem; /* 중간 폰트 크기 */
+    margin-bottom: 5px; /* 아래 여백 */
+}
+
+.GameResult img {
+    margin-bottom: 5px; /* 아래 여백 */
+    border: 2px solid #ccc; /* 이미지 테두리 */
+    border-radius: 10px; /* 이미지 모서리 둥글게 */
+    width: 80%; /* 반응형으로 이미지 너비를 %로 지정 */
+    max-width: 440px; /* 최대 너비 설정 */
+}
+
+.GameResult button {
+    position: relative;
+    padding: 10px 20px; /* 버튼 패딩 */
+    background-color: white; /* 버튼 배경색 */
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+    color: #333; /* 버튼 폰트 색상 */
+    border: 2px solid #333;
+    border-radius: 10px;
+    border-bottom: 2px solid #333;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.GameResult button:hover {
+    background-color: #0056b3; /* 호버시 배경색 변경 */
+}
+
+.falling-block {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    animation: fall 3s linear infinite;
+    top: -20px;
+    left: calc(50% - 10px);
+}
+
+/* 반응형 미디어 쿼리 */
+@media (max-width: 768px) {
+    .GameResult h1 {
+        font-size: 2rem; /* 작은 화면에서 폰트 크기 조정 */
+    }
+
+    .GameResult p {
+        font-size: 1rem; /* 작은 화면에서 폰트 크기 조정 */
+    }
+
+    .GameResult img {
+        width: 100%; /* 작은 화면에서 이미지 너비 조정 */
+        max-width: 300px; /* 작은 화면에서 최대 너비 조정 */
+    }
+
+    .GameResult button {
+        padding: 8px 16px; /* 작은 화면에서 버튼 패딩 조정 */
+    }
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(100vh);
+    }
+}
