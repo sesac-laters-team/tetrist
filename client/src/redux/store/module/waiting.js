@@ -18,17 +18,17 @@ export const init = (rooms) => ({
 
 export const create = (payload) => ({
     type: CREATE,
-    payload, // {room_id, r_name, r_password, userId}
+    payload, // {room_id, r_name, r_password, user_id}
 });
 
 export const del = (id) => ({
     type: DELETE,
-    id, // {userId}
+    id, // {user_id}
 });
 
 export const join = (payload) => ({
     type: JOIN,
-    payload, // {room_id, r_password, userId, guest_id, r_state}
+    payload, // {room_id, r_password, user_id, guest_id, r_state}
 });
 
 // 수정
@@ -60,7 +60,7 @@ export function waiting(state = initialState, action) {
                         r_name: action.payload.r_name,
                         // guest_id: action.payload.guest_id,
                         r_password: action.payload.r_password, // 수정
-                        userId: action.payload.user_id,
+                        user_id: action.payload.user_id,
                     },
                 ],
                 // nextID: state.nextID + 1,
@@ -69,7 +69,7 @@ export function waiting(state = initialState, action) {
             return {
                 ...state,
                 rooms: state.rooms.filter(
-                    (rooms) => rooms.userId !== rooms.action.payload.user_id
+                    (rooms) => rooms.user_id !== rooms.action.payload.user_id
                 ),
             };
 
@@ -93,12 +93,12 @@ export function waiting(state = initialState, action) {
                 ...state,
                 rooms: state.rooms.map((room) => {
                     if (
-                        room.room_id === action.payload.room_id &&
-                        room.r_password === action.payload.r_password
+                        room.room_id === action.payload.room_id
+                        // && room.r_password === action.payload.r_password
                     ) {
                         return {
                             ...room,
-                            userId: action.payload.user_id,
+                            // user_id: action.payload.user_id,
                             guest_id: action.payload.guest_id,
                             r_state: true,
                         };

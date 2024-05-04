@@ -5,14 +5,13 @@ import TimerRadio from "./TimerRadio";
 import TimerRadioGroup from "./TimerRadioGroup";
 import axios from "axios";
 import { create } from "../../redux/store/module/waiting";
-import { createGame } from "../../redux/store/module/gameRoom";
 axios.defaults.withCredentials = true;
 
 export default function CreateRoom({ socket }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [pwInput, setPwInput] = useState("");
-    const nextID = useSelector((state) => state.waiting.nextID);
+    // const nextID = useSelector((state) => state.waiting.nextID);
 
     const handleNewRoom = async (e) => {
         e.preventDefault();
@@ -43,7 +42,7 @@ export default function CreateRoom({ socket }) {
                     create({
                         r_name: r_name,
                         r_password: r_password,
-                        userId: userId,
+                        user_id: userId,
                         room_id: roomId,
                     })
                 );
