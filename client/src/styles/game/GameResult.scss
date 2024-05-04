@@ -1,4 +1,5 @@
 .GameResult {
+    position: relative; /* 컨테이너를 relative로 설정 */
     display: flex;
     flex-direction: column; /* 콘텐츠를 세로로 배치 */
     align-items: center; /* 수평으로 중앙 정렬 */
@@ -6,9 +7,7 @@
     min-height: 100vh; /* 전체 화면 높이를 차지 */
     background-color: #f4f4f4; /* 밝은 배경색 */
     text-align: center;
-
-    overflow-y: hidden;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 .GameResult h1 {
@@ -46,13 +45,22 @@
 }
 
 .falling-block {
-    position: absolute;
+    position: absolute; /* 내부 요소인 블록을 absolute로 설정 */
     width: 20px;
     height: 20px;
     background-color: red;
     animation: fall 3s linear infinite;
     top: -20px;
     left: calc(50% - 10px);
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(100vh);
+    }
 }
 
 /* 반응형 미디어 쿼리 */
@@ -72,14 +80,5 @@
 
     .GameResult button {
         padding: 8px 16px; /* 작은 화면에서 버튼 패딩 조정 */
-    }
-}
-
-@keyframes fall {
-    0% {
-        transform: translateY(0);
-    }
-    100% {
-        transform: translateY(100vh);
     }
 }
