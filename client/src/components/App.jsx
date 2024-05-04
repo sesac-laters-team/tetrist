@@ -75,13 +75,14 @@ function App() {
                             key={game.room_id}
                             path={`/waiting/${game.room_id}`}
                             element={
-                                <GamePage
-                                    owner={game.user_id}
-                                    guest={game.guest_id}
-                                />
+                                <GamePage owner={game.user_id} guest={"nik"} />
                             }
                         />
                     ))}
+                    <Route
+                        path={`/test`}
+                        element={<GamePage owner={"nik1"} guest={"nik"} />}
+                    />
                 </Routes>
             </div>
         </Router>

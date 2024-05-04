@@ -1,27 +1,44 @@
-.Board {
+/* 테트리스 보드 기본 스타일 */
+.Board,
+.Board-Other {
     position: absolute;
-    top: 10vh;
-    left: 1em;
     display: grid;
     grid-gap: 2px;
-    width: 25vw;
-    height: 45vw;
     background: rgb(64, 67, 66);
     border: 10px solid rgb(0, 0, 0);
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
+/* 기본 보드 스타일 */
+.Board {
+    top: 10vh;
+    left: 1em;
+    width: 20vw; /* 적절한 너비 */
+    height: 36vw; /* 적절한 높이 */
+}
+
+/* 상대방 보드 스타일 */
 .Board-Other {
-    position: absolute;
     top: 10vh;
     right: 1em;
-    display: grid;
-    grid-gap: 2px;
-    width: 25vw;
-    height: 45vw;
-    background: rgb(64, 67, 66);
-    border: 10px solid rgb(0, 0, 0);
-    border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    width: 20vw; /* 적절한 너비 */
+    height: 36vw; /* 적절한 높이 */
+}
+
+/* 반응형 스타일: 1000px 이하 */
+@media (max-width: 1024px) {
+    .Board {
+        top: 5vh;
+        left: 50%;
+        transform: translateX(-90%);
+        width: 36vw; /* 가로 크기를 조정 */
+        height: 51vw; /* 비율을 변경하여 높이 조정 */
+    }
+    .Board-Other {
+        top: 10vh;
+        right: 5%;
+        width: 20vw; /* 적절한 너비 */
+        height: 30vw; /* 적절한 높이 */
+    }
 }

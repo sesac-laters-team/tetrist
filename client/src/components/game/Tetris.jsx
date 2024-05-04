@@ -1,5 +1,5 @@
 import "../../styles/game/Tetris.css";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import Board from "./Board";
 import BoardOther from "./BoardOther";
@@ -28,9 +28,7 @@ const Tetris = ({ rows, columns, setGameOver, owner, guest }) => {
         if (!socket.connected) socket.connect();
     };
 
-    //
     const [over, setOver] = useOver();
-    //
     const [gameStats, addLinesCleared] = useGameStats();
     const [gameStatsOther, addLinesClearedOther] = useGameStatsOther();
 
@@ -53,6 +51,17 @@ const Tetris = ({ rows, columns, setGameOver, owner, guest }) => {
         addLinesClearedOther,
     });
 
+    const [isSmallScreen, setIsSmallScreen] = useState(
+        window.innerWidth <= 1024
+    );
+
+    useEffect(() => {
+        const handleResize = () => setIsSmallScreen(window.innerWidth <= 1024);
+        window.addEventListener("resize", handleResize);
+
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
     useEffect(() => {
         initSocketConnect();
         socket.emit("enter");
@@ -72,7 +81,6 @@ const Tetris = ({ rows, columns, setGameOver, owner, guest }) => {
     });
 
     useEffect(() => {
-        // 게임 종료시 guest 닉네임 전달, 게임종료 이벤트(패배시)
         if (over) {
             socket.emit("game_over_to_server", guest);
             setTimeout(() => {
@@ -81,7 +89,6 @@ const Tetris = ({ rows, columns, setGameOver, owner, guest }) => {
         }
     }, [over]);
 
-    // 게임 종료(승리시)
     socket.on("game_over_to_client", (msg) => {
         console.log(msg);
         setGameOver(true);
@@ -91,10 +98,9 @@ const Tetris = ({ rows, columns, setGameOver, owner, guest }) => {
     return (
         <div className="Tetris">
             <h2 className="me">{owner}</h2>
-            <h2 className="other">{guest}</h2>
+            {!isSmallScreen && <h2 className="other">{guest}</h2>}
             <Board board={board} />
             <GameStats gameStats={gameStats} />
-            <Previews tetrominoes={player.tetrominoes} />
             <GameController
                 board={board}
                 gameStats={gameStats}
@@ -104,8 +110,14 @@ const Tetris = ({ rows, columns, setGameOver, owner, guest }) => {
                 setOver={setOver}
             />
             <BoardOther board={boardOther} />
-            <GameStatsOther gameStats={gameStatsOther} />
-            <PreviewsOther tetrominoes={playerOther.tetrominoes} />
+            <Previews tetrominoes={player.tetrominoes} />
+            {!isSmallScreen && (
+                <>
+                    <GameStatsOther gameStats={gameStatsOther} />
+
+                    <PreviewsOther tetrominoes={playerOther.tetrominoes} />
+                </>
+            )}
         </div>
     );
 };
