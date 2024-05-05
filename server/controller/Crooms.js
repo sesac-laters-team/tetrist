@@ -69,13 +69,13 @@ exports.roomData = async (req, res) => {
                     user_id: room.guest_id,
                 },
             });
-            if (!guest) {
-                res.status(404).send({
-                    result: false,
-                    msg: "게스트 유저 정보를 찾을 수 없습니다.",
-                });
-                return;
-            }
+            // if (!guest) {
+            //     res.status(404).send({
+            //         result: false,
+            //         msg: "게스트 유저 정보를 찾을 수 없습니다.",
+            //     });
+            //     return;
+            // }
             res.status(200).send({
                 result: true,
                 roomData: room,

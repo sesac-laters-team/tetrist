@@ -2,45 +2,57 @@ import React, { useCallback, useEffect, useState } from "react";
 import Notice from "../chat/Notice";
 import Speech from "../chat/Speech";
 import "../../styles/chat/chat.scss";
+import axios from "axios";
+axios.defaults.withCredentials = true;
+
+async function getUserInfo() {
+    try {
+        const myInfo = await axios.get(
+            `http://localhost:8080/api-server/auth/mypage`
+        );
+        const userInfo = myInfo && myInfo.data;
+        console.log("userInfo >> ", userInfo.data.nickname);
+        return userInfo.data.nickname;
+    } catch (error) {
+        console.error("Error fetching user info:", error);
+        return null;
+    }
+}
 
 export default function WaitingChat({ socket }) {
-    const [user, setUser] = useState(null); // 현재 사용자의 ID (나중에 닉네임으로 변경 가능)
-    const [chatInput, setChatInput] = useState(""); // 사용자 입력
-    const [chatList, setChatList] = useState([]); // 채팅 목록
+    const [chatInput, setChatInput] = useState("");
+    const [chatList, setChatList] = useState([]); // {type, content, nickname}
+    const [userNickname, setUserNickname] = useState("");
 
-    // 서버로부터 채팅 관련 공지를 수신
+    // 현재 닉네임을 불러옴
     useEffect(() => {
-        const handleNotice = (notice) => {
-            setChatList((prevChatList) => [
-                ...prevChatList,
+        const fetchUserInfo = async () => {
+            const userInfo = await getUserInfo();
+            console.log("현재 아이디 >>> ", userInfo);
+            setUserNickname(userInfo);
+
+            socket.emit("userData", userInfo);
+        };
+
+        fetchUserInfo();
+    }, [socket]);
+
+    // notice
+    useEffect(() => {
+        socket.on("notice", (notice) => {
+            const newChatList = [
+                ...chatList,
                 {
                     type: notice.type,
                     content: notice.content,
-                    userid: notice.userid,
+                    nickname: notice.nickname,
                 },
-            ]);
-            setUser(notice.userid);
-        };
+            ];
 
-        socket.on("notice", handleNotice);
-        return () => {
-            socket.off("notice", handleNotice);
-        };
-    }, [socket]);
+            setChatList(newChatList);
+        });
+    }, [chatList]);
 
-    // 서버로부터 채팅 정보 수신 (사용자 ID 등)
-    useEffect(() => {
-        const handleChatInfo = (userid) => {
-            setUser(userid);
-        };
-
-        socket.on("chatInfo", handleChatInfo);
-        return () => {
-            socket.off("chatInfo", handleChatInfo);
-        };
-    }, [socket]);
-
-    // 채팅을 서버로 전송
     const handleSubmit = (e) => {
         e.preventDefault();
         if (chatInput.trim() === "") {
@@ -50,36 +62,29 @@ export default function WaitingChat({ socket }) {
 
         const sendChat = {
             chat: chatInput,
-            userid: user,
+            nickname: userNickname,
         };
         socket.emit("send", sendChat);
         setChatInput("");
     };
 
-    // 채팅 리스트에 채팅 추가
-    const addChatList = useCallback(
-        (chatContent) => {
-            const type = chatContent.userid === user ? "me" : "other";
-            const content = chatContent.chat;
-
-            setChatList((prevChatList) => [
-                ...prevChatList,
-                {
-                    type: type,
-                    content: content,
-                },
-            ]);
-        },
-        [user]
-    );
-
-    // 서버로부터 채팅 수신
     useEffect(() => {
-        socket.on("sendChat", addChatList);
-        return () => {
-            socket.off("sendChat", addChatList);
-        };
-    }, [addChatList]);
+        socket.on("sendChat", (data) => {
+            const userType = data.nickname === userNickname ? "me" : "other";
+            const userContent = data.chat;
+            const userNick = data.nickname;
+
+            const newChatList = [
+                ...chatList,
+                {
+                    type: userType,
+                    content: userContent,
+                    nickname: userNick,
+                },
+            ];
+            setChatList(newChatList);
+        });
+    });
 
     return (
         <>

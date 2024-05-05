@@ -13,6 +13,7 @@ import {
 import LoginPage from "./page/LoginPage";
 import WaitingRoomPage from "./page/WaitingRoomPage";
 import GamePage from "./page/GamePage";
+import GameResult from "./page/GameResult";
 import "../styles/CreateRoommodal.scss";
 import "../styles/WaitingRoom.scss";
 import "../styles/menu-button.scss";
@@ -44,7 +45,9 @@ function App() {
         }
     }, [dispatch]);
 
+
     const rooms = useSelector((state) => state.waiting.rooms);
+
 
     return (
         <Router>
@@ -54,6 +57,7 @@ function App() {
                         path="/"
                         element={<Navigate replace to="/login" />}
                     />
+                    <Route path="/result" element={<GameResult />} />
                     <Route path="/login" element={<LoginPage />} />
                     <Route
                         path="/waiting"

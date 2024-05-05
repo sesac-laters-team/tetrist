@@ -57,3 +57,15 @@
 .locked {
     background-color: black;
 }
+/* 반응형 스타일: 1000px 이하 */
+@media (max-width: 1024px) {
+    .BoardCell {
+        width: auto; /* 필요에 따라 크기 조정 */
+        height: auto; /* 필요에 따라 크기 조정 */
+    }
+
+    .tetromino {
+        width: auto; /* 필요에 따라 크기 조정 */
+        height: auto; /* 필요에 따라 크기 조정 */
+    }
+}

@@ -1,17 +1,17 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import TimerRadio from "./TimerRadio";
 import TimerRadioGroup from "./TimerRadioGroup";
 import axios from "axios";
 import { create } from "../../redux/store/module/waiting";
-import { createGame } from "../../redux/store/module/gameRoom";
 axios.defaults.withCredentials = true;
 
 export default function CreateRoom({ socket }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [pwInput, setPwInput] = useState("");
+    // const nextID = useSelector((state) => state.waiting.nextID);
 
     const handleNewRoom = async (e) => {
         e.preventDefault();
@@ -35,41 +35,28 @@ export default function CreateRoom({ socket }) {
                 // 방 정보, 방장 정보
                 const userId = res.data.userId;
                 const roomId = res.data.roomId;
+                console.log("방 아이디:: ", roomId);
 
                 // 새로운 방 정보를 Redux store에 추가
                 dispatch(
                     create({
                         r_name: r_name,
                         r_password: r_password,
-                        userId: userId,
+                        user_id: userId,
+                        room_id: roomId,
                     })
                 );
 
-                socket.emit("createRoom", r_name, r_password, userId);
-                socket.on("err", (errMsg) => {
-                    alert(errMsg);
-                    setPwInput("");
-                    r_name = "";
-                });
+                console.log(
+                    `방 번호 ${roomId}의 제목은 ${r_name} 인 방이 추가 되었습니다.`
+                );
 
-                // useEffect(() => {
-                //     // 새 방 만들기
-                //     socket.on("newRoomList", (r_name, r_status) => {
-                //         // {room_id, r_name, r_status, user_id}
-                //         dispatch(
-                //             create({
-                //                 r_name: r_name,
-                //                 room_id: nextID,
-                //                 user_id: Number(socket.id), // 임시로 socket.id로 받아 놓았음
-                //                 r_status: r_status,
-                //             })
-                //         );
-                //         console.log(`${r_name} 방 생성 완료`);
-
-                //         // 새로운 방 생성 시 서버에 추가
-                //         postWaitingList(r_name, r_status);
-                //     });
-                // }, []);
+                // socket.emit("createRoom", r_name, r_password, userId);
+                // socket.on("err", (errMsg) => {
+                //     alert(errMsg);
+                //     setPwInput("");
+                //     r_name = "";
+                // });
 
                 // 게임 페이지로 이동
                 navigate(`/waiting/${roomId}`);

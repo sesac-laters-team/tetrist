@@ -5,8 +5,7 @@ import { useNavigate } from "react-router-dom";
 // 모듈 설치 필요
 import Pagination from "react-js-pagination";
 import axios from "axios";
-import { init } from "../../redux/store/module/waiting";
-import { createGame } from "../../redux/store/module/gameRoom";
+import { init, join } from "../../redux/store/module/waiting";
 axios.defaults.withCredentials = true;
 
 export default function RoomList({ socket }) {
@@ -43,19 +42,21 @@ export default function RoomList({ socket }) {
         getWaitingList();
     }, [currentPage]);
 
-    useEffect(() => {
-        socket.on("newRoomList", (r_name) => {
-            console.log("룸 이름은 :: ", r_name);
-        });
-    }, []);
+    // useEffect(() => {
+    //     socket.on("newRoomList", (r_name) => {
+    //         console.log("룸 이름은 :: ", r_name);
+    //     });
+    // }, []);
 
     const gameJoin = async (room) => {
         // console.log("방 인덱스 :: ", room.room_id); // state에 저장되어 있는 방 전체 데이터
+
         // 서버에서 방 조회
         const searchRoom = await axios.get(
             `${process.env.REACT_APP_API_SERVER}/room/${room.room_id}`,
             { roomId: room.room_id }
         );
+
         console.log("서버에서 보내는 방 데이터:: ", searchRoom.data);
 
         // 서버에서 방 입장
@@ -66,7 +67,7 @@ export default function RoomList({ socket }) {
                 r_password: searchRoom.data.roomData.r_password,
             }
         );
-        console.log("서버에서 보내는 방 참가 :: ", joinRoom.data);
+        console.log("서버에서 보내는 방 참가 :: ", joinRoom.data.guestId);
 
         if (!searchRoom.data.result) {
             alert(`${searchRoom.data.msg}`);
@@ -78,17 +79,19 @@ export default function RoomList({ socket }) {
         socket.emit(
             "joinRoom",
             searchRoom.data.roomData.room_id, // {room_id, r_name, r_password, r_status, guest_id}
-            searchRoom.data.creatorData.user_id, // {user_id, email, password, nickname}
-            joinRoom.data.guest_id // guset_id
+            searchRoom.data.roomData.user_id, // {user_id, email, password, nickname}
+            joinRoom.data.guestId // guset_id
         );
-        console.log(`참여방 제목은 ${searchRoom.data.roomData.r_name}`);
+        console.log(
+            `참여방 제목은 ${searchRoom.data.roomData.r_name}, 방장은 ${searchRoom.data.roomData.user_id}, 게스트는 ${joinRoom.data.guestId}`
+        );
 
         dispatch(
-            create({
+            join({
                 room_id: searchRoom.data.roomData.room_id,
-                user_id: searchRoom.data.creatorData.user_id,
-                guest_id: joinRoom.data.guest_id,
-                r_name: searchRoom.data.roomData.r_name,
+                // user_id: searchRoom.data.creatorData.user_id,
+                // r_name: searchRoom.data.roomData.r_name,
+                guest_id: joinRoom.data.guestId,
             })
         );
 

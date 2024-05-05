@@ -1,7 +1,7 @@
 .Preview {
     position: absolute;
     top: 0;
-    left: 28em;
+    left: 28%;
     background: rgb(64, 67, 66);
     border: 10px solid rgba(0, 0, 0, 0);
     border-radius: 10px;
@@ -10,7 +10,7 @@
 .Preview-me {
     position: absolute;
     top: 0;
-    left: 28em;
+    left: 28%;
     background: rgb(64, 67, 66);
     border: 10px solid rgba(0, 0, 0, 0);
     border-radius: 10px;
@@ -19,7 +19,7 @@
 .Preview-other {
     position: absolute;
     top: 0;
-    right: 28em;
+    right: 28%;
     background: rgb(64, 67, 66);
     border: 10px solid rgba(0, 0, 0, 0);
     border-radius: 10px;
@@ -32,4 +32,10 @@
     grid-template-columns: repeat(4, 1fr);
     width: 5vw;
     height: 5vw;
+}
+@media (max-width: 1024px) {
+    .Preview-me {
+        top: 1vh; /* 게임 보드 위로 이동 */
+        left: 60%;
+    }
 }

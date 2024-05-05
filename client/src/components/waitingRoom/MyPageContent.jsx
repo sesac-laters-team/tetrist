@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import axios from "axios";
+import { Navigate } from "react-router-dom";
 
 // 사용자 정의 모달 컴포넌트
 const ConfirmationModal = ({ isOpen, onClose, onConfirm }) => {
@@ -21,6 +22,8 @@ const MyPageContent = ({ myInfo }) => {
     const [isModalOpen, setModalOpen] = useState(false);
     const [nickname, setNickname] = useState("");
     const [isEditing, setIsEditing] = useState(false);
+    const [isChangePwVisible, setIsChangePwVisible] = useState(false);
+    const [newPassword, setNewPassword] = useState("");
     const inputRef = useRef(null);
     const userInfo = myInfo && myInfo.data;
 
@@ -33,9 +36,12 @@ const MyPageContent = ({ myInfo }) => {
     };
 
     const handleConfirmDelete = () => {
-        console.log("회원 탈퇴 처리됨");
+        // console.log("회원 탈퇴 처리됨");
         setModalOpen(false);
         // 회원 탈퇴 로직 실행
+        const response = axios
+            .delete(`${process.env.REACT_APP_API_SERVER}/auth/mypage/delete`)
+            .then(alert(`${response.data.msg}`));
     };
 
     const handleEditNickname = () => {
@@ -66,6 +72,42 @@ const MyPageContent = ({ myInfo }) => {
         }
     };
 
+    const handleChangePw = () => {
+        setIsChangePwVisible(true); // 새 비밀번호 입력 필드를 보이도록 설정
+    };
+
+    const handleSendNewPw = () => {
+        if (newPassword === "") {
+            alert("비밀번호는 공백일 수 없습니다.");
+        }
+        axios
+            .patch(
+                `${process.env.REACT_APP_API_SERVER}/auth/mypage/changePassword`,
+                { password: newPassword }
+            )
+            .then((response) => {
+                console.log("닉네임 변경 요청 성공", response);
+                setNickname(newPassword);
+                setIsChangePwVisible(false);
+                alert(`${response.data.msg}`);
+            })
+            .catch((error) => {
+                console.error("닉네임 변경 요청 실패", error);
+            });
+    };
+
+    const handleNewPasswordChange = (event) => {
+        const newValue = event.target.value;
+        // 입력된 값에 공백이 포함되어 있는지 확인
+        if (newValue.includes(" ")) {
+            // 공백이 포함되어 있으면 알림 창을 띄움
+            alert("비밀번호에는 공백을 포함할 수 없습니다.");
+        } else {
+            // 공백이 없으면 상태 업데이트
+            setNewPassword(newValue);
+        }
+    };
+
     return (
         <div className="mypage-container">
             <div className="mypage-title">마이페이지</div>
@@ -88,14 +130,14 @@ const MyPageContent = ({ myInfo }) => {
                             className="edit-button"
                             onClick={handleSaveNickname}
                         >
-                            저장
+                            저장하기
                         </button>
                     ) : (
                         <button
                             className="edit-button"
                             onClick={handleEditNickname}
                         >
-                            편집하기
+                            편집
                         </button>
                     )}
                 </div>
@@ -112,8 +154,23 @@ const MyPageContent = ({ myInfo }) => {
                     <span className="status-value">7승 2패 (승률 70%)</span>
                 </div>
             </div>
+            {isChangePwVisible && (
+                <div>
+                    <br />
+                    새 비밀번호 :
+                    <input
+                        type="password"
+                        className="chagnePwInput"
+                        value={newPassword}
+                        onChange={handleNewPasswordChange}
+                    />
+                    <button onClick={handleSendNewPw}>변경</button>
+                </div>
+            )}
             <div className="user-actions">
-                <button className="action-button">비밀번호 변경</button>
+                <button className="action-button" onClick={handleChangePw}>
+                    비밀번호 변경
+                </button>
                 <button className="action-button" onClick={handleDeleteAccount}>
                     회원탈퇴
                 </button>

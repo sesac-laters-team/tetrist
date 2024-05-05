@@ -21,10 +21,8 @@ import { socket } from "./Game";
 const Tetris = ({ rows, columns, setGameOver }) => {
     const [gameStats, addLinesCleared] = useGameStats();
     const [gameStatsOther, addLinesClearedOther] = useGameStatsOther();
-
     const [player, setPlayer, resetPlayer] = usePlayer();
     const [playerOther, setPlayerOther, resetPlayerOther] = usePlayerOther();
-
     const [board, setBoard] = useBoard({
         rows,
         columns,
@@ -32,7 +30,6 @@ const Tetris = ({ rows, columns, setGameOver }) => {
         resetPlayer,
         addLinesCleared,
     });
-
     const [boardOther, setBoardOther] = useBoardOther({
         rows,
         columns,
@@ -40,17 +37,24 @@ const Tetris = ({ rows, columns, setGameOver }) => {
         resetPlayerOther,
         addLinesClearedOther,
     });
+    const [isSmallScreen, setIsSmallScreen] = useState(
+        window.innerWidth <= 1024
+    );
+
+    const [resultMessage, setResultMessage] = useState(null); // 게임 결과 메시지 상태
+
+    useEffect(() => {
+        const handleResize = () => setIsSmallScreen(window.innerWidth <= 1024);
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
     // 상대와 나의 종료 조건 비교를 위한 상태
     // const [over, setOver] = useState(false);
 
     // 내 게임 상태 변경시 서버에 상태 전달
     useEffect(() => {
-        socket.emit("send_states_to_server", {
-            gameStats,
-            player,
-            board,
-        });
+        socket.emit("send_states_to_server", { gameStats, player, board });
     }, [player, board, gameStats]);
 
     socket.on("send_states_to_client", (object) => {
@@ -58,40 +62,12 @@ const Tetris = ({ rows, columns, setGameOver }) => {
         setPlayerOther(object.player);
     });
 
-    // useEffect(() => {
-    //     // 게임 종료시 guest 닉네임 전달, 게임종료 이벤트(패배시)
-    //     if (over) {
-    //         socket.emit("game_over_to_server", guest);
-    //         setTimeout(() => {
-    //             socket.disconnect();
-    //         }, 500);
-    //     }
-    // }, [over]);
-
-    // 게임 종료(승리시)
-    // socket.on("game_over_to_client", () => {
-    //     setGameOver(true);
-    //     socket.disconnect();
-    // });
-
-    // 소켓 연결 해제시(강제종료)
-    // socket.on("player_disconnect", () => {
-    //     // console.log("승자는 ?? ::", owner);
-    //     setMsg(`승리 ::: ${owner}`);
-
-    //     setTimeout(() => {
-    //         setGameOver(true);
-    //         socket.disconnect();
-    //     }, 2000);
-    // });
-
     return (
         <div className="Tetris">
-            <h2 className="me"></h2>
-            <h2 className="other"></h2>
+            <h2 className="me">me</h2>
+            {!isSmallScreen && <h2 className="other">guest</h2>}
             <Board board={board} />
             <GameStats gameStats={gameStats} />
-            <Previews tetrominoes={player.tetrominoes} />
             <GameController
                 board={board}
                 gameStats={gameStats}
@@ -100,10 +76,27 @@ const Tetris = ({ rows, columns, setGameOver }) => {
                 setGameOver={setGameOver}
             />
             <BoardOther board={boardOther} />
-            <GameStatsOther gameStats={gameStatsOther} />
-            <PreviewsOther tetrominoes={playerOther.tetrominoes} />
+            <Previews tetrominoes={player.tetrominoes} />
+            {!isSmallScreen && (
+                <>
+                    <GameStatsOther gameStats={gameStatsOther} />
+                    <PreviewsOther tetrominoes={playerOther.tetrominoes} />
+                </>
+            )}
+            {resultMessage && <Modal>{resultMessage}</Modal>}{" "}
+            {/* 결과 모달 표시 */}
         </div>
     );
 };
 
 export default Tetris;
+
+// 모달 컴포넌트
+const Modal = ({ children }) => (
+    <div className="modal">
+        <div className="modal-content">
+            <h2>{children}</h2>
+            <button onClick={() => window.location.reload()}>OK</button>
+        </div>
+    </div>
+);
