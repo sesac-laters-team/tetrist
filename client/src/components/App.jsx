@@ -74,6 +74,14 @@ function App() {
                             element={<GamePage roomId={room.room_id} />}
                         />
                     ))}
+                    <Route
+                        path={`/test/wait`}
+                        element={<GamePage roomId={200} />}
+                    />
+                    <Route
+                        path={`/test/start`}
+                        element={<GamePage roomId={100} />}
+                    />
                 </Routes>
             </div>
         </Router>

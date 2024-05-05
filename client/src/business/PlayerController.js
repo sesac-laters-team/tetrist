@@ -76,6 +76,7 @@ const attemptMovement = ({
 
     if (action === Action.FastDrop) {
         isFastDropping = true;
+        delta.row += 1;
     } else if (action === Action.SlowDrop) {
         delta.row += 1;
     } else if (action === Action.Left) {

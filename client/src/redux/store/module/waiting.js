@@ -3,9 +3,9 @@ const initialState = {
         {
             room_id: 100,
             r_name: "아무나 들어오셈",
-            guest_id: null,
+            guest_id: "guest",
             r_password: null,
-            user_id: "nickname3",
+            user_id: "owner",
         },
         {
             room_id: 200,
@@ -13,13 +13,6 @@ const initialState = {
             guest_id: null,
             r_password: null,
             user_id: "owner",
-        },
-        {
-            room_id: 300,
-            r_name: "담타",
-            guest_id: null,
-            r_password: null,
-            user_id: "nickname6",
         },
     ],
 };
