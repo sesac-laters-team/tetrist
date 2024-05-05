@@ -45,9 +45,7 @@ function App() {
         }
     }, [dispatch]);
 
-
     const rooms = useSelector((state) => state.waiting.rooms);
-
 
     return (
         <Router>
@@ -69,14 +67,10 @@ function App() {
                             )
                         }
                     />
-                    <Route
-                        path="/tetris"
-                        element={<GamePage owner={"nick1"} guest={"nick2"} />}
-                    />
                     {rooms.map((room) => (
                         <Route
                             key={room.room_id}
-                            path={`/tetris/${room.room_id}`}
+                            path={`/waiting/${room.room_id}`}
                             element={<GamePage roomId={room.room_id} />}
                         />
                     ))}

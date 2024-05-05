@@ -141,7 +141,8 @@ router.get("/rooms", roomCtr.roomsList);
 }
  *                          ]
  */
-router.post("/room", checkAuth, userInRoom, roomCtr.postRoom);
+// router.post("/room", checkAuth, userInRoom, roomCtr.postRoom);
+router.post("/room", roomCtr.postRoom);
 
 /**
  * @swagger
@@ -267,7 +268,8 @@ router.get("/room/:roomId", roomCtr.roomData);
 }
  *                          ]
  */
-router.post("/room/enter/:roomId", checkAuth, userInRoom, roomCtr.enterRoom);
+// router.post("/room/enter/:roomId", checkAuth, userInRoom, roomCtr.enterRoom);
+router.post("/room/enter/:roomId", roomCtr.enterRoom);
 
 /**
  * @swagger
