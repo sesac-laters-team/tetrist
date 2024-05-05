@@ -21,9 +21,7 @@ const Game = ({ rows, columns, roomId }) => {
     // store에서 방정보 불러오기
     const rooms = useSelector((state) => state.waiting.rooms);
     const [gameOver, setGameOver, resetGameOver] = useGameOver();
-
     const [winner, setWinner] = useState(null);
-
     useEffect(() => {
         initSocketConnect();
     }, []);
@@ -33,21 +31,22 @@ const Game = ({ rows, columns, roomId }) => {
         if (rooms.length > 0) {
             // 방 정보 설정
             setRoom(rooms.filter((room) => room.room_id === roomId));
-
             // 게임 시작 초기화
             resetGameOver();
+            console.log("rooms ::: ", rooms);
         }
     }, [rooms]);
 
     // 입장 이벤트 전달
     useEffect(() => {
         if (room.length > 0) {
-            socket.emit("game_enter", room[0].userId);
+            socket.emit("game_enter", room[0].user_id);
             // 승리시 전달받는 이벤트
             socket.on("game_over_to_client", () => {
-                setWinner(room[0].userId);
+                setWinner(room[0].user_id);
                 setGameOver(true);
             });
+            console.log(room[0].guest_id);
         }
     }, [room]);
 

@@ -44,6 +44,7 @@ export default function CreateRoom({ socket }) {
                         r_password: r_password,
                         user_id: userId,
                         room_id: roomId,
+                        guest_id: null,
                     })
                 );
 
