@@ -10,6 +10,7 @@ axios.defaults.withCredentials = true;
 const Modal = ({ type, closeModal }) => {
     const [ranking, setRanking] = useState(null);
     const [myInfo, setMyInfo] = useState(null);
+    const [shopList, setShopList] = useState(null);
 
     const closeModalOnRegister = () => {
         if (
@@ -57,6 +58,25 @@ const Modal = ({ type, closeModal }) => {
         }
     }, [type]);
 
+    // shop
+    useEffect(() => {
+        const fetchShop = async () => {
+            try {
+                const response = await axios.get(
+                    `${process.env.REACT_APP_API_SERVER}/shop`
+                );
+                setShopList(response.data);
+                // console.log("서버에서 받은 shop :: ", response.data);
+            } catch (error) {
+                console.error("정보를 불러오는 중 오류가 발생했습니다:", error);
+            }
+        };
+
+        if (type === "Shop") {
+            fetchShop();
+        }
+    }, [type]);
+
     const renderModalContent = () => {
         switch (type) {
             case "Rank":
@@ -69,7 +89,7 @@ const Modal = ({ type, closeModal }) => {
                 return <MyPageContent myInfo={myInfo} />;
             case "Shop":
                 // 상점 컴포넌트를 렌더링
-                return <ShopModalContent />;
+                return <ShopModalContent shopList={shopList} />;
 
             case "Register":
                 return <RegisterModalContent closeModal={closeModal} />;
