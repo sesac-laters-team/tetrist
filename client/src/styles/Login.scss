@@ -6,6 +6,16 @@ body {
         display: flex;
         justify-content: center;
         align-items: center;
+        background-image: url("../../public/tetris.png");
+
+        /* 배경을 화면의 중앙에 배치 */
+        background-position: center;
+
+        /* 이미지를 반복하지 않음 */
+        background-repeat: no-repeat;
+
+        /* 이미지 크기를 화면에 꽉 채우도록 설정 */
+        background-size: cover;
         .contentWrap {
             height: 300px;
             background: #ffffff;
