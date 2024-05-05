@@ -29,7 +29,7 @@ const GameResult = () => {
             setTimeout(() => block.remove(), 3000);
         };
 
-        const interval = setInterval(createFallingBlock, 300);
+        const interval = setInterval(createFallingBlock, 30);
 
         return () => clearInterval(interval);
     }, []);
