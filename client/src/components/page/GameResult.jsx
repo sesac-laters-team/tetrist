@@ -7,7 +7,7 @@ const GameResult = () => {
     const navigate = useNavigate();
     const {
         winner = "unknown",
-        owner = "true",
+        owner = "unknown",
         guest = "unknown",
     } = location.state || {};
     const winnerImage = "/tetris_winner.png";

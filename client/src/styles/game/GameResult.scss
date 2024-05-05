@@ -93,13 +93,23 @@
 
 .rain-drop {
     position: absolute;
-    width: 1.2px; /* 비의 너비 */
+    width: 1.3px; /* 비의 너비 */
     height: 30px; /* 비의 굵기 */
-    background-color: #66ccff;
+    background-color: #aaf;
     animation: rain-fall 2s linear infinite;
     top: -100px; /* 비의 시작 위치를 화면 상단으로 설정 */
 }
-
+.cloud {
+    position: absolute;
+    width: 200px; /* 구름의 너비 */
+    height: 100px; /* 구름의 높이 */
+    background-color: #f0f0f0; /* 구름 색상 */
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; /* 타원형 모양 */
+    left: 50%; /* 화면 중앙에 위치 */
+    transform: translateX(-50%);
+    top: 50px; /* 화면 상단에서 내린 위치 */
+    box-shadow: 0 20px 20px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+}
 @keyframes rain-fall {
     0% {
         transform: translateY(-20px);
