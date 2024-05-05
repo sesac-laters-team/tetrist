@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import RoomList from "../waitingRoom/RoomList";
 import io from "socket.io-client";
@@ -6,10 +6,12 @@ import CreateRoom from "../waitingRoom/CreateRoom";
 import Menubar from "../waitingRoom/Menubar";
 import WaitingChat from "../chat/WaitingChat";
 
+// 기존 소켓 연결 유지
 const socket = io.connect(`${process.env.REACT_APP_CHAT_SERVER}`, {
     autoConnect: false,
 });
 
+// 테트리스 블록 모양 및 색상 기능 추가
 function getTetrisShapes() {
     return {
         I: [[1, 1, 1, 1]],
@@ -73,14 +75,11 @@ function createTetrisBlock() {
         "indigo",
         "aqua",
     ];
-    // 배열에서 무작위 색상 선택
     const color = colors[Math.floor(Math.random() * colors.length)];
 
-    // 그리드의 행과 열 수 계산
     const rows = shape.length;
     const cols = shape[0].length;
 
-    // 그리드 레이아웃 설정
     block.style.gridTemplateColumns = `repeat(${cols}, 30px)`;
     block.style.gridTemplateRows = `repeat(${rows}, 30px)`;
 
@@ -122,6 +121,7 @@ function addFallingBlock() {
         block.remove();
     });
 }
+
 export default function WaitingRoomPage() {
     useEffect(() => {
         const interval = setInterval(addFallingBlock, 1000);
@@ -142,51 +142,49 @@ export default function WaitingRoomPage() {
     const outside = useRef();
 
     return (
-        <div className="container">
-            {/* 테트리스 블록이 여기에서 가려지도록 합니다 */}
-            <div className="waiting-room">
-                <div className="logo-and-menubar">
-                    <div className="logoImg">TETRIST</div>
-                    <Menubar socket={socket} />
-                </div>
-                <br />
-                <div className="ListTitle">
-                    <span className="roomListTitle">방 목록</span>
-                    <button
-                        onClick={() => setCreateModal(true)}
-                        className="btnRoom btnPush btnJoin"
-                    >
-                        방 만들기
-                    </button>
-                </div>
-
-                <RoomList socket={socket} />
-
-                <div>
-                    <WaitingChat socket={socket}></WaitingChat>
-                </div>
-
-                {createModal && (
-                    <div
-                        className="modal-outside"
-                        ref={outside}
-                        onClick={(e) => {
-                            if (e.target === outside.current) {
-                                setCreateModal(false);
-                            }
-                        }}
-                    >
-                        <div className="create-modal">
-                            {createModal === true ? (
-                                <CreateRoom
-                                    socket={socket}
-                                    setCreateModal={setCreateModal}
-                                />
-                            ) : null}
-                        </div>
-                    </div>
-                )}
+        <div className="waiting-room">
+            <div className="logo-and-menubar">
+                <div className="logoImg">TETRIST</div>
+                <Menubar socket={socket} />
             </div>
+            <br />
+
+            <div className="ListTitle">
+                <span className="roomListTitle">방 목록</span>
+                <button
+                    onClick={() => setCreateModal(true)}
+                    className="btnRoom btnPush btnJoin"
+                >
+                    방 만들기
+                </button>
+            </div>
+
+            <RoomList socket={socket} />
+
+            <div>
+                <WaitingChat socket={socket}></WaitingChat>
+            </div>
+
+            {createModal && (
+                <div
+                    className="modal-outside"
+                    ref={outside}
+                    onClick={(e) => {
+                        if (e.target === outside.current) {
+                            setCreateModal(false);
+                        }
+                    }}
+                >
+                    <div className="create-modal">
+                        {createModal === true ? (
+                            <CreateRoom
+                                socket={socket}
+                                setCreateModal={setCreateModal}
+                            />
+                        ) : null}
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

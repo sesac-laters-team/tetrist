@@ -207,7 +207,7 @@
     display: grid;
     grid-template-columns: repeat(4, 30px);
     gap: 2px;
-    z-index: 0; /* 부모 요소에 의해 가려지도록 */
+    z-index: -1; /* 부모 요소에 의해 가려지도록 */
     animation: fall linear forwards;
 }
 
