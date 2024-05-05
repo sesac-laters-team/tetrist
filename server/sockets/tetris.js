@@ -9,14 +9,13 @@ function tetrisSocketHandler(server) {
     });
 
     io.on("connection", (socket) => {
-        console.log("클라이언트 아이디 ::: ", socket.id);
         // 입장 이벤트
-        // socket.on("enter", () => {
-        //     socket.join("room");
-        //     // 콘솔 확인용 룸정보
-        //     const roomInfo = io.sockets.adapter.rooms.get("room");
-        //     console.log("roomInfo ::: ", roomInfo);
-        // });
+        socket.on("game_enter", (creator) => {
+            socket.join("game");
+            // 콘솔 확인용 룸정보
+            const gameInfo = io.sockets.adapter.rooms.get("game");
+            console.log("gameInfo ::: ", gameInfo);
+            console.log(`${creator}가 게임 생성`);
 
         // 방에 참가하기
         socket.on("joinRoom", (roomId, userId, guestId) => {
@@ -25,21 +24,22 @@ function tetrisSocketHandler(server) {
                     `~~~~${guestId}가 ${userId}의  ${roomId} 번 방에 참가했습니다.`
                 );
             });
+
         });
         // 상태정보 이벤트
         socket.on("send_states_to_server", (object) => {
             // 상태정보 전달 이벤트
-            socket.to("room").emit("send_states_to_client", object);
+            socket.to("game").emit("send_states_to_client", object);
         });
         // 게임종료 이벤트
-        socket.on("game_over_to_server", (guest) => {
-            console.log(guest);
-
-            socket.to("room").emit("game_over_to_client", "you win");
+        socket.on("game_over_to_server", () => {
+            console.log("게임종료");
+            socket.to("game").emit("game_over_to_client");
         });
 
         socket.on("disconnect", () => {
-            console.log(`${socket.id} ::: disconnect`);
+            // console.log(`${socket.id} ::: disconnect`);
+            // socket.to("game").emit("player_disconnect");
         });
     });
 }

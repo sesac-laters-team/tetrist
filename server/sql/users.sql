@@ -1,4 +1,6 @@
+-- Active: 1707101283311@@127.0.0.1@3306@tetris
 desc users;
+
 show tables;
 select * from users;
 

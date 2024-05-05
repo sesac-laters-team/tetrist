@@ -1,6 +1,7 @@
 import { isWithinBoard, hasCollision } from "./Board";
 import { rotate } from "./Tetrominoes";
 import { Action } from "./Input";
+import { socket } from "../components/game/Game";
 
 // 블록 회전 시도 함수
 // 내부 유효성 검사 후 player 객체 or false 반환
@@ -94,10 +95,8 @@ const attemptMovement = ({
     const isGameOver = collided && player.position.row === 0;
 
     if (isGameOver) {
-        setOver(isGameOver);
-        setTimeout(() => {
-            setGameOver(isGameOver);
-        }, 500);
+        socket.emit("game_over_to_server");
+        setGameOver(isGameOver);
     }
 
     setPlayer({
