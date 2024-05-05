@@ -11,11 +11,20 @@ function tetrisSocketHandler(server) {
     io.on("connection", (socket) => {
         console.log("클라이언트 아이디 ::: ", socket.id);
         // 입장 이벤트
-        socket.on("enter", () => {
-            socket.join("room");
-            // 콘솔 확인용 룸정보
-            const roomInfo = io.sockets.adapter.rooms.get("room");
-            console.log("roomInfo ::: ", roomInfo);
+        // socket.on("enter", () => {
+        //     socket.join("room");
+        //     // 콘솔 확인용 룸정보
+        //     const roomInfo = io.sockets.adapter.rooms.get("room");
+        //     console.log("roomInfo ::: ", roomInfo);
+        // });
+
+        // 방에 참가하기
+        socket.on("joinRoom", (roomId, userId, guestId) => {
+            socket.join(`room`, () => {
+                console.log(
+                    `~~~~${guestId}가 ${userId}의  ${roomId} 번 방에 참가했습니다.`
+                );
+            });
         });
         // 상태정보 이벤트
         socket.on("send_states_to_server", (object) => {

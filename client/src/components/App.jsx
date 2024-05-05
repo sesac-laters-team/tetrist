@@ -43,7 +43,8 @@ function App() {
         }
     }, [dispatch]);
 
-    const games = useSelector((state) => state.gameRoom.gameInfo);
+    // const games = useSelector((state) => state.gameRoom.gameInfo);
+    const games = useSelector((state) => state.waiting.rooms);
 
     games.map((game) => {
         console.log("방번호 : ", game.room_id); // 1 ,2 ,3

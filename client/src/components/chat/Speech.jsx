@@ -3,7 +3,10 @@ export default function Speech({ chat }) {
 
     return (
         <div className={`speech ${isMyMessage ? "my-message" : ""}`}>
-            <span className="username">{chat.userid}</span>
+            {chat.type === "other" && (
+                <span className="username">{chat.nickname}</span>
+            )}
+
             <span className="chat-box">{chat.content}</span>
         </div>
     );
