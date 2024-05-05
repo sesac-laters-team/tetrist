@@ -3,7 +3,8 @@
     background-color: white;
     height: 300px;
     width: 1000px;
-    max-width: 2000px;
+
+    min-width: 650px;
     margin: 20px auto;
     padding: 20px;
     display: flex;
@@ -97,15 +98,20 @@
 .waiting-chat button:active {
     background-color: aliceblue;
 }
-@media (min-width: 500px) and (max-width: 1024px) {
+/* 작은 화면에서 (모바일) */
+@media (max-width: 600px) {
     .chat-container {
-        width: 100%; /* 너비를 95%로 설정하여 화면에 가득 차도록 합니다. */
-        max-width: 900px; /* 최대 너비를 더 큰 값으로 설정합니다. */
+        width: 90%; /* 90%의 너비를 유지 */
+        max-width: 400px; /* 최대 너비를 400px로 설정 */
+        margin: 0 auto; /* 중앙 정렬 */
     }
 }
-/* 미디어 쿼리: 1025px 이상일 때 */
-@media (min-width: 1025px) {
+
+/* 중간 화면에서 (태블릿) */
+@media (min-width: 601px) and (max-width: 1024px) {
     .chat-container {
-        max-width: 950px; /* 데스크탑에서 최대 너비를 더 크게 설정합니다. */
+        width: 100%; /* 전체 너비로 설정 */
+        max-width: 900px; /* 최대 너비를 900px로 설정 */
+        margin: 0 auto; /* 중앙 정렬 */
     }
 }

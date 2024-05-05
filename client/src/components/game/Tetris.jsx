@@ -1,5 +1,5 @@
 import "../../styles/game/Tetris.css";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import Board from "./Board";
 import BoardOther from "./BoardOther";
@@ -28,15 +28,11 @@ const Tetris = ({ rows, columns, setGameOver, owner, guest }) => {
         if (!socket.connected) socket.connect();
     };
 
-    //
     const [over, setOver] = useOver();
-    //
     const [gameStats, addLinesCleared] = useGameStats();
     const [gameStatsOther, addLinesClearedOther] = useGameStatsOther();
-
     const [player, setPlayer, resetPlayer] = usePlayer();
     const [playerOther, setPlayerOther, resetPlayerOther] = usePlayerOther();
-
     const [board, setBoard] = useBoard({
         rows,
         columns,
@@ -44,7 +40,6 @@ const Tetris = ({ rows, columns, setGameOver, owner, guest }) => {
         resetPlayer,
         addLinesCleared,
     });
-
     const [boardOther, setBoardOther] = useBoardOther({
         rows,
         columns,
@@ -52,6 +47,17 @@ const Tetris = ({ rows, columns, setGameOver, owner, guest }) => {
         resetPlayerOther,
         addLinesClearedOther,
     });
+    const [isSmallScreen, setIsSmallScreen] = useState(
+        window.innerWidth <= 1024
+    );
+
+    const [resultMessage, setResultMessage] = useState(null); // 게임 결과 메시지 상태
+
+    useEffect(() => {
+        const handleResize = () => setIsSmallScreen(window.innerWidth <= 1024);
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
     useEffect(() => {
         initSocketConnect();
@@ -59,11 +65,7 @@ const Tetris = ({ rows, columns, setGameOver, owner, guest }) => {
     }, []);
 
     useEffect(() => {
-        socket.emit("send_states_to_server", {
-            gameStats,
-            player,
-            board,
-        });
+        socket.emit("send_states_to_server", { gameStats, player, board });
     }, [player, board, gameStats]);
 
     socket.on("send_states_to_client", (object) => {
@@ -72,18 +74,14 @@ const Tetris = ({ rows, columns, setGameOver, owner, guest }) => {
     });
 
     useEffect(() => {
-        // 게임 종료시 guest 닉네임 전달, 게임종료 이벤트(패배시)
         if (over) {
-            socket.emit("game_over_to_server", guest);
-            setTimeout(() => {
-                socket.disconnect();
-            }, 500);
+            socket.emit("game_over_to_server", owner); // 승자 정보 전송
+            setTimeout(() => socket.disconnect(), 500);
         }
     }, [over]);
 
-    // 게임 종료(승리시)
-    socket.on("game_over_to_client", (msg) => {
-        console.log(msg);
+    socket.on("game_over_to_client", ({ winner }) => {
+        setResultMessage(winner === owner ? "You win!" : "You lose!"); // 승자에 따라 메시지 표시
         setGameOver(true);
         socket.disconnect();
     });
@@ -91,10 +89,9 @@ const Tetris = ({ rows, columns, setGameOver, owner, guest }) => {
     return (
         <div className="Tetris">
             <h2 className="me">{owner}</h2>
-            <h2 className="other">{guest}</h2>
+            {!isSmallScreen && <h2 className="other">{guest}</h2>}
             <Board board={board} />
             <GameStats gameStats={gameStats} />
-            <Previews tetrominoes={player.tetrominoes} />
             <GameController
                 board={board}
                 gameStats={gameStats}
@@ -104,10 +101,27 @@ const Tetris = ({ rows, columns, setGameOver, owner, guest }) => {
                 setOver={setOver}
             />
             <BoardOther board={boardOther} />
-            <GameStatsOther gameStats={gameStatsOther} />
-            <PreviewsOther tetrominoes={playerOther.tetrominoes} />
+            <Previews tetrominoes={player.tetrominoes} />
+            {!isSmallScreen && (
+                <>
+                    <GameStatsOther gameStats={gameStatsOther} />
+                    <PreviewsOther tetrominoes={playerOther.tetrominoes} />
+                </>
+            )}
+            {resultMessage && <Modal>{resultMessage}</Modal>}{" "}
+            {/* 결과 모달 표시 */}
         </div>
     );
 };
 
 export default Tetris;
+
+// 모달 컴포넌트
+const Modal = ({ children }) => (
+    <div className="modal">
+        <div className="modal-content">
+            <h2>{children}</h2>
+            <button onClick={() => window.location.reload()}>OK</button>
+        </div>
+    </div>
+);
