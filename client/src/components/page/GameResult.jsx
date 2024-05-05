@@ -10,52 +10,53 @@ const GameResult = () => {
         owner = "unknown",
         guest = "unknown",
     } = location.state || {};
-    // const { winner, owner } = location.state; // 이전 페이지에서 전달된 데이터에서 승자 정보와 소유자 정보 수신
     const winnerImage = "/tetris_winner.png";
     const loserImage = "/tetris_looser.png";
+
     useEffect(() => {
-        const createFallingBlock = () => {
-            const block = document.createElement("div");
-            block.className = "falling-block";
-            block.style.left = `${Math.random() * 100}vw`; // 최대 75% 범위로 줄임
-            block.style.width = `${Math.random() * 20 + 10}px`;
-            block.style.height = block.style.width;
-            block.style.backgroundColor = `hsl(${
-                Math.random() * 360
-            }, 100%, 50%)`;
+        if (winner !== owner) {
+            const createRainDrop = () => {
+                const rainDrop = document.createElement("div");
+                rainDrop.className = "rain-drop";
+                rainDrop.style.left = `${Math.random() * 100}vw`;
+                rainDrop.style.animationDuration = `${Math.random() * 3 + 2}s`;
 
-            document.querySelector(".GameResult").appendChild(block);
+                document.querySelector(".GameResult").appendChild(rainDrop);
 
-            setTimeout(() => block.remove(), 3000);
-        };
+                setTimeout(() => rainDrop.remove(), 5000);
+            };
 
-        const interval = setInterval(createFallingBlock, 300);
+            const interval = setInterval(createRainDrop, 30);
 
-        return () => clearInterval(interval);
-    }, []);
-    const getResultMessage = () => {
-        if (winner === owner) {
-            return "You win!";
+            return () => clearInterval(interval);
         } else {
-            return "You lose!";
+            const createFallingBlock = () => {
+                const block = document.createElement("div");
+                block.className = "falling-block";
+                block.style.left = `${Math.random() * 100}vw`;
+                block.style.width = `${Math.random() * 20 + 10}px`;
+                block.style.height = block.style.width;
+                block.style.backgroundColor = `hsl(${
+                    Math.random() * 360
+                }, 100%, 50%)`;
+
+                document.querySelector(".GameResult").appendChild(block);
+
+                setTimeout(() => block.remove(), 3000);
+            };
+
+            const interval = setInterval(createFallingBlock, 30);
+
+            return () => clearInterval(interval);
         }
+    }, [owner, winner]);
+
+    const getResultMessage = () => {
+        return winner === owner ? "You win!" : "You lose!";
     };
 
     const getResultImage = () => {
-        if (winner === owner) {
-            return winnerImage;
-        } else {
-            return loserImage;
-        }
-    };
-
-    // 패자를 확인하는 함수
-    const getLoser = () => {
-        if (winner === owner) {
-            return guest; // guest가 패자
-        } else {
-            return owner; // owner가 패자
-        }
+        return winner === owner ? winnerImage : loserImage;
     };
 
     const handleConfirm = () => {
@@ -73,7 +74,6 @@ const GameResult = () => {
             />
 
             <button onClick={handleConfirm}>확인</button>
-            {winner !== owner && <div className="rain-container"></div>}
         </div>
     );
 };

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, useRef } from "react";
 import Notice from "../chat/Notice";
 import Speech from "../chat/Speech";
 import "../../styles/chat/chat.scss";
@@ -23,6 +23,7 @@ export default function WaitingChat({ socket }) {
     const [chatInput, setChatInput] = useState("");
     const [chatList, setChatList] = useState([]); // {type, content, nickname}
     const [userNickname, setUserNickname] = useState("");
+    const chatEndRef = useRef(null);
 
     // 현재 닉네임을 불러옴
     useEffect(() => {
@@ -36,6 +37,11 @@ export default function WaitingChat({ socket }) {
 
         fetchUserInfo();
     }, [socket]);
+
+    // 스크롤을 맨 아래로 이동
+    const scrollToBottom = () => {
+        chatEndRef.current.scrollIntoView({ behavior: "smooth" });
+    };
 
     // notice
     useEffect(() => {
@@ -51,7 +57,7 @@ export default function WaitingChat({ socket }) {
 
             setChatList(newChatList);
         });
-    }, [chatList]);
+    }, [chatList, socket]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -84,7 +90,11 @@ export default function WaitingChat({ socket }) {
             ];
             setChatList(newChatList);
         });
-    });
+    }, [chatList, socket, userNickname]);
+
+    useEffect(() => {
+        scrollToBottom(); // 채팅 리스트가 업데이트될 때마다 스크롤을 맨 아래로 이동
+    }, [chatList]);
 
     return (
         <>
@@ -100,6 +110,8 @@ export default function WaitingChat({ socket }) {
                                 <Speech key={i} chat={chat} />
                             )
                         )}
+                        <div ref={chatEndRef}></div>{" "}
+                        {/* 스크롤 위치를 맨 아래로 이동시킬 요소 */}
                     </section>
                     <form
                         className="waiting-chat"

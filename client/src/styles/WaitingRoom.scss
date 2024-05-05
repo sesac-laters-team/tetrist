@@ -6,6 +6,8 @@
     padding: 20px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     // background-image: url("../../public/testris.jpg"); /* 부모에 배경 이미지 적용 */
+    overflow: hidden; /* 내부 요소가 바깥으로 넘치지 않도록 설정 */
+    z-index: 1000; /* 우선순위를 높게 설정하여 테트리스 블록 위에 위치하도록 */
 }
 
 .waiting-room > * {
@@ -188,4 +190,28 @@
     .RoomList {
         max-width: 1024px; /* 데스크탑에서 최대 너비 설정 */
     }
+}
+@keyframes fall {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(100vh);
+    }
+}
+
+.tetris-block {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 30px);
+    gap: 2px;
+    z-index: -1000; /* 부모 요소에 의해 가려지도록 */
+    animation: fall linear forwards;
+}
+
+.tetris-square {
+    width: 30px;
+    height: 30px;
 }
