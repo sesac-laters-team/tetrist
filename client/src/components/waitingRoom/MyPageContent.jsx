@@ -79,6 +79,7 @@ const MyPageContent = ({ myInfo }) => {
     const handleSendNewPw = () => {
         if (newPassword === "") {
             alert("비밀번호는 공백일 수 없습니다.");
+            return;
         }
         axios
             .patch(
@@ -98,10 +99,9 @@ const MyPageContent = ({ myInfo }) => {
 
     const handleNewPasswordChange = (event) => {
         const newValue = event.target.value;
-        // 입력된 값에 공백이 포함되어 있는지 확인
         if (newValue.includes(" ")) {
-            // 공백이 포함되어 있으면 알림 창을 띄움
             alert("비밀번호에는 공백을 포함할 수 없습니다.");
+            return;
         } else {
             // 공백이 없으면 상태 업데이트
             setNewPassword(newValue);
@@ -151,7 +151,10 @@ const MyPageContent = ({ myInfo }) => {
                         </span>
                     </div>
                     <span className="status-title">전적:</span>
-                    <span className="status-value">7승 2패 (승률 70%)</span>
+                    <span className="status-value">
+                        {userInfo && userInfo.win}승 {userInfo && userInfo.lose}
+                        패 (승률 {userInfo && userInfo.rating}%)
+                    </span>
                 </div>
             </div>
             {isChangePwVisible && (

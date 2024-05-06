@@ -144,7 +144,7 @@ export default function WaitingRoomPage() {
     return (
         <div className="waiting-room">
             <div className="logo-and-menubar">
-                <div className="logoImg">TETRIST</div>
+                <img src="/images/tetrist_logo.gif" alt="LOGO" />
                 <Menubar socket={socket} />
             </div>
             <br />
