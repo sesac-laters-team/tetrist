@@ -16,15 +16,19 @@ function tetrisSocketHandler(server) {
             const gameInfo = io.sockets.adapter.rooms.get("game");
             console.log("gameInfo ::: ", gameInfo);
             console.log(`${creator}가 게임 생성`);
+            console.log(gameInfo.size);
+            if (gameInfo.size === 2) {
+                socket.to("game").emit("game_enter_notice", creator);
+            }
         });
         // 방에 참가하기
-        socket.on("joinRoom", (roomId, userId, guestId) => {
-            socket.join(`room`, () => {
-                console.log(
-                    `~~~~${guestId}가 ${userId}의  ${roomId} 번 방에 참가했습니다.`
-                );
-            });
-        });
+        // socket.on("joinRoom", (roomId, userId, guestId) => {
+        //     socket.join(`room`, () => {
+        //         console.log(
+        //             `~~~~${guestId}가 ${userId}의  ${roomId} 번 방에 참가했습니다.`
+        //         );
+        //     });
+        // });
         // 상태정보 이벤트
         socket.on("send_states_to_server", (object) => {
             // 상태정보 전달 이벤트
