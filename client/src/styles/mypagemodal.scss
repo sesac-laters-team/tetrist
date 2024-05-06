@@ -55,7 +55,9 @@
     border-radius: 5px;
     white-space: nowrap; /* 닉네임이 길어지지 않도록 고정 */
     margin-right: 10px;
+    padding-left: 10px; /* 왼쪽에 10px의 패딩 추가 */
 }
+
 .edit-button {
     padding: 5px 10px; /* 버튼의 내부 패딩 */
     font-size: 0.7rem; /* 버튼의 폰트 사이즈 */
