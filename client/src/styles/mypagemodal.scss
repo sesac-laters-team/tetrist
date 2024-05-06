@@ -54,6 +54,7 @@
     flex-shrink: 0; /* 너비가 줄어들지 않도록 */
     border-radius: 5px;
     white-space: nowrap; /* 닉네임이 길어지지 않도록 고정 */
+    margin-right: 10px;
 }
 .edit-button {
     padding: 5px 10px; /* 버튼의 내부 패딩 */
