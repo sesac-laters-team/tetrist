@@ -5,6 +5,7 @@ import Tetris from "./Tetris";
 
 import io from "socket.io-client";
 import { useSelector } from "react-redux";
+import GameResult from "../page/GameResult";
 
 // 테트리스 컴포넌트에서 소켓을 사용하기때문에 export
 export const socket = io.connect(`${process.env.REACT_APP_GAME_SERVER}`, {
@@ -50,11 +51,6 @@ const Game = ({ rows, columns, roomId }) => {
         }
     }, [room]);
 
-    // 재시작 함수
-    // const start = () => {
-    //     resetGameOver();
-    // };
-
     return (
         <div className="Game">
             {room.length > 0 ? (
@@ -77,8 +73,13 @@ const Game = ({ rows, columns, roomId }) => {
                 ) : room[0].guest_id !== null && gameOver ? (
                     <div className="Result">
                         <h2>Game End</h2>
-                        <p>{winner === null ? "you lose" : "you win"}</p>
-                        {/* <button onClick={start}>다시하기</button> */}
+                        <p>
+                            {winner === null ? (
+                                <GameResult result={true} />
+                            ) : (
+                                <GameResult result={false} />
+                            )}
+                        </p>
                     </div>
                 ) : (
                     <Tetris

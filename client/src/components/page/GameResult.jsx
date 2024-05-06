@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "../../styles/game/GameResult.scss";
 
-const GameResult = () => {
+const GameResult = ({ result }) => {
     const location = useLocation();
     const navigate = useNavigate();
     const {
