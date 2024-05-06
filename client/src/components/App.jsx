@@ -84,6 +84,8 @@ function App() {
                         element={
                             <SessionRoute childComponent={<GameResult />} />
                         }
+                    />
+                    <Route
                         path={`/test/wait`}
                         element={<GamePage roomId={200} />}
                     />
