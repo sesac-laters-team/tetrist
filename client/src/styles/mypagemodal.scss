@@ -8,6 +8,7 @@
     width: 80%;
     max-width: 350px;
     display: flex;
+
     flex-direction: column;
 }
 
@@ -19,40 +20,45 @@
     margin-bottom: 20px;
 }
 
+/* user-info에 대한 스타일 조정 */
 .user-info {
     display: flex;
     align-items: center;
+    width: 100%;
     margin-bottom: 20px;
     border-top: 2px solid #333;
     padding-top: 20px;
-    margin-top: 10px;
 }
 
-.user-avatar {
-    width: 50px; /* Adjust as needed */
-    height: 50px; /* Adjust as needed */
-    border-radius: 50%;
-    margin-right: 15px;
-}
-
+/* user-details 내의 요소들을 적절하게 배치 */
 .user-details {
     display: flex;
-    align-items: center; /* 세로 중앙 정렬 */
-    justify-content: space-between; /* 요소들을 양쪽 끝으로 정렬 */
+    align-items: center;
+    justify-content: flex-end; /* 요소들을 오른쪽 정렬 */
     flex-grow: 1;
+    width: 100%;
+}
+
+/* user-avatar의 크기와 배치 */
+.user-avatar {
+    width: 50px; /* 아바타 이미지 너비 */
+    height: 50px; /* 아바타 이미지 높이 */
+    border-radius: 50%; /* 둥근 모서리 */
+    margin-right: 270px;
+    position: absolute;
 }
 
 .username {
-    margin-right: 10px; /* 버튼과의 간격 조정 */
     font-size: 1.5rem;
-    width: 170px;
+    width: 150px; /* 고정된 너비를 설정 */
+    flex-shrink: 0; /* 너비가 줄어들지 않도록 */
     border-radius: 5px;
     white-space: nowrap; /* 닉네임이 길어지지 않도록 고정 */
 }
-
 .edit-button {
     padding: 5px 10px; /* 버튼의 내부 패딩 */
     font-size: 0.7rem; /* 버튼의 폰트 사이즈 */
+    flex-shrink: 0; /* 크기가 변경되지 않도록 */
     border: none; /* 기본 테두리 제거 */
     background: #3498db; /* 버튼 배경 색상 */
     color: white; /* 버튼 글자 색상 */
@@ -61,7 +67,6 @@
     transition: background 0.3s; /* 배경 색상의 전환 효과 */
     white-space: nowrap; /* 텍스트를 한 줄로 표시 */
 }
-
 .edit-button:hover {
     background: #2980b9; /* 호버 상태에서의 배경 색상 */
 }

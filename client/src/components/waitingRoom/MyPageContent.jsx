@@ -112,12 +112,12 @@ const MyPageContent = ({ myInfo }) => {
         <div className="mypage-container">
             <div className="mypage-title">마이페이지</div>
             <div className="user-info">
-                <img
-                    className="user-avatar"
-                    src="/path/to/avatar.png"
-                    alt="Avatar"
-                />
                 <div className="user-details">
+                    <img
+                        className="user-avatar"
+                        src="/tetris_winner.png"
+                        alt="Avatar"
+                    />
                     <input
                         className="username"
                         type="text"
