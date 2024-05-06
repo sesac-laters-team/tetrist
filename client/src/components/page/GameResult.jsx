@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styles/game/GameResult.scss";
+import { socket } from "../game/Game";
 
 const GameResult = ({ result }) => {
+    console.log("프롭스로 넘어온", result);
     const navigate = useNavigate();
     const winnerImage = "/tetris_winner.png";
     const loserImage = "/tetris_looser.png";
@@ -50,6 +52,7 @@ const GameResult = ({ result }) => {
 
     const handleConfirm = () => {
         navigate("/waiting");
+        socket.disconnect();
     };
 
     return (
