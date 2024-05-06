@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    padding: 20px;
+    position: relative;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     // background-image: url("../../public/testris.jpg"); /* 부모에 배경 이미지 적용 */
     overflow: hidden; /* 내부 요소가 바깥으로 넘치지 않도록 설정 */
@@ -196,10 +196,10 @@
 }
 @keyframes fall {
     from {
-        transform: translateY(-100%);
+        transform: translateY(-30px);
     }
     to {
-        transform: translateY(100vh);
+        transform: translateY(calc(100vh - 80px));
     }
 }
 

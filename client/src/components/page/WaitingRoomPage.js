@@ -115,28 +115,18 @@ function addFallingBlock() {
     const block = createTetrisBlock();
     if (!block) return;
 
-    document.body.appendChild(block);
+    const container = document.querySelector(".waiting-room"); // 컨테이너 지정
+    container.appendChild(block); // 컨테이너에 추가
 
     block.addEventListener("animationend", () => {
         block.remove();
     });
 }
 
-// Add this function to remove all falling blocks
-function removeFallingBlocks() {
-    const blocks = document.querySelectorAll(".tetris-block");
-    blocks.forEach((block) => block.remove());
-}
-
 export default function WaitingRoomPage() {
     useEffect(() => {
         const interval = setInterval(addFallingBlock, 1000);
-
-        // Cleanup function to remove interval and blocks
-        return () => {
-            clearInterval(interval);
-            removeFallingBlocks(); // Remove falling blocks
-        };
+        return () => clearInterval(interval);
     }, []);
 
     const dispatch = useDispatch();
