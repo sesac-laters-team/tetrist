@@ -15,100 +15,95 @@ exports.index = async (req, res) => {
 // PATCH /api-server/matchResult
 exports.matchResult = async (req, res) => {
     try {
-        // matchResult: 승패에 따른 값, 1이 승리, 0이 패배
-
         /* 포인트를 프론트에서 지정
-        const { userId, ratePoint, shopPoint, matchResult } = req.body; */
+        const { userId, ratePoint, shopPoint } = req.body; */
         /* 포인트를 백에서 지정 */
-        const { userId, matchResult } = req.body;
+        const { winUserId, loseUserId } = req.body;
         const winRP = 50;
         const loseRP = 20;
         const winSP = 100;
         const loseSP = 50;
 
         // 기존 사용자의 point 조회
-        const findUser = await usersModel.findOne({
+        const findWinner = await usersModel.findOne({
             where: {
-                user_id: userId,
+                user_id: winUserId,
             },
         });
-        if (!findUser) {
-            res.status(404).send({
+        if (!findWinner) {
+            res.send({
                 result: false,
-                msg: "유저 정보를 찾을 수 없습니다.",
+                msg: "승리 유저 정보를 찾을 수 없습니다.",
+            });
+            return;
+        }
+        const findLoser = await usersModel.findOne({
+            where: {
+                user_id: loseUserId,
+            },
+        });
+        if (!findLoser) {
+            res.send({
+                result: false,
+                msg: "패배 유저 정보를 찾을 수 없습니다.",
             });
             return;
         }
 
         // 승패 여부에 따라 데이터 처리
-        if (matchResult > 0) {
-            // 승리 시
-            /*
-            const updateRating = findUser.rating + Number(ratePoint);
-            const updatePoint = findUser.point + Number(shopPoint); */
-            const updateRating = findUser.rating + winRP;
-            const updatePoint = findUser.point + winSP;
-            const winUser = await usersModel.update(
-                {
-                    rating: updateRating,
-                    point: updatePoint,
-                    win: findUser.win + 1,
+        // 승리 유저
+        /*
+            const winUpdateRating = findWinner.rating + Number(ratePoint);
+            const winUpdatePoint = findWinner.point + Number(shopPoint); */
+        const winUpdateRating = findWinner.rating + winRP;
+        const winUpdatePoint = findWinner.point + winSP;
+        const [winUser] = await usersModel.update(
+            {
+                rating: winUpdateRating,
+                point: winUpdatePoint,
+                win: findWinner.win + 1,
+            },
+            {
+                where: {
+                    user_id: winUserId,
                 },
-                {
-                    where: {
-                        user_id: userId,
-                    },
-                }
-            );
-
-            if (winUser > 0) {
-                res.status(200).send({
-                    result: true,
-                    msg: "승리 유저 정보가 변경되었습니다.",
-                });
-            } else {
-                res.status(400).send({
-                    result: false,
-                    msg: "승리 유저 정보가 변경되지 않았습니다.",
-                });
             }
-        } else {
-            // 패배 시
-            /*
-            let updateRating = findUser.rating - Number(ratePoint);
-            const updatePoint = findUser.point + Number(shopPoint);
+        );
+        // 패배 유저
+        /*
+            let updateRating = findLoser.rating - Number(ratePoint);
+            const updatePoint = findLoser.point + Number(shopPoint);
             // 승점이 -가 되지 않도록
             if (updateRating < 0) {
                 updateRating = 0;
             } */
-            // 승점이 -가 되지 않도록
-            const updateRating =
-                findUser.rating >= loseRP ? findUser.rating - loseRP : 0;
-            const updatePoint = findUser.point + loseSP;
-            const loseUser = await usersModel.update(
-                {
-                    rating: updateRating,
-                    point: updatePoint,
-                    lose: findUser.lose + 1,
+        // 승점이 -가 되지 않도록
+        const updateRating =
+            findLoser.rating >= loseRP ? findLoser.rating - loseRP : 0;
+        const updatePoint = findLoser.point + loseSP;
+        const [loseUser] = await usersModel.update(
+            {
+                rating: updateRating,
+                point: updatePoint,
+                lose: findLoser.lose + 1,
+            },
+            {
+                where: {
+                    user_id: loseUserId,
                 },
-                {
-                    where: {
-                        user_id: userId,
-                    },
-                }
-            );
-
-            if (loseUser > 0) {
-                res.status(200).send({
-                    result: true,
-                    msg: "패배 유저 정보가 변경되었습니다.",
-                });
-            } else {
-                res.status(400).send({
-                    result: false,
-                    msg: "패배 유저 정보가 변경되지 않았습니다.",
-                });
             }
+        );
+
+        if (winUser && loseUser) {
+            res.status(200).send({
+                result: true,
+                msg: "유저 정보가 변경되었습니다.",
+            });
+        } else {
+            res.status(400).send({
+                result: false,
+                msg: "유저 정보가 변경되지 않았습니다.",
+            });
         }
     } catch (error) {
         console.log("error", error);
