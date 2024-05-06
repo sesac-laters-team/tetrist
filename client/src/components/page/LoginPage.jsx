@@ -76,13 +76,14 @@ const AuthForm = () => {
                         <button type="submit" className="login">
                             로그인
                         </button>
+                        <button
+                            type="button"
+                            onClick={() => setCreateModal(true)}
+                        >
+                            회원가입
+                        </button>
                     </div>
                 </form>
-                <div className="btnWrap">
-                    <button type="button" onClick={() => setCreateModal(true)}>
-                        회원가입
-                    </button>
-                </div>
             </div>
             {createModal && (
                 <Modal

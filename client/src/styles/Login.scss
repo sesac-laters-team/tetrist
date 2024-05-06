@@ -6,22 +6,54 @@ body {
         display: flex;
         justify-content: center;
         align-items: center;
-        background-image: url("../../public/tetris.png");
+        position: relative;
+        // background-image: url("../../public/tetris.png");
 
-        /* 배경을 화면의 중앙에 배치 */
-        background-position: center;
+        // /* 배경을 화면의 중앙에 배치 */
+        // background-position: center;
 
-        /* 이미지를 반복하지 않음 */
-        background-repeat: no-repeat;
+        // /* 이미지를 반복하지 않음 */
+        // background-repeat: no-repeat;
 
-        /* 이미지 크기를 화면에 꽉 채우도록 설정 */
-        background-size: cover;
+        // /* 이미지 크기를 화면에 꽉 채우도록 설정 */
+        // background-size: cover;
+        &::after {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("../../public/tetris.png") no-repeat center center;
+            background-size: cover;
+            opacity: 0.75;
+            z-index: -1;
+        }
+        // 버튼 공통 스타일
+        button {
+            position: relative;
+            padding: 10px 20px; /* 버튼 패딩 */
+            background-color: white; /* 버튼 배경색 */
+            box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+            color: #333; /* 버튼 폰트 색상 */
+            border: 1px solid #333;
+            border-radius: 10px;
+            border-bottom: 2px solid #333;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+            cursor: pointer;
+            &:hover {
+                // background-color: #2980b9;
+                background-color: #ff406a;
+                color: #fff;
+            }
+        }
         .contentWrap {
             height: 300px;
             background: #ffffff;
             padding: 25px; /* 패딩을 늘려 좀 더 여유롭게 조정 */
             border-radius: 12px; /* 모서리 둥글기를 조금 더 증가 */
-            width: 80%; /* 모바일 기기에서 너비를 75%로 설정 */
+            width: 80%; /* 모바일 기기에서 너비를 80%로 설정 */
             max-width: 400px; /* 최대 너비 증가 */
             box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* 그림자를 더 선명하게 조정 */
             // transition: transform 0.3s ease-out; /* 변형 애니메이션을 부드럽게 조정 */
@@ -42,6 +74,16 @@ body {
                 align-items: center;
                 gap: 1rem;
 
+                .btnWrap {
+                    display: flex;
+                    gap: 16px;
+                    margin-top: 24px;
+                    button {
+                        width: 114px;
+                        font-size: 18px;
+                    }
+                }
+
                 button.login {
                     // 메인 컬러 설정 시 색상 변경 예정
                     color: #fff;
@@ -59,23 +101,42 @@ body {
                         background-color: gray;
                         border-color: gray;
                         border-bottom: 2px solid #666;
+                        transform: translateY(1px);
                     }
                 }
             }
         }
         .modal-content {
             width: 80%;
+            .modal-header {
+                display: flex;
+                justify-content: space-between;
+                svg {
+                    width: 32px;
+                    height: 32px;
+                    color: red;
+                    cursor: pointer;
+                }
+            }
+            .title {
+                margin-top: 0;
+            }
             .guide {
                 margin: 0.8rem 0;
+                font-size: 14px;
             }
-            button {
-                font-size: 12px;
-                width: 85px;
-                margin-bottom: 1px;
-                padding: 9px;
-                border: 1px solid black;
-                border-bottom: 2px solid #333;
-                min-width: 68px;
+            .btnWrap {
+                display: flex;
+                justify-content: center;
+                .submitBtn {
+                    font-size: 18px;
+                    width: 114px;
+                    margin-bottom: 1px;
+                    padding: 9px;
+                    border: 1px solid black;
+                    border-bottom: 2px solid #333;
+                    min-width: 68px;
+                }
             }
         }
     }
@@ -83,7 +144,7 @@ body {
         display: flex;
         flex-direction: column;
         align-items: center;
-        & > div {
+        div {
             width: 100%;
         }
     }
@@ -97,34 +158,29 @@ body {
             border-color: rgb(255, 0, 0);
             box-shadow: 0 0.5px 0 0 red;
         }
+
         input {
-            width: 94%;
+            width: 100%;
             height: 40px;
             border: none;
             font-size: 16px;
             outline: none;
+            flex: 4;
             &.pw {
-                width: 326px;
+                width: 100%;
             }
         }
         .eye {
             padding: 13px 7px;
+            width: 16px;
+            height: 16px;
             cursor: pointer;
         }
-    }
-
-    button {
-        position: relative;
-        padding: 10px 20px; /* 버튼 패딩 */
-        background-color: white; /* 버튼 배경색 */
-        box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
-        color: #333; /* 버튼 폰트 색상 */
-        border: 1px solid #333;
-        border-radius: 10px;
-        border-bottom: 2px solid #333;
-        transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-        &:hover {
-            background-color: #2980b9;
+        button {
+            background-color: #444;
+            color: #fff;
+            font-size: 14px;
+            padding: 8px 14px;
         }
     }
 }
