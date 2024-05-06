@@ -36,15 +36,16 @@ const Tetris = ({ rows, columns, setGameOver }) => {
         resetPlayerOther,
         addLinesClearedOther,
     });
-    // const [isSmallScreen, setIsSmallScreen] = useState(
-    //     window.innerWidth <= 1024
-    // );
 
-    // useEffect(() => {
-    //     const handleResize = () => setIsSmallScreen(window.innerWidth <= 1024);
-    //     window.addEventListener("resize", handleResize);
-    //     return () => window.removeEventListener("resize", handleResize);
-    // }, []);
+    const [isSmallScreen, setIsSmallScreen] = useState(
+        window.innerWidth <= 1024
+    );
+
+    useEffect(() => {
+        const handleResize = () => setIsSmallScreen(window.innerWidth <= 1024);
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
     // 내 게임 상태 변경시 서버에 상태 전달
     useEffect(() => {
@@ -59,7 +60,7 @@ const Tetris = ({ rows, columns, setGameOver }) => {
     return (
         <div className="Tetris">
             <h2 className="me">me</h2>
-            {/* {!isSmallScreen && <h2 className="other">guest</h2>} */}
+            {!isSmallScreen && <h2 className="other">guest</h2>}
             <Board board={board} />
             <GameStats gameStats={gameStats} />
             <GameController
@@ -71,12 +72,12 @@ const Tetris = ({ rows, columns, setGameOver }) => {
             />
             <BoardOther board={boardOther} />
             <Previews tetrominoes={player.tetrominoes} />
-            {/* {!isSmallScreen && (
+            {!isSmallScreen && (
                 <>
                     <GameStatsOther gameStats={gameStatsOther} />
                     <PreviewsOther tetrominoes={playerOther.tetrominoes} />
                 </>
-            )} */}
+            )}
         </div>
     );
 };

@@ -67,7 +67,11 @@ const Game = ({ rows, columns, roomId }) => {
                 </div>
             ) : room.guest_id !== null && gameOver ? (
                 <div className="Result">
-                    {winner === null ? "you lose" : "you win"}
+                    {winner === null ? (
+                        <GameResult result={false} />
+                    ) : (
+                        <GameResult result={true} />
+                    )}
                 </div>
             ) : (
                 <Tetris
