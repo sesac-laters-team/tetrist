@@ -23,6 +23,9 @@
     max-width: 1024px; /* 최대 너비 설정 */
     margin: 0 auto; /* 상하 마진 없이 좌우 마진으로 중앙 정렬 */
     padding: 20px; /* 패딩 조정 */
+    img {
+        margin-left: -90px; /* 원하는 만큼 왼쪽으로 이동 */
+    }
 }
 
 // .logoImg {

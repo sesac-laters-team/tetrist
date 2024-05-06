@@ -72,7 +72,6 @@ const Game = ({ rows, columns, roomId }) => {
                     </div>
                 ) : room[0].guest_id !== null && gameOver ? (
                     <div className="Result">
-                        <h2>Game End</h2>
                         <p>
                             {winner === null ? (
                                 <GameResult result={true} />

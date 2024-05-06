@@ -122,10 +122,21 @@ function addFallingBlock() {
     });
 }
 
+// Add this function to remove all falling blocks
+function removeFallingBlocks() {
+    const blocks = document.querySelectorAll(".tetris-block");
+    blocks.forEach((block) => block.remove());
+}
+
 export default function WaitingRoomPage() {
     useEffect(() => {
         const interval = setInterval(addFallingBlock, 1000);
-        return () => clearInterval(interval);
+
+        // Cleanup function to remove interval and blocks
+        return () => {
+            clearInterval(interval);
+            removeFallingBlocks(); // Remove falling blocks
+        };
     }, []);
 
     const dispatch = useDispatch();
