@@ -115,7 +115,8 @@ function addFallingBlock() {
     const block = createTetrisBlock();
     if (!block) return;
 
-    document.body.appendChild(block);
+    const container = document.querySelector(".waiting-room"); // 컨테이너 지정
+    container.appendChild(block); // 컨테이너에 추가
 
     block.addEventListener("animationend", () => {
         block.remove();
