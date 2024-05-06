@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import { registerUser } from "../../redux/store/module/authModule";
 import axios from "axios";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { IoClose } from "react-icons/io5";
+
 axios.defaults.withCredentials = true;
 
 const RegisterModalContent = ({ closeModal }) => {
@@ -167,7 +169,10 @@ const RegisterModalContent = ({ closeModal }) => {
     }, [pwValidCheck, password, checkPassword]);
     return (
         <div>
-            <h2 className="title">회원가입</h2>
+            <div className="modal-header">
+                <h2 className="title">회원가입</h2>
+                <IoClose onClick={closeModal} />
+            </div>
             <form onSubmit={handleRegister}>
                 <div className="itemWrap">
                     <div
@@ -295,7 +300,11 @@ const RegisterModalContent = ({ closeModal }) => {
                         <p className="guide">{pwConfirmMessage}</p>
                     </div>
                 </div>
-                <button type="submit">회원가입</button>
+                <div className="btnWrap">
+                    <button type="submit" className="submitBtn">
+                        회원가입
+                    </button>
+                </div>
             </form>
         </div>
     );

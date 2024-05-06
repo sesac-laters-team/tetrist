@@ -22,6 +22,7 @@ import "../styles/rankingmodal.scss";
 import "../styles/ShopModal.scss";
 import "../styles/pagination.scss";
 import "../styles/font.scss";
+import SessionRoute from "./auth/SessionRoute";
 
 function App() {
     const dispatch = useDispatch();
@@ -55,25 +56,35 @@ function App() {
                         path="/"
                         element={<Navigate replace to="/login" />}
                     />
-                    <Route path="/result" element={<GameResult />} />
                     <Route path="/login" element={<LoginPage />} />
                     <Route
                         path="/waiting"
                         element={
-                            isWaitingPageAccessAllowed ? (
-                                <WaitingRoomPage />
-                            ) : (
-                                <Navigate replace to="/login" />
-                            )
+                            <SessionRoute
+                                childComponent={<WaitingRoomPage />}
+                            />
                         }
                     />
+
                     {rooms.map((room) => (
                         <Route
                             key={room.room_id}
                             path={`/waiting/${room.room_id}`}
-                            element={<GamePage roomId={room.room_id} />}
+                            element={
+                                <SessionRoute
+                                    childComponent={
+                                        <GamePage roomId={room.room_id} />
+                                    }
+                                />
+                            }
                         />
                     ))}
+                    <Route
+                        path="/result"
+                        element={
+                            <SessionRoute childComponent={<GameResult />} />
+                        }
+                    />
                 </Routes>
             </div>
         </Router>
