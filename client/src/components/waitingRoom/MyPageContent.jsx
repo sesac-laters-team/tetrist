@@ -109,13 +109,15 @@ const MyPageContent = ({ myInfo }) => {
 
     // 승률
     const winningRate =
-        userInfo && (userInfo.win / (userInfo.win + userInfo.lose)) * 100;
+        userInfo &&
+        (userInfo.win + userInfo.lose === 0
+            ? 0
+            : (userInfo.win / (userInfo.win + userInfo.lose)) * 100);
 
     return (
         <div className="mypage-container">
             <div className="mypage-title">마이페이지</div>
             <div className="user-info">
-
                 <div className="user-avatar-container">
                     <img
                         className="user-avatar"
