@@ -8,6 +8,8 @@ function tetrisSocketHandler(server) {
             credentials: true,
         },
     });
+    let winUserId = "";
+    let loseUserId = "";
 
     io.on("connection", (socket) => {
         // 입장 이벤트
@@ -37,13 +39,12 @@ function tetrisSocketHandler(server) {
         });
         // 게임종료 이벤트
         socket.on("game_over_to_server", () => {
-            console.log("게임종료");
             socket.to("game").emit("game_over_to_client");
         });
 
         socket.on("disconnect", () => {
             console.log(`${socket.id} ::: disconnect`);
-            // socket.to("game").emit("player_disconnect");
+            const remain = io.sockets.adapter.rooms.get("game");
         });
     });
 }
