@@ -140,11 +140,6 @@ const MyPageContent = ({ myInfo }) => {
                     />
                 </div>
                 <div className="user-details">
-                    <img
-                        className="user-avatar"
-                        src="/tetris_winner.png"
-                        alt="Avatar"
-                    />
                     <input
                         className="username"
                         type="text"

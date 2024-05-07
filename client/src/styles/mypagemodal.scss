@@ -37,6 +37,7 @@
     height: 50px;
     margin-right: 15px;
     display: flex;
+    margin-left: 60px;
     align-items: center;
     justify-content: center;
 }
@@ -46,17 +47,17 @@
     height: 80%;
     border-radius: 50%;
     z-index: 1;
+    left: 1500%;
     justify-content: center;
 }
 
 .profileEdge {
     position: absolute;
     top: 0;
-    left: 0;
+    left: 1500%;
     width: 100%;
     height: 100%;
     z-index: 0;
-
 }
 
 /* user-details 내의 요소들을 적절하게 배치 */
