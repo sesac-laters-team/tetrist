@@ -40,7 +40,7 @@ const Menubar = () => {
                 onClick={() => openModal("Shop")}
                 className="menubar-button"
             >
-                상점
+                악세사리
             </button>
             <button onClick={handleLogout} className="menubar-button">
                 로그아웃
