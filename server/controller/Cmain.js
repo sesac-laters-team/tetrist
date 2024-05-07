@@ -111,9 +111,9 @@ exports.matchResult = async (req, res) => {
 exports.rank = async (req, res) => {
     try {
         const rank = await usersModel.findAll({
-            attributes: ["point", "nickname"],
+            attributes: ["rating", "nickname"],
             limit: 3,
-            order: [["point", "DESC"]],
+            order: [["rating", "DESC"]],
         });
         res.json(rank);
     } catch (error) {

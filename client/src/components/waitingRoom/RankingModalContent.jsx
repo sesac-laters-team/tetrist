@@ -12,7 +12,7 @@ const RankingModalContent = ({ ranking }) => {
                             <span className="rank-username">
                                 {rank.nickname}
                             </span>
-                            <span className="rank-points">{rank.point}점</span>
+                            <span className="rank-points">{rank.rating}점</span>
                         </div>
                     ))}
                 </div>
