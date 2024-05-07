@@ -136,6 +136,13 @@ exports.postLogin = async (req, res) => {
             );
 
             if (isPasswordMatch) {
+                // if (findUserData.access_penalty) {
+                //     // 접속 제한 유저 확인
+                //     return res.status(401).send({
+                //         result: false,
+                //         msg: "접속이 제한된 유저입니다. 관리자에게 문의하세요.",
+                //     });
+                // }
                 req.session.userId = findUserData.user_id;
                 res.status(200).send({
                     result: true,

@@ -4,7 +4,7 @@ const router = express.Router();
 const mainCtr = require("../controller/Cmain");
 const roomCtr = require("../controller/Crooms");
 const shopCtr = require("../controller/Cshop");
-const { checkAuth, userInRoom } = require("../utils/routerUtils");
+const { checkAuth, checkPenalty, userInRoom } = require("../utils/routerUtils");
 
 // main
 
@@ -141,7 +141,7 @@ router.get("/rooms", roomCtr.roomsList);
 }
  *                          ]
  */
-// router.post("/room", checkAuth, userInRoom, roomCtr.postRoom);
+// router.post("/room", checkAuth, userInRoom, checkPenalty, roomCtr.postRoom);
 router.post("/room", roomCtr.postRoom);
 
 /**
@@ -268,7 +268,7 @@ router.get("/room/:roomId", roomCtr.roomData);
 }
  *                          ]
  */
-// router.post("/room/enter/:roomId", checkAuth, userInRoom, roomCtr.enterRoom);
+// router.post("/room/enter/:roomId", checkAuth, checkPenalty, userInRoom, roomCtr.enterRoom);
 router.post("/room/enter/:roomId", roomCtr.enterRoom);
 
 /**

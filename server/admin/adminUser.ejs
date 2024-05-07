@@ -6,6 +6,20 @@
         <title>tetrist 관리자 페이지</title>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     </head>
+    <%- include('header')%>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .userTable {
+            text-align: center;
+        }
+        th {
+            padding: 5px;
+        }
+    </style>
     <body>
         <h2>유저 관리</h2>
         <div class="users">
@@ -26,6 +40,9 @@
                 </thead>
                 <tbody id="userList">
                     <% for (let i= 0; i < data.length; i++) { %>
+                    <%if(data[i].nickname == "admin"){%>
+                    <tr></tr>
+                    <%} else {%>
                     <tr id="tr_<%= data[i].user_id %>">
                         <td><%= data[i].user_id %></td>
                         <td><%= data[i].email %></td>
@@ -68,7 +85,7 @@
                             </button>
                         </td>
                     </tr>
-                    <%}%>
+                    <%}%> <%}%>
                 </tbody>
             </table>
         </div>

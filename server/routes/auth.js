@@ -2,7 +2,7 @@ const express = require("express");
 const authRouter = express.Router();
 
 const usersCtr = require("../controller/Cusers");
-const { checkAuth } = require("../utils/routerUtils");
+const { checkAuth, checkPenalty } = require("../utils/routerUtils");
 
 /**
  * @swagger

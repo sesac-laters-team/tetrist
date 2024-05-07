@@ -6,9 +6,22 @@
         <title>tetrist 관리자 로그인 페이지</title>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     </head>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .loginform {
+            display: flex;
+            flex-direction: column;
+            align-items: end;
+        }
+    </style>
     <body>
+        <h2>관리자 로그인</h2>
         <div class="login">
-            <form name="login">
+            <form name="login" class="loginform">
                 <label
                     ><span>ID</span>
                     <input
