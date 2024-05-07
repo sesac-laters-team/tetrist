@@ -3,6 +3,7 @@ const app = express();
 const session = require("express-session");
 const router = require("./routes/router");
 const authRouter = require("./routes/auth");
+const adminRouter = require("./routes/admin");
 const { sequelize } = require("./models");
 const http = require("http");
 const server = http.createServer(app);
@@ -11,6 +12,9 @@ const socketHandler = require("./sockets/index");
 const tetrisSocketHandler = require("./sockets/tetris");
 const cors = require("cors");
 require("dotenv").config();
+
+app.set("view engine", "ejs");
+app.set("views", "./admin");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -44,6 +48,7 @@ app.use((req, res, next) => {
 // 라우터 설정
 app.use("/api-server", router);
 app.use("/api-server/auth", authRouter);
+app.use("/api-server/admin", adminRouter);
 
 // swagger
 const { swaggerUi, swaggerSpec } = require("./routes/swagger");

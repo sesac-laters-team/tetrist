@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>tetrist 관리자 페이지</title>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    </head>
+    <%- include('header')%>
+    <body>
+        <h2>게임방 관리</h2>
+        <div class="rooms">
+            <table class="roomTable" border="1" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>인덱스</th>
+                        <th>방 이름</th>
+                        <th>방 비밀번호</th>
+                        <th>방장</th>
+                        <th>게스트</th>
+                        <th>상태</th>
+                        <th>방 삭제</th>
+                    </tr>
+                </thead>
+                <tbody id="roomList">
+                    <% for (let i= 0; i < data.length; i++) { %>
+                    <tr id="tr_<%= data[i].room_id %>">
+                        <td><%= data[i].room_id %></td>
+                        <td><%= data[i].r_name %></td>
+                        <td><%= data[i].r_password %></td>
+                        <td><%= data[i].user_id %></td>
+                        <td><%= data[i].guest_id %></td>
+                        <td>
+                            <%if(data[i].r_status){%> 게임 중 <%}else{%> 대기 중
+                            <%}%>
+                        </td>
+                        <td>
+                            <button
+                                onclick="deleteRoom('<%=data[i].room_id%>')"
+                            >
+                                삭제
+                            </button>
+                        </td>
+                    </tr>
+                    <%}%>
+                </tbody>
+            </table>
+        </div>
+    </body>
+    <script>
+        const deleteRoom = (roomId) => {
+            if (
+                confirm(
+                    "방을 삭제하시겠습니까? 삭제된 정보는 복구할 수 없습니다."
+                )
+            ) {
+                axios({
+                    method: "DELETE",
+                    url: `/api-server/admin/deleteRoom/${roomId}`,
+                })
+                    .then((res) => {
+                        alert("방이 삭제되었습니다.");
+                        document.location.href = "/api-server/admin/adminRoom";
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        alert(err.response.data.msg);
+                    });
+            }
+        };
+    </script>
+</html>
