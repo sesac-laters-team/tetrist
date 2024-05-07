@@ -16,13 +16,11 @@ exports.index = async (req, res) => {
 exports.matchResult = async (req, res) => {
     try {
         /* 포인트를 프론트에서 지정
-        const { userId, ratePoint, shopPoint } = req.body; */
+        const { userId, ratePoint } = req.body; */
         /* 포인트를 백에서 지정 */
         const { winUserId, loseUserId } = req.body;
         const winRP = 50;
         const loseRP = 20;
-        const winSP = 100;
-        const loseSP = 50;
 
         // 기존 사용자의 point 조회
         const findWinner = await usersModel.findOne({
@@ -53,14 +51,11 @@ exports.matchResult = async (req, res) => {
         // 승패 여부에 따라 데이터 처리
         // 승리 유저
         /*
-            const winUpdateRating = findWinner.rating + Number(ratePoint);
-            const winUpdatePoint = findWinner.point + Number(shopPoint); */
+            const winUpdateRating = findWinner.rating + Number(ratePoint); */
         const winUpdateRating = findWinner.rating + winRP;
-        const winUpdatePoint = findWinner.point + winSP;
         const [winUser] = await usersModel.update(
             {
                 rating: winUpdateRating,
-                point: winUpdatePoint,
                 win: findWinner.win + 1,
             },
             {
@@ -72,7 +67,6 @@ exports.matchResult = async (req, res) => {
         // 패배 유저
         /*
             let updateRating = findLoser.rating - Number(ratePoint);
-            const updatePoint = findLoser.point + Number(shopPoint);
             // 승점이 -가 되지 않도록
             if (updateRating < 0) {
                 updateRating = 0;
@@ -80,11 +74,9 @@ exports.matchResult = async (req, res) => {
         // 승점이 -가 되지 않도록
         const updateRating =
             findLoser.rating >= loseRP ? findLoser.rating - loseRP : 0;
-        const updatePoint = findLoser.point + loseSP;
         const [loseUser] = await usersModel.update(
             {
                 rating: updateRating,
-                point: updatePoint,
                 lose: findLoser.lose + 1,
             },
             {
