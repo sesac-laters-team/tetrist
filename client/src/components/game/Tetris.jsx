@@ -20,7 +20,7 @@ import { socket } from "./Game";
 
 import KeyInfo from "./KeyInfo";
 
-const Tetris = ({ rows, columns, setGameOver }) => {
+const Tetris = ({ rows, columns, setGameOver, otherNick, myNick }) => {
     const [gameStats, addLinesCleared] = useGameStats();
     const [gameStatsOther, addLinesClearedOther] = useGameStatsOther();
     const [player, setPlayer, resetPlayer] = usePlayer();
@@ -67,8 +67,8 @@ const Tetris = ({ rows, columns, setGameOver }) => {
 
     return (
         <div className="Tetris">
-            <h2 className="me">owner</h2>
-            {!isSmallScreen && <h2 className="other">guest</h2>}
+            <h2 className="me">{myNick}</h2>
+            <h2 className="other">{otherNick}</h2>
             <Board board={board} />
             <GameStats gameStats={gameStats} />
             <GameController
