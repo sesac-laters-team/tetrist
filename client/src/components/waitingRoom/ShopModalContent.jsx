@@ -33,20 +33,6 @@ const ShopModalContent = ({ shopList }) => {
                     // 요청 실패 시 처리할 내용
                     console.error("Axios request error:", error);
                 });
-        } else if (item.p_type === "profileEdge") {
-            axios
-                .patch(
-                    `${process.env.REACT_APP_API_SERVER}/auth/mypage/changeCustom`,
-                    { profileEdge: item.p_img }
-                )
-                .then((response) => {
-                    // 요청 성공 시 처리할 내용
-                    console.log("Axios request success:", response);
-                })
-                .catch((error) => {
-                    // 요청 실패 시 처리할 내용
-                    console.error("Axios request error:", error);
-                });
         }
     };
 
@@ -69,9 +55,9 @@ const ShopModalContent = ({ shopList }) => {
     return (
         <div className="shop-modal">
             <div className="shop-modal-header">
-                <h2 className="shop-modal-title">상점</h2>
+                <h2 className="shop-modal-title">악세사리</h2>
             </div>
-            <div className="shop-points">Point : 1,000</div>
+
             <div className="shop-items">
                 {Object.keys(groupedItems).map((type) => (
                     <div key={type}>
