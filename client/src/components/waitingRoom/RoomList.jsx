@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Pagination from "react-js-pagination";
 import axios from "axios";
 import { init, join } from "../../redux/store/module/waiting";
+import Modal from "../common/commonmodal";
 axios.defaults.withCredentials = true;
 
 export default function RoomList({ socket }) {
@@ -15,6 +16,7 @@ export default function RoomList({ socket }) {
     const navigate = useNavigate();
 
     const [countRoom, setCountRoom] = useState(null);
+    const [createModal, setCreateModal] = useState({});
 
     // pagiation
     const [currentPage, setCurrentPage] = useState(1);
@@ -65,8 +67,13 @@ export default function RoomList({ socket }) {
             { roomId: room.room_id }
         );
 
-        console.log("서버에서 보내는 방 데이터:: ", searchRoom.data);
-
+        if (searchRoom.data.roomData.r_password) {
+            setCreateModal({
+                modalOpen: true,
+                roomInfo: searchRoom.data.roomData,
+            });
+            return;
+        }
         // 서버에서 방 입장
         const joinRoom = await axios.post(
             `${process.env.REACT_APP_API_SERVER}/room/enter/${searchRoom.data.roomData.room_id}`,
@@ -144,6 +151,14 @@ export default function RoomList({ socket }) {
                 nextPageText={">"}
                 onChange={handlePageChange}
             />
+            {createModal.modalOpen && (
+                <Modal
+                    type="InsertPw"
+                    socket={socket}
+                    roomInfo={createModal.roomInfo}
+                    closeModal={() => setCreateModal({})}
+                />
+            )}
         </div>
     );
 }

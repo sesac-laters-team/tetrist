@@ -55,16 +55,7 @@ function App() {
                         element={<Navigate replace to="/login" />}
                     />
                     <Route path="/login" element={<LoginPage />} />
-                    <Route
-                        path="/waiting"
-                        element={
-                            isLoggedIn ? (
-                                <WaitingRoomPage />
-                            ) : (
-                                <Navigate replace to="/login" />
-                            )
-                        }
-                    />
+                    <Route path="/waiting" element={<WaitingRoomPage />} />
                     {rooms.map((room) => (
                         <Route
                             key={room.room_id}
@@ -80,16 +71,7 @@ function App() {
                         path={`/test/start`}
                         element={<GamePage roomId={100} />}
                     />
-                    <Route
-                        path="/result"
-                        element={
-                            isLoggedIn ? (
-                                <GameResult />
-                            ) : (
-                                <Navigate replace to="/login" />
-                            )
-                        }
-                    />
+                    <Route path="/result" element={<GameResult />} />
                 </Routes>
             </div>
         </Router>
