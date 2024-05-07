@@ -156,18 +156,34 @@ const MyPageContent = ({ myInfo }) => {
                     </span>
                 </div>
             </div>
-
             {isChangePwVisible && (
-                <div>
-                    새 비밀번호:
-                    <div style={{ display: "flex", alignItems: "center" }}>
-                        <div style={{ position: "relative" }}>
+                <div style={{ textAlign: "center", marginBottom: "20px" }}>
+                    {" "}
+                    {/* 부모 요소에 text-align: center 및 여백 추가 */}
+                    <label>새 비밀번호</label>
+                    <div
+                        style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                        }}
+                    >
+                        <div
+                            style={{
+                                position: "relative",
+                                width: "fit-content",
+                            }}
+                        >
                             <input
+                                className="username"
                                 type={showPw ? "text" : "password"}
-                                className="changePwInput"
                                 value={newPassword}
                                 onChange={handleNewPasswordChange}
-                                style={{ paddingRight: "30px" }}
+                                style={{
+                                    paddingRight: "35px", // 아이콘의 공간 확보
+                                    borderRadius: "5px",
+                                    border: "2px solid black",
+                                }}
                             />
                             {showPw ? (
                                 <FaEyeSlash
@@ -175,7 +191,7 @@ const MyPageContent = ({ myInfo }) => {
                                     onClick={() => setShowPw(false)}
                                     style={{
                                         position: "absolute",
-                                        right: "5px",
+                                        right: "10px", // `input` 내부 여백에 맞게 간격 설정
                                         top: "50%",
                                         transform: "translateY(-50%)",
                                         cursor: "pointer",
@@ -187,7 +203,7 @@ const MyPageContent = ({ myInfo }) => {
                                     onClick={() => setShowPw(true)}
                                     style={{
                                         position: "absolute",
-                                        right: "5px",
+                                        right: "10px", // `input` 내부 여백에 맞게 간격 설정
                                         top: "50%",
                                         transform: "translateY(-50%)",
                                         cursor: "pointer",
@@ -196,12 +212,23 @@ const MyPageContent = ({ myInfo }) => {
                             )}
                         </div>
                     </div>
-                    <button onClick={handleSendNewPw}>변경</button>
-                    <button onClick={() => setIsChangePwVisible(false)}>
-                        취소
-                    </button>
+                    <div>
+                        <button
+                            className="action-button"
+                            onClick={handleSendNewPw}
+                        >
+                            변경
+                        </button>
+                        <button
+                            className="action-button"
+                            onClick={() => setIsChangePwVisible(false)}
+                        >
+                            취소
+                        </button>
+                    </div>
                 </div>
             )}
+
             <div className="user-actions">
                 <button className="action-button" onClick={handleChangePw}>
                     비밀번호 변경
