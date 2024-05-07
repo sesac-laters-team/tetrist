@@ -53,7 +53,7 @@ exports.matchResult = async (req, res) => {
         /*
             const winUpdateRating = findWinner.rating + Number(ratePoint); */
         const winUpdateRating = findWinner.rating + winRP;
-        const [winUser] = await usersModel.update(
+        const winUser = await usersModel.update(
             {
                 rating: winUpdateRating,
                 win: findWinner.win + 1,
@@ -74,7 +74,7 @@ exports.matchResult = async (req, res) => {
         // 승점이 -가 되지 않도록
         const updateRating =
             findLoser.rating >= loseRP ? findLoser.rating - loseRP : 0;
-        const [loseUser] = await usersModel.update(
+        const loseUser = await usersModel.update(
             {
                 rating: updateRating,
                 lose: findLoser.lose + 1,
@@ -86,7 +86,7 @@ exports.matchResult = async (req, res) => {
             }
         );
 
-        if (winUser && loseUser) {
+        if (winUser > 0 && loseUser > 0) {
             res.status(200).send({
                 result: true,
                 msg: "유저 정보가 변경되었습니다.",

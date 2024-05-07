@@ -23,14 +23,28 @@ exports.postRoom = async (req, res) => {
             r_password: r_password,
         });
         if (createRoom) {
-            res.status(201).send({
-                result: true,
-                userId: createRoom.user_id,
-                roomId: createRoom.room_id,
-                msg: "방이 생성되었습니다.",
-            });
+            if (!r_password) {
+                res.status(201).send({
+                    result: true,
+                    userId: createRoom.user_id,
+                    userNickname: createRoom.nickname,
+                    roomId: createRoom.room_id,
+                    private: false,
+                    msg: "공개방이 생성되었습니다.",
+                });
+            } else {
+                res.status(201).send({
+                    result: true,
+                    userId: createRoom.user_id,
+                    userNickname: createRoom.nickname,
+                    roomId: createRoom.room_id,
+                    private: true,
+                    msg: "비공개방이 생성되었습니다.",
+                });
+            }
         } else {
-            res.status(400).send({
+            // res.status(400).send({
+            res.send({
                 result: false,
                 msg: "방 생성에 실패했습니다. 다시 시도해주세요.",
             });
@@ -58,7 +72,8 @@ exports.roomData = async (req, res) => {
                 },
             });
             if (!creator) {
-                res.status(404).send({
+                // res.status(404).send({
+                res.send({
                     result: false,
                     msg: "방장 유저 정보를 찾을 수 없습니다.",
                 });
@@ -69,13 +84,6 @@ exports.roomData = async (req, res) => {
                     user_id: room.guest_id,
                 },
             });
-            // if (!guest) {
-            //     res.status(404).send({
-            //         result: false,
-            //         msg: "게스트 유저 정보를 찾을 수 없습니다.",
-            //     });
-            //     return;
-            // }
             res.status(200).send({
                 result: true,
                 roomData: room,
@@ -84,7 +92,8 @@ exports.roomData = async (req, res) => {
                 msg: "룸 정보 확인",
             });
         } else {
-            res.status(404).send({
+            // res.status(404).send({
+            res.send({
                 result: false,
                 msg: "룸 정보를 찾을 수 없습니다.",
             });
@@ -107,23 +116,31 @@ exports.enterRoom = async (req, res) => {
                 room_id: roomId,
             },
         });
+        const findGuest = await usersModel.findOne({
+            where: {
+                user_id: req.session.userId,
+            },
+        });
         if (findRoom) {
             // 공개방인 경우
             if (!findRoom.r_password) {
                 if (!findRoom.guest_id) {
-                    const [enterRoom] = await roomsModel.update(
+                    const enterRoom = await roomsModel.update(
                         { guest_id: req.session.userId },
                         { where: { room_id: roomId } }
                     );
                     // 입장 성공
-                    if (enterRoom) {
+                    if (enterRoom > 0) {
                         res.status(200).send({
                             result: true,
-                            guestId: req.session.userId,
+                            guestId: findGuest.user_id,
+                            guestNickname: findGuest.nickname,
+                            private: false,
                             msg: "공개 방에 입장했습니다.",
                         });
                     } else {
-                        res.status(400).send({
+                        // res.status(400).send({
+                        res.send({
                             result: false,
                             msg: "방 입장 실패. 다시 시도해주세요.",
                         });
@@ -141,19 +158,22 @@ exports.enterRoom = async (req, res) => {
                 if (r_password === findRoom.r_password) {
                     // 비밀번호 일치
                     if (!findRoom.guest_id) {
-                        const [enterRoom] = await roomsModel.update(
+                        const enterRoom = await roomsModel.update(
                             { guest_id: req.session.userId },
                             { where: { room_id: roomId } }
                         );
                         // 입장 성공
-                        if (enterRoom) {
+                        if (enterRoom > 0) {
                             res.status(200).send({
                                 result: true,
-                                guestId: req.session.userId,
+                                guestId: findGuest.user_id,
+                                guestNickname: findGuest.nickname,
+                                private: true,
                                 msg: "비공개 방에 입장했습니다.",
                             });
                         } else {
-                            res.status(400).send({
+                            // res.status(400).send({
+                            res.send({
                                 result: false,
                                 msg: "방 입장 실패. 다시 시도해주세요.",
                             });
@@ -176,7 +196,8 @@ exports.enterRoom = async (req, res) => {
                 }
             }
         } else {
-            res.status(404).send({
+            // res.status(404).send({
+            res.send({
                 result: false,
                 msg: "방 정보를 찾을 수 없습니다.",
             });
@@ -193,11 +214,11 @@ exports.leaveRoom = async (req, res) => {
     try {
         const { roomId } = req.params;
 
-        const [leaveRoom] = await roomsModel.update(
+        const leaveRoom = await roomsModel.update(
             { guest_id: null },
             { where: { room_id: roomId } }
         );
-        if (leaveRoom) {
+        if (leaveRoom > 0) {
             res.status(200).send({
                 result: true,
                 roomId: roomId,
@@ -220,11 +241,11 @@ exports.leaveRoom = async (req, res) => {
 exports.patchRoom = async (req, res) => {
     try {
         const { roomId } = req.params;
-        const [updateState] = await roomsModel.update(
+        const updateState = await roomsModel.update(
             { r_status: true },
             { where: { room_id: roomId } }
         );
-        if (updateState) {
+        if (updateState > 0) {
             res.status(200).send({
                 result: true,
                 roomId,
@@ -250,7 +271,7 @@ exports.deleteRoom = async (req, res) => {
         const deleteRoom = await roomsModel.destroy({
             where: { room_id: roomId },
         });
-        if (deleteRoom) {
+        if (deleteRoom > 0) {
             res.status(200).send({
                 result: true,
                 roomId: roomId,
