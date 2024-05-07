@@ -66,12 +66,7 @@ const AuthForm = () => {
                                 }}
                             />
                         ) : (
-                            <FaEye
-                                className="eye"
-                                onClick={() => {
-                                    setShowPw(true);
-                                }}
-                            />
+                            0
                         )}
                     </div>
                     <div className="btnWrap">

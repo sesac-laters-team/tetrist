@@ -1,3 +1,4 @@
+// KeyInfo.jsx
 import React, { useState, useEffect } from "react";
 
 const styles = {
@@ -11,6 +12,17 @@ const styles = {
     },
     hidden: {
         display: "none",
+    },
+    image: {
+        width: "200px", // 원하는 크기로 조정
+        height: "auto",
+        marginBottom: "20px", // 이미지와 키 컨트롤 사이에 간격 추가
+        transform: "scaleX(-1)", // 좌우 반전
+    },
+    realimage: {
+        width: "200px", // 원하는 크기로 조정
+        height: "auto",
+        marginBottom: "20px", // 이미지와 키 컨트롤 사이에 간격 추가
     },
 };
 
@@ -30,7 +42,12 @@ const KeyInfo = () => {
     return (
         <div style={styles.container}>
             <div style={isSmallScreen ? styles.hidden : styles.keyInfo}>
-                <h3>Key Controls:</h3>
+                <img
+                    src="/dino.gif" // 이미지 경로를 올바르게 변경하세요
+                    alt="Key Info"
+                    style={styles.image}
+                />
+                <h3>Key Controls+</h3>
                 <ul>
                     <li>
                         <strong>Left Arrow:</strong> Move left
@@ -48,6 +65,11 @@ const KeyInfo = () => {
                         <strong>Space:</strong> Hard drop
                     </li>
                 </ul>
+                <img
+                    src="/dino.gif" // 이미지 경로를 올바르게 변경하세요
+                    alt="Key Info"
+                    style={styles.realimage}
+                />
             </div>
         </div>
     );
