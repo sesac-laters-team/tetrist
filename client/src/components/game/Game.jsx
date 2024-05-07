@@ -6,7 +6,7 @@ import Tetris from "./Tetris";
 import io from "socket.io-client";
 import { useDispatch, useSelector } from "react-redux";
 import GameResult from "../page/GameResult";
-import { join } from "../../redux/store/module/waiting";
+import { del, join } from "../../redux/store/module/waiting";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
@@ -19,6 +19,8 @@ const Game = ({ rows, columns, roomId }) => {
     const initSocketConnect = () => {
         if (!socket.connected) socket.connect();
     };
+
+    const realUserId = useSelector((state) => state.auth.userData);
 
     const rooms = useSelector((state) => state.waiting.rooms);
     const [room, setRoom] = useState(
@@ -63,22 +65,25 @@ const Game = ({ rows, columns, roomId }) => {
 
     // 서버로부터 게임 종료 이벤트를 받았을때 (상대가 먼저 죽었을 경우)
     socket.on("game_over_to_client", async () => {
-        setWinner(room.user_id);
-        // 서버로 부터 게임 종료 이벤트 전달받았을때 게임 결과 비동기 요청
-        console.log(
-            "game_over_to_client 이벤트 room.guest_id ::: ",
-            room.guest_id
-        );
-        console.log(
-            "game_over_to_client 이벤트 room.user_id ::: ",
-            room.user_id
-        );
-        await axios.patch(`${process.env.REACT_APP_API_SERVER}/matchResult`, {
-            winUserId: room.user_id,
-            loseUserId: room.guest_id,
-        });
+        setWinner(realUserId);
+
         setGameOver(true);
+
+        console.log("결과 전송 엑시오스!!!!");
+        await axios.patch(`${process.env.REACT_APP_API_SERVER}/matchResult`, {
+            winUserId: realUserId.userId,
+            loseUserId:
+                realUserId.userId === room.user_id
+                    ? room.guest_id
+                    : room.user_id,
+        });
         socket.disconnect();
+        console.log("이거 realUserId.userId ??? :: ", realUserId.userId);
+
+        //axios
+        await axios.delete(
+            `${process.env.REACT_APP_API_SERVER}/room/${room.room_id}`
+        );
     });
 
     return (

@@ -19,6 +19,8 @@ exports.matchResult = async (req, res) => {
         const { userId, ratePoint } = req.body; */
         /* 포인트를 백에서 지정 */
         const { winUserId, loseUserId } = req.body;
+        console.log("winUserId :: ", winUserId);
+        console.log("loseUserId :: ", loseUserId);
         const winRP = 50;
         const loseRP = 20;
 

@@ -2,12 +2,16 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styles/game/GameResult.scss";
 import { socket } from "../game/Game";
+import { useDispatch, useSelector } from "react-redux";
+import { del } from "../../redux/store/module/waiting";
 
 const GameResult = ({ result }) => {
     console.log("프롭스로 넘어온", result);
     const navigate = useNavigate();
     const winnerImage = "/tetris_winner.png";
     const loserImage = "/tetris_looser.png";
+    const dispatch = useDispatch();
+    const realUserId = useSelector((state) => state.auth.userData);
 
     useEffect(() => {
         if (!result) {
@@ -52,6 +56,13 @@ const GameResult = ({ result }) => {
 
     const handleConfirm = () => {
         navigate("/waiting");
+
+        //redux
+        dispatch(
+            del({
+                user_id: realUserId.userId,
+            })
+        );
         socket.disconnect();
     };
 
