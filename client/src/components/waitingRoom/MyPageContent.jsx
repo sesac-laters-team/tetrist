@@ -112,7 +112,8 @@ const MyPageContent = ({ myInfo }) => {
         userInfo &&
         (userInfo.win + userInfo.lose === 0
             ? 0
-            : (userInfo.win / (userInfo.win + userInfo.lose)) * 100);
+            : (userInfo.win / (userInfo.win + userInfo.lose)) * 100
+        ).toFixed(2);
 
     return (
         <div className="mypage-container">

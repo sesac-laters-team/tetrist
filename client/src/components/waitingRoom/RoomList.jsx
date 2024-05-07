@@ -55,7 +55,7 @@ export default function RoomList({ socket }) {
 
     const gameJoin = async (room) => {
         // console.log("방 인덱스 :: ", room.room_id); // state에 저장되어 있는 방 전체 데이터
-        if (countRoom === "2/2") {
+        if (room.guest_id === "2/2") {
             return;
         }
 
@@ -122,11 +122,11 @@ export default function RoomList({ socket }) {
                                         {room.room_id} {room.r_name}
                                     </span>
                                     <div>
-                                        {countRoom === null ? "1/2" : "2/2"}
+                                        {room.guest_id === null ? "1/2" : "2/2"}
                                     </div>
                                     <button
                                         onClick={() => gameJoin(room)}
-                                        disabled={countRoom === "2/2"}
+                                        disabled={room.guest_id === "2/2"}
                                     >
                                         입장
                                     </button>

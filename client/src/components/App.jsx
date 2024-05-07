@@ -55,16 +55,7 @@ function App() {
                         element={<Navigate replace to="/login" />}
                     />
                     <Route path="/login" element={<LoginPage />} />
-                    <Route
-                        path="/waiting"
-                        element={
-                            isLoggedIn ? (
-                                <WaitingRoomPage />
-                            ) : (
-                                <Navigate replace to="/login" />
-                            )
-                        }
-                    />
+                    <Route path="/waiting" element={<WaitingRoomPage />} />
                     {rooms.map((room) => (
                         <Route
                             key={room.room_id}
