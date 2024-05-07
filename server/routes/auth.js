@@ -14,53 +14,52 @@ const { checkAuth } = require("../utils/routerUtils");
  *      tags: [User]
  *      responses:
  *        "200":
- *          description: 회원가입 성공
+ *          description: "회원가입 성공"
  *          content:
  *            application/json:
  *              schema:
  *                type: object
  *                properties:
- *                    ok:
- *                      type: boolean
- *                    users:
- *                      type: object
- *                      example:
- *                          [
- *                              {
-    "result": true,
-    "msg": "회원가입 성공"
-}
- *                          ]
+ *                  result:
+ *                    type: boolean
+ *                  msg:
+ *                    type: string
+ *              example:
+ *                result: true
+ *                msg: "회원가입 성공"
  */
 authRouter.post("/register", usersCtr.postRegister);
 
 /**
  * @swagger
- * paths:
- *  /api-server/auth/register/emailDuplicate:
- *    post:
- *      summary: "이메일 중복 검사"
- *      description: ""
- *      tags: [User]
- *      responses:
- *        "200":
- *          description: 이메일 사용 가능
- *          content:
- *            application/json:
- *              schema:
- *                type: object
- *                properties:
- *                    ok:
- *                      type: boolean
- *                    users:
- *                      type: object
- *                      example:
- *                          [
- *                              {
-    "result": true,
-    "msg": "사용할 수 있는 이메일입니다."
-}
- *                          ]
+ * /api-server/auth/register/emailDuplicate:
+ *   post:
+ *     summary: "유저 회원가입 이메일 중복 검사"
+ *     description: ""
+ *     tags: [User]
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *     responses:
+ *       "200":
+ *         description: "이메일 사용 가능"
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   type: boolean
+ *                 msg:
+ *                   type: string
+ *               example:
+ *                 result: true
+ *                 msg: "사용할 수 있는 이메일입니다."
  */
 authRouter.post("/emailDuplicate", usersCtr.emailDuplicate);
 
@@ -268,6 +267,8 @@ authRouter.patch(
     checkAuth,
     usersCtr.patchUserNickname
 );
+
+authRouter.patch("/mypage/changeCustom", checkAuth, usersCtr.patchCustom);
 
 /**
  * @swagger

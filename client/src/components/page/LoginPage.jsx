@@ -38,7 +38,9 @@ const AuthForm = () => {
     return (
         <div className="container">
             <div className="contentWrap">
-                <div className="logoWrap">LOGO</div>
+                <div className="logoWrap">
+                    <img src="/images/tetrist_logo.gif" alt="LOGO" />
+                </div>
                 <form onSubmit={handleLogin}>
                     <div className="inputWrap email">
                         <input
@@ -76,13 +78,14 @@ const AuthForm = () => {
                         <button type="submit" className="login">
                             로그인
                         </button>
+                        <button
+                            type="button"
+                            onClick={() => setCreateModal(true)}
+                        >
+                            회원가입
+                        </button>
                     </div>
                 </form>
-                <div className="btnWrap">
-                    <button type="button" onClick={() => setCreateModal(true)}>
-                        회원가입
-                    </button>
-                </div>
             </div>
             {createModal && (
                 <Modal

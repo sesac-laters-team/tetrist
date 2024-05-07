@@ -1,20 +1,16 @@
 import React, { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../../styles/game/GameResult.scss";
+import { socket } from "../game/Game";
 
-const GameResult = () => {
-    const location = useLocation();
+const GameResult = ({ result }) => {
+    console.log("프롭스로 넘어온", result);
     const navigate = useNavigate();
-    const {
-        winner = "unknown",
-        owner = "unknown",
-        guest = "unknown",
-    } = location.state || {};
     const winnerImage = "/tetris_winner.png";
     const loserImage = "/tetris_looser.png";
 
     useEffect(() => {
-        if (winner !== owner) {
+        if (!result) {
             const createRainDrop = () => {
                 const rainDrop = document.createElement("div");
                 rainDrop.className = "rain-drop";
@@ -49,22 +45,18 @@ const GameResult = () => {
 
             return () => clearInterval(interval);
         }
-    }, [owner, winner]);
+    }, [result]);
 
-    const getResultMessage = () => {
-        return winner === owner ? "You win!" : "You lose!";
-    };
-
-    const getResultImage = () => {
-        return winner === owner ? winnerImage : loserImage;
-    };
+    const getResultMessage = () => (result ? "You win!" : "You lose!");
+    const getResultImage = () => (result ? winnerImage : loserImage);
 
     const handleConfirm = () => {
         navigate("/waiting");
+        socket.disconnect();
     };
 
     return (
-        <div className={`GameResult ${winner !== owner ? "rain-effect" : ""}`}>
+        <div className={`GameResult ${!result ? "rain-effect" : ""}`}>
             <h1>Game Over</h1>
             <p>{getResultMessage()}</p>
             <img
@@ -72,7 +64,6 @@ const GameResult = () => {
                 alt={getResultMessage()}
                 style={{ width: "400px", height: "400px" }}
             />
-
             <button onClick={handleConfirm}>확인</button>
         </div>
     );

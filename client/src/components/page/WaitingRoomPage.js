@@ -26,12 +26,12 @@ function getTetrisShapes() {
         L: [
             [1, 0, 0],
             [1, 0, 0],
-            [1, 1, 1],
+            [1, 1, 0],
         ],
         J: [
             [0, 0, 1],
             [0, 0, 1],
-            [1, 1, 1],
+            [0, 1, 1],
         ],
         S: [
             [0, 1, 1],
@@ -115,7 +115,8 @@ function addFallingBlock() {
     const block = createTetrisBlock();
     if (!block) return;
 
-    document.body.appendChild(block);
+    const container = document.querySelector(".waiting-room"); // 컨테이너 지정
+    container.appendChild(block); // 컨테이너에 추가
 
     block.addEventListener("animationend", () => {
         block.remove();
@@ -144,7 +145,7 @@ export default function WaitingRoomPage() {
     return (
         <div className="waiting-room">
             <div className="logo-and-menubar">
-                <div className="logoImg">TETRIST</div>
+                <img src="/images/tetrist_logo.gif" alt="LOGO" />
                 <Menubar socket={socket} />
             </div>
             <br />

@@ -12,6 +12,11 @@ export const useInterval = (callback, delay) => {
     // Set up the interval
     useEffect(() => {
         function tick() {
+            const gameControllerInput =
+                document.querySelector(".GameController");
+            gameControllerInput.focus();
+            if (gameControllerInput) {
+            }
             savedCallback.current();
         }
         if (delay !== null) {

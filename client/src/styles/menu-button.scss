@@ -5,6 +5,7 @@
     padding: 10px;
     background-color: white;
     border-radius: 5px; /* 모서리를 둥글게 처리합니다. */
+    flex-wrap: nowrap;
 }
 
 .close-button:hover {
@@ -18,6 +19,7 @@
     border: 1px solid #333; /* 버튼 테두리를 설정합니다. */
     border-radius: 10px;
     cursor: pointer;
+    white-space: nowrap;
     transition: all 0.3s ease; /* 부드러운 색상 전환 효과를 위해 설정합니다. */
     font-weight: 600; /* 폰트를 두껍게 합니다. */
 }
@@ -100,5 +102,21 @@
             4,
             1fr
         ); /* 데스크탑에서는 4개의 컬럼으로 표시 */
+    }
+}
+/* 예시 */
+@media (max-width: 1024px) {
+    .menubar {
+        flex-direction: row;
+        justify-content: space-around;
+        flex-wrap: wrap; /* 줄바꿈 가능하도록 설정 */
+        width: 100%;
+    }
+
+    .menubar-button {
+        flex: 1; /* 버튼 크기를 동적으로 조정 */
+        min-width: 60px; /* 버튼 최소 크기 설정 */
+        margin: 5px; /* 버튼 간 간격 조정 */
+        padding: 5px 10px; /* 버튼 패딩 줄이기 */
     }
 }

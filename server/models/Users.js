@@ -22,17 +22,20 @@ const usersModel = (Sequelize, DataTypes) => {
                 allowNull: false,
                 unique: true,
             },
-            // 유저가 구매해서 설정한 커스텀들 중 선택한 커스텀
-            // ex) '{"p_type":product_id}'
-            custom: {
-                type: DataTypes.JSON,
+            profile: {
+                type: DataTypes.STRING,
                 allowNull: false,
-                defaultValue: { profile: 1, profileEdge: 2, theme: 3 },
+                defaultValue: "/profile/default",
             },
-            point: {
-                type: DataTypes.INTEGER,
+            profileEdge: {
+                type: DataTypes.STRING,
                 allowNull: false,
-                defaultValue: 0,
+                defaultValue: "/profileEdge/default",
+            },
+            theme: {
+                type: DataTypes.STRING,
+                allowNull: false,
+                defaultValue: "#ffffff",
             },
             win: {
                 type: DataTypes.INTEGER,
@@ -48,16 +51,6 @@ const usersModel = (Sequelize, DataTypes) => {
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 defaultValue: 0,
-            },
-            // true:온라인, false:오프라인
-            connecting: {
-                type: DataTypes.BOOLEAN,
-                allowNull: false,
-                defaultValue: false,
-            },
-            chat_penalty: {
-                type: DataTypes.BOOLEAN,
-                defaultValue: false,
             },
             access_penalty: {
                 type: DataTypes.BOOLEAN,
