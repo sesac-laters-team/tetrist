@@ -44,7 +44,7 @@ const InsertPwModal = ({ roomInfo, socket, closeModal }) => {
                     guest_id: response.data.guestId,
                 })
             );
-
+            setPassword("");
             navigate(`/waiting/${roomInfo.room_id}`);
         }
     };
