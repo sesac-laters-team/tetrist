@@ -1,7 +1,7 @@
 {
     "development": {
-        "username": "sesac",
-        "password": "1234",
+        "username": "root",
+        "password": "5172",
         "database": "tetrist",
         "host": "127.0.0.1",
         "dialect": "mysql"

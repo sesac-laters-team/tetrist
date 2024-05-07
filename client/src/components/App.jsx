@@ -25,8 +25,6 @@ import "../styles/font.scss";
 
 function App() {
     const dispatch = useDispatch();
-    const isLoggedIn = useSelector((state) => state.auth.userData !== null);
-    // 초기값을 true로 설정하여 기본적으로 대기 페이지 액세스를 허용
 
     useEffect(() => {
         const storedLoggedIn = localStorage.getItem("isLoggedIn") === "true";

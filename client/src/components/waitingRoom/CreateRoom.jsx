@@ -60,6 +60,7 @@ export default function CreateRoom({ socket }) {
                 // });
 
                 // 게임 페이지로 이동
+                setPwInput("");
                 navigate(`/waiting/${roomId}`);
             } catch (error) {
                 console.error("Error creating new room:", error);
