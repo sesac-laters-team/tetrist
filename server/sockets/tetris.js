@@ -21,11 +21,11 @@ function tetrisSocketHandler(server) {
             console.log(`${creator}가 게임 생성`);
             console.log(gameInfo.size);
             if (gameInfo.size === 1) {
-                saveNick = nickname;
+                saveNick = nickname; //김성민
             }
             if (gameInfo.size === 2) {
-                socket.to("game").emit("game_enter_notice", guest, nickname);
-                io.to("game").emit("saveNick", saveNick);
+                socket.to("game").emit("game_enter_notice", guest, nickname); //닉네임 , 기다리는사람
+                socket.emit("saveNick", saveNick); // 김성민 , 나중에 들어온 사람
             }
         });
         // 상태정보 이벤트

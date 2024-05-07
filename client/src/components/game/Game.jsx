@@ -73,9 +73,6 @@ const Game = ({ rows, columns, roomId }) => {
             // console.log("상대 입장 시 변경된 룸 스테이트 ", room);
         });
         socket.on("saveNick", (saveNick) => {
-            if (otherNick !== null) {
-                return;
-            }
             setOtherNick(saveNick);
         });
     }, [dispatch, roomId, room, rooms, otherNick]);
