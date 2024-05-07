@@ -15,6 +15,8 @@ export const useInterval = (callback, delay) => {
             const gameControllerInput =
                 document.querySelector(".GameController");
             gameControllerInput.focus();
+            if (gameControllerInput) {
+            }
             savedCallback.current();
         }
         if (delay !== null) {

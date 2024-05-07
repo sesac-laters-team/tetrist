@@ -15,24 +15,14 @@ import { useGameStats } from "../../hooks/useGameStats";
 import { useGameStatsOther } from "../../hooks/useGameStatsOther";
 import { usePlayer } from "../../hooks/usePlayer";
 import { usePlayerOther } from "../../hooks/usePlayerOther";
-import { useOver } from "../../hooks/useOver";
 
-import io from "socket.io-client";
+import { socket } from "./Game";
+
 import KeyInfo from "./KeyInfo";
 
-const socket = io.connect(`${process.env.REACT_APP_GAME_SERVER}`, {
-    autoConnect: false,
-});
-
-const Tetris = ({ rows, columns, setGameOver, owner, guest }) => {
-    const initSocketConnect = () => {
-        if (!socket.connected) socket.connect();
-    };
-
-    const [over, setOver] = useOver();
+const Tetris = ({ rows, columns, setGameOver }) => {
     const [gameStats, addLinesCleared] = useGameStats();
     const [gameStatsOther, addLinesClearedOther] = useGameStatsOther();
-
     const [player, setPlayer, resetPlayer] = usePlayer();
     const [playerOther, setPlayerOther, resetPlayerOther] = usePlayerOther();
 
@@ -59,13 +49,7 @@ const Tetris = ({ rows, columns, setGameOver, owner, guest }) => {
     useEffect(() => {
         const handleResize = () => setIsSmallScreen(window.innerWidth <= 1024);
         window.addEventListener("resize", handleResize);
-
         return () => window.removeEventListener("resize", handleResize);
-    }, []);
-
-    useEffect(() => {
-        initSocketConnect();
-        socket.emit("enter");
     }, []);
 
     useEffect(() => {
@@ -81,27 +65,11 @@ const Tetris = ({ rows, columns, setGameOver, owner, guest }) => {
         setPlayerOther(object.player);
     });
 
-    useEffect(() => {
-        if (over) {
-            socket.emit("game_over_to_server", guest);
-            setTimeout(() => {
-                socket.disconnect();
-            }, 500);
-        }
-    }, [over]);
-
-    socket.on("game_over_to_client", (msg) => {
-        console.log(msg);
-        setGameOver(true);
-        socket.disconnect();
-    });
-
     return (
         <div className="Tetris">
-            <h2 className="me">{owner}</h2>
-            {!isSmallScreen && <h2 className="other">{guest}</h2>}
+            <h2 className="me">owner</h2>
+            {!isSmallScreen && <h2 className="other">guest</h2>}
             <Board board={board} />
-
             <GameStats gameStats={gameStats} />
             <GameController
                 board={board}
@@ -109,7 +77,6 @@ const Tetris = ({ rows, columns, setGameOver, owner, guest }) => {
                 player={player}
                 setPlayer={setPlayer}
                 setGameOver={setGameOver}
-                setOver={setOver}
             />
             <KeyInfo />
             <BoardOther board={boardOther} />

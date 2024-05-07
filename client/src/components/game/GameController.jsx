@@ -14,7 +14,6 @@ const GameController = ({
     player,
     setGameOver,
     setPlayer,
-    setOver,
 }) => {
     // useDropTime hook
     // 라운드면 드롭시간을 조정하기 위한 훅
@@ -62,7 +61,6 @@ const GameController = ({
             player,
             setPlayer,
             setGameOver,
-            setOver,
         });
     };
 

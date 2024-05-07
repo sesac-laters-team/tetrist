@@ -63,14 +63,7 @@ export const movePlayer = ({ delta, position, shape, board }) => {
 };
 
 // 블록 이동 시도 함수
-const attemptMovement = ({
-    board,
-    action,
-    player,
-    setPlayer,
-    setOver,
-    setGameOver,
-}) => {
+const attemptMovement = ({ board, action, player, setPlayer, setGameOver }) => {
     const delta = { row: 0, column: 0 };
     let isFastDropping = false;
 
@@ -98,6 +91,7 @@ const attemptMovement = ({
     if (isGameOver) {
         socket.emit("game_over_to_server");
         setGameOver(isGameOver);
+        socket.disconnect();
     }
 
     setPlayer({
@@ -114,7 +108,6 @@ export const playerController = ({
     player,
     setPlayer,
     setGameOver,
-    setOver,
 }) => {
     if (!action) return;
     if (action === Action.Rotate) {
@@ -126,7 +119,6 @@ export const playerController = ({
             player,
             setPlayer,
             setGameOver,
-            setOver,
         });
     }
 };
