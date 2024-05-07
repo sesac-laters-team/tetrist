@@ -1,30 +1,4 @@
-// @font-face {
-//     font-family: "DungGeunMo";
-//     src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff")
-//         format("woff");
-//     font-weight: normal;
-//     font-style: normal;
-// }
-
-// @font-face {
-//     font-family: "DNFBitBitv2";
-//     font-style: normal;
-//     font-weight: 400;
-//     src: url("//cdn.df.nexon.com/img/common/font/DNFBitBitv2.otf")
-//         format("opentype");
-// }
-
-// body {
-//     font-family: "DungGeunMo", sans-serif;
-//     .waiting-room {
-//         .ListTitle {
-//             // 방 목록
-//             .roomListTitle {
-//                 font-family: "DNFBitBitv2";
-//             }
-//         }
-//     }
-// }
+@import url("https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css");
 
 /* 폰트 설정(원래 폰트) */
 // @font-face {
@@ -58,7 +32,7 @@ button,
 input,
 textarea {
     // font-family: "DungGeunMo", sans-serif;
-    font-family: "Galmuri9", sans-serif;
+    font-family: Galmuri9, sans-serif;
 }
 
 /* 특정 요소에 폰트 적용 */

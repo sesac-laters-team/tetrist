@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    padding: 20px;
+    position: relative;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     // background-image: url("../../public/testris.jpg"); /* 부모에 배경 이미지 적용 */
     overflow: hidden; /* 내부 요소가 바깥으로 넘치지 않도록 설정 */
@@ -23,6 +23,9 @@
     max-width: 1024px; /* 최대 너비 설정 */
     margin: 0 auto; /* 상하 마진 없이 좌우 마진으로 중앙 정렬 */
     padding: 20px; /* 패딩 조정 */
+    img {
+        margin-left: -90px; /* 원하는 만큼 왼쪽으로 이동 */
+    }
 }
 
 // .logoImg {
@@ -193,10 +196,10 @@
 }
 @keyframes fall {
     from {
-        transform: translateY(-100%);
+        transform: translateY(-30px);
     }
     to {
-        transform: translateY(100vh);
+        transform: translateY(calc(100vh - 80px));
     }
 }
 

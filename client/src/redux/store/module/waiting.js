@@ -84,7 +84,7 @@ export function waiting(state = initialState, action) {
             return {
                 ...state,
                 rooms: state.rooms.filter(
-                    (rooms) => rooms.user_id !== action.payload.user_id
+                    (room) => room.user_id !== action.payload.user_id
                 ),
             };
 

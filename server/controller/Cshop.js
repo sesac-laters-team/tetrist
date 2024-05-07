@@ -10,7 +10,10 @@ exports.productsList = async (req, res) => {
         if (productsList) {
             res.status(200).json(productsList);
         } else {
-            res.status(400).send({ result: false });
+            res.status(400).send({
+                result: false,
+                msg: "상품 전체 조회 실패",
+            });
         }
     } catch (error) {
         console.log("error", error);
@@ -42,9 +45,17 @@ exports.ownedList = async (req, res) => {
                 user_id: req.session.userId,
             },
         });
-
         // console.log(" 바뀐 정보 >> ", usreInfo);
         res.send({ data: usreInfo });
+//         if (userOwned) {
+//             res.status(200).json(userOwned);
+//         } else {
+//             res.status(400).send({
+//                 result: false,
+//                 msg: "유저 구매 목록 조회 실패",
+//             });
+//         }
+
     } catch (error) {
         console.log("error", error);
         res.status(500).send("server error");

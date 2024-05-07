@@ -1,5 +1,6 @@
 body {
     margin: 0 auto;
+
     .container {
         width: 100%;
         height: 100vh;
@@ -7,6 +8,7 @@ body {
         justify-content: center;
         align-items: center;
         position: relative;
+        overflow: hidden;
         // background-image: url("../../public/tetris.png");
 
         // /* 배경을 화면의 중앙에 배치 */
@@ -49,7 +51,6 @@ body {
             }
         }
         .contentWrap {
-            height: 300px;
             background: #ffffff;
             padding: 25px; /* 패딩을 늘려 좀 더 여유롭게 조정 */
             border-radius: 12px; /* 모서리 둥글기를 조금 더 증가 */
@@ -62,7 +63,9 @@ body {
             justify-content: center;
             align-items: center;
             .logoWrap {
-                // height: 20%;
+                img {
+                    width: 100%;
+                }
             }
 
             form {
@@ -161,6 +164,7 @@ body {
 
         input {
             width: 100%;
+            padding: 1px 4px;
             height: 40px;
             border: none;
             font-size: 16px;

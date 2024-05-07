@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
-import { Navigate } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 // 사용자 정의 모달 컴포넌트
 const ConfirmationModal = ({ isOpen, onClose, onConfirm }) => {
@@ -24,6 +24,7 @@ const MyPageContent = ({ myInfo }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [isChangePwVisible, setIsChangePwVisible] = useState(false);
     const [newPassword, setNewPassword] = useState("");
+    const [showPw, setShowPw] = useState(false); // 추가된 상태
     const inputRef = useRef(null);
     const userInfo = myInfo && myInfo.data;
 
@@ -36,12 +37,12 @@ const MyPageContent = ({ myInfo }) => {
     };
 
     const handleConfirmDelete = () => {
-        // console.log("회원 탈퇴 처리됨");
-        setModalOpen(false);
-        // 회원 탈퇴 로직 실행
-        const response = axios
+        axios
             .delete(`${process.env.REACT_APP_API_SERVER}/auth/mypage/delete`)
-            .then(alert(`${response.data.msg}`));
+            .then((response) => {
+                alert(`${response.data.msg}`);
+            })
+            .catch((error) => console.error(error));
     };
 
     const handleEditNickname = () => {
@@ -56,7 +57,6 @@ const MyPageContent = ({ myInfo }) => {
             return;
         }
         if (newNickname !== nickname) {
-            // 닉네임이 변경되었을 때만 요청을 보냄
             axios
                 .patch(
                     `${process.env.REACT_APP_API_SERVER}/auth/mypage/changeNickname`,
@@ -65,6 +65,7 @@ const MyPageContent = ({ myInfo }) => {
                 .then((response) => {
                     console.log("닉네임 변경 요청 성공", response);
                     setNickname(newNickname);
+                    alert("닉네임이 변경되었습니다.");
                 })
                 .catch((error) => {
                     console.error("닉네임 변경 요청 실패", error);
@@ -77,35 +78,33 @@ const MyPageContent = ({ myInfo }) => {
     };
 
     const handleSendNewPw = () => {
-        if (newPassword === "") {
-            alert("비밀번호는 공백일 수 없습니다.");
+        const pwRegExp = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{6,16}$/;
+        if (newPassword.includes(" ") || !pwRegExp.test(newPassword)) {
+            alert(
+                "비밀번호는 영문, 숫자, 특수문자를 모두 포함해 6~16자 사이로 작성해주세요."
+            );
             return;
         }
+
         axios
             .patch(
                 `${process.env.REACT_APP_API_SERVER}/auth/mypage/changePassword`,
                 { password: newPassword }
             )
             .then((response) => {
-                console.log("닉네임 변경 요청 성공", response);
-                setNickname(newPassword);
-                setIsChangePwVisible(false);
+                console.log("비밀번호 변경 요청 성공", response);
+                setNewPassword(""); // 비밀번호 입력란 비우기
+                setIsChangePwVisible(false); // 비밀번호 변경란 숨기기
                 alert(`${response.data.msg}`);
+                alert("비밀번호가 변경되었습니다.");
             })
             .catch((error) => {
-                console.error("닉네임 변경 요청 실패", error);
+                console.error("비밀번호 변경 요청 실패", error);
             });
     };
 
     const handleNewPasswordChange = (event) => {
-        const newValue = event.target.value;
-        if (newValue.includes(" ")) {
-            alert("비밀번호에는 공백을 포함할 수 없습니다.");
-            return;
-        } else {
-            // 공백이 없으면 상태 업데이트
-            setNewPassword(newValue);
-        }
+        setNewPassword(event.target.value);
     };
 
     // 승률
@@ -116,6 +115,7 @@ const MyPageContent = ({ myInfo }) => {
         <div className="mypage-container">
             <div className="mypage-title">마이페이지</div>
             <div className="user-info">
+
                 <div className="user-avatar-container">
                     <img
                         className="user-avatar"
@@ -138,6 +138,11 @@ const MyPageContent = ({ myInfo }) => {
                     />
                 </div>
                 <div className="user-details">
+                    <img
+                        className="user-avatar"
+                        src="/tetris_winner.png"
+                        alt="Avatar"
+                    />
                     <input
                         className="username"
                         type="text"
@@ -164,12 +169,12 @@ const MyPageContent = ({ myInfo }) => {
             </div>
             <div className="user-status">
                 <div className="status-item">
-                    <div>
-                        <span className="status-title">포인트:</span>
-                        <span className="status-value">
-                            {userInfo && userInfo.point}
-                        </span>
-                    </div>
+                    <span className="status-title">포인트:</span>
+                    <span className="status-value">
+                        {userInfo && userInfo.point}
+                    </span>
+                </div>
+                <div className="status-item">
                     <span className="status-title">전적:</span>
                     <span className="status-value">
                         {userInfo && userInfo.win}승 {userInfo && userInfo.lose}
@@ -178,18 +183,78 @@ const MyPageContent = ({ myInfo }) => {
                 </div>
             </div>
             {isChangePwVisible && (
-                <div>
-                    <br />
-                    새 비밀번호 :
-                    <input
-                        type="password"
-                        className="chagnePwInput"
-                        value={newPassword}
-                        onChange={handleNewPasswordChange}
-                    />
-                    <button onClick={handleSendNewPw}>변경</button>
+                <div style={{ textAlign: "center", marginBottom: "20px" }}>
+                    {" "}
+                    {/* 부모 요소에 text-align: center 및 여백 추가 */}
+                    <label>새 비밀번호</label>
+                    <div
+                        style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                        }}
+                    >
+                        <div
+                            style={{
+                                position: "relative",
+                                width: "fit-content",
+                            }}
+                        >
+                            <input
+                                className="username"
+                                type={showPw ? "text" : "password"}
+                                value={newPassword}
+                                onChange={handleNewPasswordChange}
+                                style={{
+                                    paddingRight: "35px", // 아이콘의 공간 확보
+                                    borderRadius: "5px",
+                                    border: "2px solid black",
+                                }}
+                            />
+                            {showPw ? (
+                                <FaEyeSlash
+                                    className="eye"
+                                    onClick={() => setShowPw(false)}
+                                    style={{
+                                        position: "absolute",
+                                        right: "10px", // `input` 내부 여백에 맞게 간격 설정
+                                        top: "50%",
+                                        transform: "translateY(-50%)",
+                                        cursor: "pointer",
+                                    }}
+                                />
+                            ) : (
+                                <FaEye
+                                    className="eye"
+                                    onClick={() => setShowPw(true)}
+                                    style={{
+                                        position: "absolute",
+                                        right: "10px", // `input` 내부 여백에 맞게 간격 설정
+                                        top: "50%",
+                                        transform: "translateY(-50%)",
+                                        cursor: "pointer",
+                                    }}
+                                />
+                            )}
+                        </div>
+                    </div>
+                    <div>
+                        <button
+                            className="action-button"
+                            onClick={handleSendNewPw}
+                        >
+                            변경
+                        </button>
+                        <button
+                            className="action-button"
+                            onClick={() => setIsChangePwVisible(false)}
+                        >
+                            취소
+                        </button>
+                    </div>
                 </div>
             )}
+
             <div className="user-actions">
                 <button className="action-button" onClick={handleChangePw}>
                     비밀번호 변경

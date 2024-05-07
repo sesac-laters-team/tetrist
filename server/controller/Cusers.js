@@ -274,8 +274,6 @@ exports.patchUserNickname = async (req, res) => {
 exports.patchCustom = async (req, res) => {
     try {
         const { profile, profileEdge, theme } = req.body;
-
-        console.log("theme :: ", theme);
         const updateCustom = await usersModel.update(
             {
                 profile: profile,
@@ -289,7 +287,7 @@ exports.patchCustom = async (req, res) => {
             }
         );
 
-        if (updateCustom) {
+        if (updateCustom > 0) {
             res.status(200).send({
                 result: true,
                 msg: "유저 커스텀이 변경되었습니다.",
