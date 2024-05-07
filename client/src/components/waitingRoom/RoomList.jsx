@@ -14,6 +14,8 @@ export default function RoomList({ socket }) {
     const nextID = useSelector((state) => state.waiting.nextID);
     const navigate = useNavigate();
 
+    const [countRoom, setCountRoom] = useState(null);
+
     // pagiation
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
@@ -33,6 +35,9 @@ export default function RoomList({ socket }) {
             if (res.data) {
                 // 서버에서 받아온 데이터를 rooms에 추가
                 dispatch(init(res.data));
+
+                // 인원 저장
+                setCountRoom(res.data.guestId);
             }
         } catch (error) {
             console.error("Error fetching waiting list: ", error);
@@ -50,6 +55,9 @@ export default function RoomList({ socket }) {
 
     const gameJoin = async (room) => {
         // console.log("방 인덱스 :: ", room.room_id); // state에 저장되어 있는 방 전체 데이터
+        if (countRoom === "2/2") {
+            return;
+        }
 
         // 서버에서 방 조회
         const searchRoom = await axios.get(
@@ -113,7 +121,13 @@ export default function RoomList({ socket }) {
                                     <span>
                                         {room.room_id} {room.r_name}
                                     </span>
-                                    <button onClick={() => gameJoin(room)}>
+                                    <div>
+                                        {countRoom === null ? "1/2" : "2/2"}
+                                    </div>
+                                    <button
+                                        onClick={() => gameJoin(room)}
+                                        disabled={countRoom === "2/2"}
+                                    >
                                         입장
                                     </button>
                                 </li>

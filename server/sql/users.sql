@@ -1,37 +1,45 @@
--- Active: 1707101283311@@127.0.0.1@3306@tetris
+-- Active: 1707101283581@@127.0.0.1@3306@tetris
 desc users;
 
 show tables;
+
+DELETE from users;
+
 select * from users;
 
 INSERT INTO
     users (
-        user_id, email, password, nickname, point, custom, win, lose, rating, connecting, chat_penalty, access_penalty
+        email, password, nickname, win, lose, rating, access_penalty
     )
 VALUES (
-        1, "user1@test.com", "user1234!", "유저1", 1000, '{"profile":1, "profileEdge":2, "theme":3}', 1, 3, 100, true, true, false
+        "user1@test.com", "user1234!", "유저1", 1, 3, 100, false
     );
 
 INSERT INTO
     users (
-        user_id, email, password, nickname, point, custom, win, lose, rating, connecting, chat_penalty, access_penalty
+        email, password, nickname, win, lose, rating, access_penalty
     )
 VALUES (
-        2, "user2@test.com", "user1234", "유저2", 2000, '{"profile":1, "profileEdge":2, "theme":3}', 0, 0, 0, false, false, true
+        "user2@test.com", "user1234!", "유저2", 5, 5, 100, true
     );
 
 INSERT INTO
     users (
-        user_id, email, password, nickname, point, custom, win, lose, rating, connecting, chat_penalty, access_penalty
+        user_id, email, password, nickname, win, lose, rating, access_penalty
     )
 VALUES (
-        3, "user3@test.com", "user3pw", "유저3", 3000, '{"profile":1, "profileEdge":2, "theme":3}', 10, 2, 500, true, false, false
+        3, "user3@test.com", "user3pw", "유저3", 10, 2, 500, false
     );
 
 INSERT INTO
     users (
-        user_id, email, password, nickname, point, custom, win, lose, rating, connecting, chat_penalty, access_penalty
+        user_id, email, password, nickname, win, lose, rating, access_penalty
     )
 VALUES (
-        4, "user4@test.com", "user4pw", "유저4", 4000, '{"profile":1, "profileEdge":2, "theme":3}', 100, 100, 700, false, false, false
+        4, "user4@test.com", "user4pw", "유저4", 100, 100, 700, false
     );
+
+-- UPDATE [테이블] SET [열] = '변경할값' WHERE [조건]
+UPDATE users SET win = "50" where nickname = "qwer";
+
+UPDATE users SET lose = "50" where nickname = "qwer";

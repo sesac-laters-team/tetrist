@@ -36,9 +36,9 @@ export const create = (payload) => ({
     payload, // {room_id, r_name, r_password, user_id}
 });
 
-export const del = (id) => ({
+export const del = (payload) => ({
     type: DELETE,
-    id, // {user_id}
+    payload, // {user_id}
 });
 
 export const join = (payload) => ({
@@ -84,7 +84,7 @@ export function waiting(state = initialState, action) {
             return {
                 ...state,
                 rooms: state.rooms.filter(
-                    (rooms) => rooms.user_id !== rooms.action.payload.user_id
+                    (rooms) => rooms.user_id !== action.payload.user_id
                 ),
             };
 

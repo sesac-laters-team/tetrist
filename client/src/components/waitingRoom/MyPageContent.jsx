@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
 
@@ -108,15 +108,35 @@ const MyPageContent = ({ myInfo }) => {
         }
     };
 
+    // 승률
+    const winningRate =
+        userInfo && (userInfo.win / (userInfo.win + userInfo.lose)) * 100;
+
     return (
         <div className="mypage-container">
             <div className="mypage-title">마이페이지</div>
             <div className="user-info">
-                <img
-                    className="user-avatar"
-                    src="/path/to/avatar.png"
-                    alt="Avatar"
-                />
+                <div className="user-avatar-container">
+                    <img
+                        className="user-avatar"
+                        src={
+                            userInfo && userInfo.profile !== "/profile/default"
+                                ? userInfo && userInfo.profile
+                                : "/images/profile/cat.png"
+                        }
+                        alt="Avatar"
+                    />
+                    <img
+                        className="user-avatar profileEdge"
+                        src={
+                            userInfo &&
+                            userInfo.profileEdge !== "/profileEdge/default"
+                                ? userInfo && userInfo.profileEdge
+                                : "/images/profile_edge/frame_triangle.png"
+                        }
+                        alt="user-profileEdge"
+                    />
+                </div>
                 <div className="user-details">
                     <input
                         className="username"
@@ -153,7 +173,7 @@ const MyPageContent = ({ myInfo }) => {
                     <span className="status-title">전적:</span>
                     <span className="status-value">
                         {userInfo && userInfo.win}승 {userInfo && userInfo.lose}
-                        패 (승률 {userInfo && userInfo.rating}%)
+                        패 (승률 {winningRate}%)
                     </span>
                 </div>
             </div>

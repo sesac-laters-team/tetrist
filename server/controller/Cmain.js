@@ -1,3 +1,4 @@
+const { where } = require("sequelize");
 const { usersModel } = require("../models");
 
 // GET /api-server
@@ -117,10 +118,28 @@ exports.rank = async (req, res) => {
     try {
         const rank = await usersModel.findAll({
             attributes: ["point", "nickname"],
-            limit: 10,
+            limit: 3,
             order: [["point", "DESC"]],
         });
         res.json(rank);
+    } catch (error) {
+        console.log("error", error);
+        res.status(500).send("server error");
+    }
+};
+
+// GET /api-server/modalBackgroundColor
+// 배경색 값을 클라이언트에 전송
+exports.getModalBackgroundColor = async (req, res) => {
+    try {
+        const theme = await usersModel.findOne({
+            where: {
+                user_id: req.session.userId,
+            },
+        });
+
+        console.log(">> ", theme);
+        res.send({ data: theme });
     } catch (error) {
         console.log("error", error);
         res.status(500).send("server error");

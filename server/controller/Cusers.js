@@ -142,6 +142,7 @@ exports.postLogin = async (req, res) => {
                     msg: "로그인 성공",
                     userId: findUserData.user_id,
                     email: findUserData.email,
+                    data: findUserData,
                 });
             } else {
                 res.status(401).send({
@@ -259,6 +260,42 @@ exports.patchUserNickname = async (req, res) => {
             });
         } else {
             res.status(400).send({
+                result: false,
+                msg: "유저 정보가 수정되지 않았습니다.",
+            });
+        }
+    } catch (error) {
+        console.log("error", error);
+        res.status(500).send("server error");
+    }
+};
+
+// PATCH /api-server/auth/mypage/changeCustom
+exports.patchCustom = async (req, res) => {
+    try {
+        const { profile, profileEdge, theme } = req.body;
+
+        console.log("theme :: ", theme);
+        const updateCustom = await usersModel.update(
+            {
+                profile: profile,
+                profileEdge: profileEdge,
+                theme: theme,
+            },
+            {
+                where: {
+                    user_id: req.session.userId,
+                },
+            }
+        );
+
+        if (updateCustom) {
+            res.status(200).send({
+                result: true,
+                msg: "유저 커스텀이 변경되었습니다.",
+            });
+        } else {
+            res.send({
                 result: false,
                 msg: "유저 정보가 수정되지 않았습니다.",
             });

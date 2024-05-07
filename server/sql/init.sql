@@ -3,8 +3,8 @@ show databases;
 
 create database tetris character set utf8mb4 collate utf8mb4_unicode_ci;
 
-drop DATABASE tetrist;
+drop DATABASE tetris;
 
-use tetrist;
+use tetris;
 
 show tables;
