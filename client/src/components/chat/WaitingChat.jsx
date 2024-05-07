@@ -8,7 +8,7 @@ axios.defaults.withCredentials = true;
 async function getUserInfo() {
     try {
         const myInfo = await axios.get(
-            `http://localhost:8080/api-server/auth/mypage`
+            `${process.env.REACT_APP_API_SERVER}/auth/mypage`
         );
         const userInfo = myInfo && myInfo.data;
         console.log("userInfo >> ", userInfo.data.nickname);

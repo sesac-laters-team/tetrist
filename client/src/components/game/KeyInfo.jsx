@@ -43,7 +43,7 @@ const KeyInfo = () => {
         <div style={styles.container}>
             <div style={isSmallScreen ? styles.hidden : styles.keyInfo}>
                 <img
-                    src="/dino.gif" // 이미지 경로를 올바르게 변경하세요
+                    src="/images/Dino.gif" // 이미지 경로를 올바르게 변경하세요
                     alt="Key Info"
                     style={styles.image}
                 />
@@ -66,7 +66,7 @@ const KeyInfo = () => {
                     </li>
                 </ul>
                 <img
-                    src="/dino.gif" // 이미지 경로를 올바르게 변경하세요
+                    src="/images/Dino.gif" // 이미지 경로를 올바르게 변경하세요
                     alt="Key Info"
                     style={styles.realimage}
                 />
