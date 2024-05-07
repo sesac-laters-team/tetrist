@@ -119,7 +119,20 @@ authRouter.post("/nicknameDuplicate", usersCtr.nickDuplicate);
     "result": true,
     "msg": "로그인 성공",
     "userId": 1,
-    "email": "user1@email.com"
+    "email": "user1@email.com",
+    "data": {
+        "userId": 1,
+        "email": "user1@email.com",
+        "password": "$2b$10$EIB9uVp3sZkodsg6H65KpuLr81bJGPQqktZnNsIb2z48a3PL1o.N.",
+        "nickname": "유저1",
+        "profile": "/profile/default",
+        "profileEdge": "/profileEdge/default",
+        "theme": "#ffffff",
+        "win": 0,
+        "lose": 0,
+        "rating": 0,
+        "access_penalty": false
+    }
 }
  *                          ]
  */
@@ -180,22 +193,18 @@ authRouter.get("/logout", checkAuth, usersCtr.logout);
  *                              {
     "result": true,
     "data": {
-        "user_id": 1,
-        "email": "user1@test.com",
-        "password": "$2b$10$AeNo7Q.xNySfcEBINGAT0.lrWBSSf3j5zH.GZ0t9rJ7QlaZQnV6uy",
-        "nickname": "user1pw",
-        "custom": {
-            "theme": 3,
-            "profile": 1,
-            "profileEdge": 2
-        },
-        "point": 0,
-        "connecting": false,
-        "chat_penalty": false,
+        "userId": 1,
+        "email": "user1@email.com",
+        "password": "$2b$10$EIB9uVp3sZkodsg6H65KpuLr81bJGPQqktZnNsIb2z48a3PL1o.N.",
+        "nickname": "유저1",
+        "profile": "/profile/default",
+        "profileEdge": "/profileEdge/default",
+        "theme": "#ffffff",
+        "win": 0,
+        "lose": 0,
+        "rating": 0,
         "access_penalty": false
-    },
-    "msg": "유저 정보 확인"
-}
+    }
  *                          ]
  */
 authRouter.get("/mypage", checkAuth, usersCtr.getOneUser);
@@ -268,6 +277,34 @@ authRouter.patch(
     usersCtr.patchUserNickname
 );
 
+/**
+ * @swagger
+ * paths:
+ *  /api-server/mypage/changeCustom:
+ *    patch:
+ *      summary: "유저 커스텀 변경"
+ *      description: ""
+ *      tags: [Custom]
+ *      responses:
+ *        "200":
+ *          description: 사용중인 커스텀 변경
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                    ok:
+ *                      type: boolean
+ *                    users:
+ *                      type: object
+ *                      example:
+ *                          [
+ *                              {
+                result: true,
+                msg: "유저 커스텀이 변경되었습니다.",
+}
+ *                          ]
+ */
 authRouter.patch("/mypage/changeCustom", checkAuth, usersCtr.patchCustom);
 
 /**
