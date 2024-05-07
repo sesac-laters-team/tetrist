@@ -33,6 +33,20 @@ const ShopModalContent = ({ shopList }) => {
                     // 요청 실패 시 처리할 내용
                     console.error("Axios request error:", error);
                 });
+        } else if (item.p_type === "profileEdge") {
+            axios
+                .patch(
+                    `${process.env.REACT_APP_API_SERVER}/auth/mypage/changeCustom`,
+                    { profileEdge: item.p_img }
+                )
+                .then((response) => {
+                    // 요청 성공 시 처리할 내용
+                    console.log("Axios request success:", response);
+                })
+                .catch((error) => {
+                    // 요청 실패 시 처리할 내용
+                    console.error("Axios request error:", error);
+                });
         }
     };
 
