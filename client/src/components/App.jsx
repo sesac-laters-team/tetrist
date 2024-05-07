@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {
     BrowserRouter as Router,
     Routes,
@@ -22,13 +22,11 @@ import "../styles/rankingmodal.scss";
 import "../styles/ShopModal.scss";
 import "../styles/pagination.scss";
 import "../styles/font.scss";
-import SessionRoute from "./auth/SessionRoute";
 
 function App() {
     const dispatch = useDispatch();
     const isLoggedIn = useSelector((state) => state.auth.userData !== null);
-    const [isWaitingPageAccessAllowed, setIsWaitingPageAccessAllowed] =
-        useState(true); // 초기값을 true로 설정하여 기본적으로 대기 페이지 액세스를 허용
+    // 초기값을 true로 설정하여 기본적으로 대기 페이지 액세스를 허용
 
     useEffect(() => {
         const storedLoggedIn = localStorage.getItem("isLoggedIn") === "true";
@@ -60,31 +58,20 @@ function App() {
                     <Route
                         path="/waiting"
                         element={
-                            <SessionRoute
-                                childComponent={<WaitingRoomPage />}
-                            />
+                            isLoggedIn ? (
+                                <WaitingRoomPage />
+                            ) : (
+                                <Navigate replace to="/login" />
+                            )
                         }
                     />
-
                     {rooms.map((room) => (
                         <Route
                             key={room.room_id}
                             path={`/waiting/${room.room_id}`}
-                            element={
-                                <SessionRoute
-                                    childComponent={
-                                        <GamePage roomId={room.room_id} />
-                                    }
-                                />
-                            }
+                            element={<GamePage roomId={room.room_id} />}
                         />
                     ))}
-                    <Route
-                        path="/result"
-                        element={
-                            <SessionRoute childComponent={<GameResult />} />
-                        }
-                    />
                     <Route
                         path={`/test/wait`}
                         element={<GamePage roomId={200} />}
@@ -92,6 +79,16 @@ function App() {
                     <Route
                         path={`/test/start`}
                         element={<GamePage roomId={100} />}
+                    />
+                    <Route
+                        path="/result"
+                        element={
+                            isLoggedIn ? (
+                                <GameResult />
+                            ) : (
+                                <Navigate replace to="/login" />
+                            )
+                        }
                     />
                 </Routes>
             </div>

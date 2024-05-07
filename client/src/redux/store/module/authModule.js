@@ -82,6 +82,7 @@ export const loginUser = (email, password) => async (dispatch) => {
             const userData = {
                 userId: response.data.userId,
                 email: response.data.email,
+                userNickname: response.data.data.nickname,
             };
             dispatch({ type: LOGIN_SUCCESS, payload: userData });
 
@@ -109,6 +110,7 @@ export const loginUserFromLocalStorage = (user) => ({
     payload: {
         userId: user.userId,
         email: user.email,
+        nickname: user.userNickname,
     },
 });
 
