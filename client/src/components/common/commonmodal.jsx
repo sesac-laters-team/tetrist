@@ -5,9 +5,10 @@ import ShopModalContent from "../waitingRoom/ShopModalContent";
 import RegisterModalContent from "../auth/RegisterModalContent";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import InsertPwModal from "../waitingRoom/InsertPwModal";
 axios.defaults.withCredentials = true;
 
-const Modal = ({ type, closeModal }) => {
+const Modal = ({ type, roomInfo, socket, closeModal }) => {
     const [ranking, setRanking] = useState(null);
     const [myInfo, setMyInfo] = useState(null);
     const [shopList, setShopList] = useState(null);
@@ -94,6 +95,14 @@ const Modal = ({ type, closeModal }) => {
             case "Register":
                 return <RegisterModalContent closeModal={closeModal} />;
 
+            case "InsertPw":
+                return (
+                    <InsertPwModal
+                        roomInfo={roomInfo}
+                        socket={socket}
+                        closeModal={closeModal}
+                    />
+                );
             default:
                 return <div>내용이 없습니다.</div>;
         }
