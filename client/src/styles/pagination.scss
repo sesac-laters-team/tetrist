@@ -1,7 +1,7 @@
 .pagination {
     display: flex;
     justify-content: center;
-    margin-top: 15px;
+    margin-top: 30px;
 }
 ul {
     list-style: none;
@@ -11,7 +11,7 @@ ul.pagination li {
     display: inline-block;
     width: 30px;
     height: 30px;
-    border: 1px solid #e2e2e2;
+    border: 2px solid white;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -25,16 +25,16 @@ ul.pagination li:last-child {
 }
 ul.pagination li a {
     text-decoration: none;
-    color: #337ab7;
+    color: #180071;
     font-size: 1rem;
 }
 ul.pagination li.active a {
     color: white;
 }
 ul.pagination li.active {
-    background-color: #337ab7;
+    background-color: #180071;
 }
 ul.pagination li a:hover,
 ul.pagination li a.active {
-    color: blue;
+    color: #5ba3f8;
 }

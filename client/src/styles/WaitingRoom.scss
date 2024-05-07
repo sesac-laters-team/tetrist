@@ -8,21 +8,23 @@
     // background-image: url("../../public/testris.jpg"); /* 부모에 배경 이미지 적용 */
     overflow: hidden; /* 내부 요소가 바깥으로 넘치지 않도록 설정 */
     z-index: 1000; /* 우선순위를 높게 설정하여 테트리스 블록 위에 위치하도록 */
+    background-color: rgb(24, 0, 113, 0.4);
 }
 
 .waiting-room > * {
-    background-color: white; /* 자식 요소의 배경색을 흰색으로 설정 */
-    background-color: rgba(255, 255, 255, 0.85);
+    // background-color: white; /* 자식 요소의 배경색을 흰색으로 설정 */
+    // background-color: rgba(255, 255, 255, 0.85);
 }
 
 .logo-and-menubar {
     display: flex;
-    justify-content: space-between; /* 로고와 메뉴바를 양쪽 끝으로 배치 */
+    justify-content: space-between;
     align-items: center;
-    width: 65%; /* 전체 너비의 90% 사용 */
-    max-width: 1024px; /* 최대 너비 설정 */
-    margin: 0 auto; /* 상하 마진 없이 좌우 마진으로 중앙 정렬 */
-    padding: 20px; /* 패딩 조정 */
+    width: 100%;
+    max-width: 1024px;
+    margin: 0 auto;
+    background-color: #180071;
+    padding: 0 20px; /* 좌우 패딩 추가 */
 }
 
 // .logoImg {
@@ -40,59 +42,127 @@
     display: flex;
     align-items: center;
     justify-content: flex-start; /* 왼쪽 정렬 */
-
     padding: 10px 20px; /* 상단과 하단 패딩 */
     width: 100%; /* 전체 너비 */
     max-width: 780px; /* 최대 너비 설정 */
-    margin: 20px auto; /* 위아래 마진 지정, 좌우는 자동으로 중앙 정렬 */
+    margin: auto; /* 위아래 마진 지정, 좌우는 자동으로 중앙 정렬 */
     // border-radius: 10px;
-    border-bottom: 2px solid #333;
+    border-bottom: 5px solid #180071;
+    background-color: white;
+    // border: 5px solid #180071;
+    // border-radius: 10px;
 }
 
 .roomListTitle {
-    font-size: 1.5rem; /* 글자 크기 */
+    margin-left: 20px;
+    font-size: 2.2rem; /* 글자 크기 */
     font-weight: bold; /* 글자를 굵게 */
     margin-right: auto; /* 오른쪽 여백을 자동으로 설정하여 버튼을 오른쪽 끝으로 밀어냄 */
 }
 
-.btnRoom {
+// .btnRoom {
+//     padding: 10px 15px;
+//     margin: 10px; /* 여백 조정 */
+//     width: 120px; /* 버튼 너비 */
+//     font-weight: 600;
+//     text-align: center;
+//     line-height: 50px;
+//     border-radius: 10px;
+//     transition: all 0.2s;
+//     cursor: pointer; /* 마우스 오버 시 포인터로 변경 */
+//     background-color: #f1f1f1; /* 배경색 추가 */
+//     border: none; /* 테두리 없앰 */
+// }
+
+// .btnJoin {
+//     background-color: aliceblue;
+//     z-index: 0px;
+// }
+
+// .btnJoin.btnPush {
+//     box-shadow: 0px 1px 0px 0px rgb(0, 0, 0);
+// }
+
+// .btnJoin:hover {
+//     margin-top: 15px;
+//     margin-bottom: 5px;
+// }
+
+@mixin transition($duration) {
+    -webkit-transition: all $duration cubic-bezier(0.23, 1, 0.32, 1);
+    transition: all $duration cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@mixin rotate($angle) {
+    -webkit-transform: rotate($angle);
+    transform: rotate($angle);
+}
+
+.btnJoin {
+    position: relative;
+    background-color: #180071;
+    // padding: 0 20vmin;
+    color: rgba(255, 255, 255, 255);
+    // border: 3px solid rgba(255, 255, 255, 0.7);
+    // font-size: 1.4em;
+    // font-weight: 100;
+    // line-height: 2.4em;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
     padding: 10px 15px;
     margin: 10px; /* 여백 조정 */
     width: 120px; /* 버튼 너비 */
     font-weight: 600;
-    text-align: center;
     line-height: 50px;
+    cursor: pointer;
     border-radius: 10px;
-    transition: all 0.2s;
-    cursor: pointer; /* 마우스 오버 시 포인터로 변경 */
-    background-color: #f1f1f1; /* 배경색 추가 */
-    border: none; /* 테두리 없앰 */
-}
 
-.btnJoin {
-    background-color: aliceblue;
-    z-index: 0px;
-}
+    &:after {
+        position: absolute;
+        content: "";
+        top: calc(50% - 50px);
+        left: -50px;
+        width: 20px;
+        height: 100px;
+        background: rgba(255, 255, 255, 1);
+        @include rotate(30deg);
+        @include transition(1000ms);
+        opacity: 0;
+    }
 
-.btnJoin.btnPush {
-    box-shadow: 0px 1px 0px 0px rgb(0, 0, 0);
-}
-
-.btnJoin:hover {
-    margin-top: 15px;
-    margin-bottom: 5px;
+    &:hover {
+        &:after {
+            left: calc(100% + 50px);
+            opacity: 1;
+        }
+    }
 }
 
 /* RoomList.jsx */
 .RoomList {
     width: 100%; /* 부모 컨테이너에 맞게 너비 설정 */
     max-width: 780px; /* 최대 너비 설정 */
-    margin: 20px auto; /* 상하 여백 지정, 좌우는 자동으로 중앙 정렬 */
+    margin: auto; /* 상하 여백 지정, 좌우는 자동으로 중앙 정렬 */
     padding: 20px; /* 패딩 설정 */
+    background-color: rgb(24, 0, 113, 0.4);
+    border-radius: 10px;
 }
+
+// .SpaceWithBlueBackground {
+//     margin-bottom: 10px; /* 파란색 여백의 높이 */
+//     background-color: blue; /* 파란색 배경 */
+// }
+
+// .ShowRoomList {
+//     padding-bottom: 10px; /* 기존에 여백으로 사용하던 부분은 패딩으로 변경 */
+//     background-color: white; /* 하얀색 배경 */
+// }
 
 .ShowRoomList {
     margin-bottom: 10px; /* 섹션 사이의 여백 */
+    // background-color: white;
 }
 
 .ListRoom ul {
@@ -101,19 +171,21 @@
 }
 
 .ListRoom li {
-    border: 1px solid #333; /* 테두리 */
+    background-color: white;
+    border: 2.5px solid #180071; /* 테두리 */
     border-radius: 5px; /* 모서리 둥글게 */
-    margin-bottom: 10px; /* 요소 사이의 마진 */
+    margin-bottom: 15px; /* 요소 사이의 마진 */
     padding: 15px; /* 내부 여백 */
     display: flex;
     align-items: center;
     justify-content: space-between; /* 요소 내부 컨텐츠를 양쪽 끝으로 정렬 */
-    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    box-shadow: 0 2px 3px rgba(255, 255, 255, 0.5); /* 그림자 효과 */
     transition: background-color 0.3s; /* 호버 효과를 위한 전환 */
 }
 
 //방 제목
 .ListRoom span {
+    font-weight: bold;
     font-size: 1.2rem; /* 방 제목의 폰트 사이즈 */
     color: #333; /* 폰트 색상 */
 }
@@ -121,17 +193,17 @@
 .ListRoom button {
     padding: 10px 20px; /* 버튼 패딩 */
     background-color: white; /* 버튼 배경색 */
-    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+    box-shadow: 0 3px 4px 0 rgba(34, 36, 38, 0.15);
     color: #333; /* 버튼 폰트 색상 */
-    border: 2px solid #333;
+    border: 2.5px solid #180071;
     border-radius: 10px;
-    border-bottom: 2px solid #333;
+    border-bottom: 2px solid #180071;
     transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 .ListRoom button:hover {
-    background-color: #3498db; /* 호버 시 배경색 변경 */
+    background-color: #180071; /* 호버 시 배경색 변경 */
     color: white; /* 호버 시 글자 색상 변경 */
-    border-color: #2980b9; /* 호버 시 테두리 색상 변경 */
+    border-color: #180071; /* 호버 시 테두리 색상 변경 */
 }
 /* [ 방만들기  모달, 공통 모달 적용 X ] */
 .modal-outside {

@@ -1,6 +1,6 @@
 const RankingModalContent = ({ ranking }) => {
     return (
-        <>
+        <div className="ranking-modal">
             <div className="ranking-title-container">
                 <div className="ranking-title">랭킹</div>
             </div>
@@ -17,7 +17,7 @@ const RankingModalContent = ({ ranking }) => {
                     ))}
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 export default RankingModalContent;

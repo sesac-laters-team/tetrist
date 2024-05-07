@@ -173,7 +173,7 @@ export default function WaitingRoomPage() {
                 <span className="roomListTitle">방 목록</span>
                 <button
                     onClick={() => setCreateModal(true)}
-                    className="btnRoom btnPush btnJoin"
+                    className="btnJoin"
                 >
                     방 만들기
                 </button>

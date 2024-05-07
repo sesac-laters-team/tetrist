@@ -1,8 +1,8 @@
 /* chat.scss */
 .chat-container {
-    background-color: white;
+    background-color: rgb(24, 0, 113, 0.4);
     height: 300px;
-    width: 1000px;
+    width: 1024px;
 
     min-width: 650px;
     margin: 20px auto;
@@ -15,9 +15,12 @@
 }
 
 .chat-title {
+    font-size: 2rem;
     font-weight: bold;
     margin-bottom: 10px;
     text-align: center;
+    padding-bottom: 20px;
+    border-bottom: 3px solid #180071;
 }
 
 /* 채팅 컨테이너 */
@@ -41,16 +44,16 @@
 }
 
 .my-message .username {
-    color: blue; /* 내 메시지일 때만 사용자 이름을 파란색으로 */
+    color: #f8f9f9; /* 내 메시지일 때만 사용자 이름을 파란색으로 */
 }
 .my-message .chat-box {
-    background-color: #d0e6f2; /* 내 메시지일 때만 배경색 변경 */
-    color: blue;
+    background-color: #5ba3f8; /* 내 메시지일 때만 배경색 변경 */
+    color: #f8f9f9;
 }
 
 .username {
     font-weight: bold;
-
+    margin-top: 1px;
     margin-bottom: 1px; /* 메시지와 간격 */
 }
 
@@ -64,11 +67,12 @@
 .notice {
     align-self: center;
     font-size: 11.5px;
-    background-color: #ffeeba;
+    background-color: #1025a1;
     padding: 8px 12px;
     border-radius: 15px;
     margin-bottom: 10px;
     text-align: center;
+    color: #f8f9f9;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
 }
 
@@ -89,7 +93,7 @@
 .waiting-chat button {
     padding: 10px 20px;
     border: none;
-    background-color: #007bff;
+    background-color: #180071;
     color: white;
     border-radius: 5px;
     cursor: pointer;

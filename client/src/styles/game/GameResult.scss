@@ -5,9 +5,11 @@
     align-items: center; /* 수평으로 중앙 정렬 */
     justify-content: center; /* 수직으로 중앙 정렬 */
     min-height: 100vh; /* 전체 화면 높이를 차지 */
-    background-color: #f4f4f4; /* 밝은 배경색 */
+    background-color: rgb(24, 0, 113, 0.4); /* 밝은 배경색 */
     text-align: center;
     overflow: hidden;
+
+    -webkit-font-smoothing: antialiased;
 }
 
 .GameResult h1 {
@@ -15,9 +17,55 @@
     margin-bottom: 5px; /* 아래 여백 */
 }
 
+// [추가]
+
+.GameResult h1 span {
+    position: relative;
+    top: 20px;
+    display: inline-block;
+    animation: bounce 0.3s ease infinite alternate;
+    color: #fff;
+    text-shadow: 0 1px 0 #ccc, 0 2px 0 #ccc, 0 3px 0 #ccc, 0 4px 0 #ccc,
+        0 5px 0 #ccc, 0 6px 0 transparent, 0 7px 0 transparent,
+        0 8px 0 transparent, 0 9px 0 transparent, 0 10px 10px rgba(0, 0, 0, 0.4);
+}
+
+h1 span:nth-child(2) {
+    animation-delay: 0.1s;
+}
+h1 span:nth-child(3) {
+    animation-delay: 0.2s;
+}
+h1 span:nth-child(4) {
+    animation-delay: 0.3s;
+}
+h1 span:nth-child(5) {
+    animation-delay: 0.4s;
+}
+h1 span:nth-child(6) {
+    animation-delay: 0.5s;
+}
+h1 span:nth-child(7) {
+    animation-delay: 0.6s;
+}
+h1 span:nth-child(8) {
+    animation-delay: 0.7s;
+}
+
+@keyframes bounce {
+    100% {
+        top: -20px;
+        text-shadow: 0 1px 0 #ccc, 0 2px 0 #ccc, 0 3px 0 #ccc, 0 4px 0 #ccc,
+            0 5px 0 #ccc, 0 6px 0 #ccc, 0 7px 0 #ccc, 0 8px 0 #ccc, 0 9px 0 #ccc,
+            0 50px 25px rgba(0, 0, 0, 0.2);
+    }
+}
+
 .GameResult p {
+    margin-top: 30px;
     font-size: 2rem; /* 중간 폰트 크기 */
     margin-bottom: 5px; /* 아래 여백 */
+    font-weight: bold;
 }
 
 .GameResult img {
@@ -34,14 +82,15 @@
     background-color: white; /* 버튼 배경색 */
     box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
     color: #333; /* 버튼 폰트 색상 */
-    border: 2px solid #333;
+    border: 3px solid #333;
     border-radius: 10px;
     border-bottom: 2px solid #333;
     transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
 .GameResult button:hover {
-    background-color: #0056b3; /* 호버시 배경색 변경 */
+    background-color: #180071; /* 호버시 배경색 변경 */
+    color: #fff;
 }
 
 .falling-block {

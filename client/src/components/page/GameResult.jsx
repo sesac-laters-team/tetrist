@@ -68,7 +68,19 @@ const GameResult = ({ result }) => {
 
     return (
         <div className={`GameResult ${!result ? "rain-effect" : ""}`}>
-            <h1>Game Over</h1>
+            <h1>
+                <span>G</span>
+                <span>a</span>
+                <span>m </span>
+                <span>e</span>
+                &nbsp;
+                <span>O</span>
+                <span>v</span>
+                <span>e</span>
+                <span>r</span>
+                <span>😊</span>
+            </h1>
+
             <p>{getResultMessage()}</p>
             <img
                 src={getResultImage()}
