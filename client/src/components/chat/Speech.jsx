@@ -6,7 +6,7 @@ export default function Speech({ chat }) {
     return (
         <div className={`speech ${isMyMessage ? "my-message" : ""}`}>
             {chat.type === "other" && (
-                <span className="username" style={{ fontSize: "1rem" }}>
+                <span className="username" style={{ fontSize: "1.15rem" }}>
                     {chat.nickname}
                 </span>
             )}

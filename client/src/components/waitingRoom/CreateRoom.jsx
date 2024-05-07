@@ -80,39 +80,22 @@ export default function CreateRoom({ socket }) {
             <div className="modal">
                 <div className="modal-body">
                     <form className="newRoom" onSubmit={handleNewRoom}>
-                        <label>
-                            방 제목
+                        <div className="form-group">
+                            <label htmlFor="roomTitle">방 제목</label>
                             <input
                                 type="text"
                                 className="roomTitle"
+                                id="roomTitle"
                                 name="roomTitle"
                                 placeholder="방 제목"
                             />
-                        </label>
-                        <br />
-                        {/* <label>
-                            시간 선택
-                            <TimerRadioGroup label="시간선택">
-                                <TimerRadio
-                                    name="time"
-                                    value="sec30"
-                                    defaultChecked
-                                >
-                                    00:30
-                                </TimerRadio>
-                                <TimerRadio name="time" value="sec60">
-                                    01:00
-                                </TimerRadio>
-                                <TimerRadio name="time" value="sec90">
-                                    01:30
-                                </TimerRadio>
-                            </TimerRadioGroup>
-                        </label>
-                        <br /> */}
-                        <label>
-                            비밀번호
+                        </div>
+                        {/* 필요에 따라 추가적인 form-group을 만듭니다 */}
+                        <div className="form-group">
+                            <label htmlFor="roomPw">비밀번호</label>
                             <input
-                                type="text"
+                                type="password"
+                                id="roomPw"
                                 name="roomPw"
                                 className="roomPw"
                                 value={pwInput.trim()}
@@ -120,12 +103,12 @@ export default function CreateRoom({ socket }) {
                                 onChange={(e) => setPwInput(e.target.value)}
                                 placeholder="비밀번호"
                             />
-                        </label>
-                        <label>
+                        </div>
+                        <div className="form-group">
                             <button type="submit" className="newRoomSubmit">
                                 방 만들기
                             </button>
-                        </label>
+                        </div>
                     </form>
                 </div>
             </div>
