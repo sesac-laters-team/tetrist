@@ -274,7 +274,6 @@ exports.patchUserNickname = async (req, res) => {
 exports.patchCustom = async (req, res) => {
     try {
         const { profile, profileEdge, theme } = req.body;
-
         const updateCustom = await usersModel.update(
             {
                 profile: profile,

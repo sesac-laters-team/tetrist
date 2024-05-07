@@ -5,6 +5,8 @@ import io from "socket.io-client";
 import CreateRoom from "../waitingRoom/CreateRoom";
 import Menubar from "../waitingRoom/Menubar";
 import WaitingChat from "../chat/WaitingChat";
+import axios from "axios";
+axios.defaults.withCredentials = true;
 
 // 기존 소켓 연결 유지
 const socket = io.connect(`${process.env.REACT_APP_CHAT_SERVER}`, {
@@ -140,10 +142,27 @@ export default function WaitingRoomPage() {
     }, []);
 
     const [createModal, setCreateModal] = useState(false);
+    const [backgroundColor, setBackgroundColor] = useState("#FFFFFF"); // 기본값은 흰색
     const outside = useRef();
 
+    // 페이지 로드 시 배경색 가져오기
+    useEffect(() => {
+        axios
+            .get(`${process.env.REACT_APP_API_SERVER}/shop/user`)
+            .then((response) => {
+                console.log("바뀐 배경 색 >> ", response.data.data.theme);
+                setBackgroundColor(response.data.data.theme);
+            })
+            .catch((error) => {
+                console.error("Error getting modal background color:", error);
+            });
+    }, [backgroundColor]);
+
     return (
-        <div className="waiting-room">
+        <div
+            className="waiting-room"
+            style={{ backgroundColor: backgroundColor }}
+        >
             <div className="logo-and-menubar">
                 <img src="/images/tetrist_logo.gif" alt="LOGO" />
                 <Menubar socket={socket} />

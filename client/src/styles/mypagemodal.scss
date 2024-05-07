@@ -28,6 +28,35 @@
     margin-bottom: 20px;
     border-top: 2px solid #333;
     padding-top: 20px;
+    margin-top: 10px;
+}
+
+.user-avatar-container {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-avatar {
+    width: 80%;
+    height: 80%;
+    border-radius: 50%;
+    z-index: 1;
+    justify-content: center;
+}
+
+.profileEdge {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+
 }
 
 /* user-details 내의 요소들을 적절하게 배치 */

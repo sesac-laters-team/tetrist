@@ -1,7 +1,10 @@
--- Active: 1707101283311@@127.0.0.1@3306@tetris
+-- Active: 1707101283581@@127.0.0.1@3306@tetris
 desc users;
 
 show tables;
+
+DELETE from users;
+
 select * from users;
 
 INSERT INTO
