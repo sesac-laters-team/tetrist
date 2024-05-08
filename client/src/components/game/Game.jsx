@@ -113,6 +113,7 @@ const Game = ({ rows, columns, roomId }) => {
         <div className="Game">
             {room.guest_id === null ? (
                 <div className="Waiting">
+                    <img src="/images/game.gif" alt="waiting game" />
                     <h2>Waiting for players...</h2>
                     <div className="loader"></div>
                     <button className="exit" onClick={exit}>

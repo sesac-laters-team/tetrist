@@ -1,5 +1,5 @@
 .shop-modal {
-    background: white;
+    background: #180071;
     padding: 20px;
     border-radius: 10px;
 
@@ -22,7 +22,8 @@
     text-align: center;
     padding-bottom: 25px;
     margin-bottom: 20px;
-    border-bottom: 3px solid #333;
+    border-bottom: 3px solid white;
+    color: white;
 }
 
 .shop-points {
@@ -35,9 +36,11 @@
 }
 
 .shop-items {
+    background-color: white;
     display: flex;
     justify-content: center; /* 이미지를 수평으로 중앙에 정렬 */
     flex-wrap: wrap; /* 이미지들을 여러 줄로 배치 */
+    border-radius: 10px;
 }
 
 .shop-item {

@@ -32,7 +32,7 @@ INSERT INTO
 VALUES (
         2,
         "profileEdge",
-        "프로필테두리1",
+        "프레임1",
         "/images/profile_edge/frame_leaves.png",
         0
     );
@@ -80,7 +80,7 @@ INSERT INTO
 VALUES (
         5,
         "profileEdge",
-        "프로필테두리2",
+        "프레임2",
         "/images/profile_edge/frame_triangle.png",
         100
     );
