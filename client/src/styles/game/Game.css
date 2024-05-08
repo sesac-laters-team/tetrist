@@ -9,9 +9,10 @@
     align-items: center;
 }
 
-.img {
-    width: "260px";
-    height: "300px";
+.game {
+    padding-right: 26px;
+    width: 300px;
+    height: 270px;
 }
 
 .loader {
