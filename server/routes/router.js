@@ -4,7 +4,7 @@ const router = express.Router();
 const mainCtr = require("../controller/Cmain");
 const roomCtr = require("../controller/Crooms");
 const shopCtr = require("../controller/Cshop");
-const { checkAuth, userInRoom } = require("../utils/routerUtils");
+const { checkAuth, checkPenalty, userInRoom } = require("../utils/routerUtils");
 
 // main
 
@@ -36,7 +36,7 @@ router.get("/", mainCtr.index);
  *                          [
  *{
     "result": true,
-    "msg": "승리 유저 정보가 변경되었습니다."
+    "msg": "유저 정보가 변경되었습니다."
 }
  *                          ]
  */
@@ -141,7 +141,7 @@ router.get("/rooms", roomCtr.roomsList);
 }
  *                          ]
  */
-// router.post("/room", checkAuth, userInRoom, roomCtr.postRoom);
+// router.post("/room", checkAuth, userInRoom, checkPenalty, roomCtr.postRoom);
 router.post("/room", roomCtr.postRoom);
 
 /**
@@ -268,7 +268,7 @@ router.get("/room/:roomId", roomCtr.roomData);
 }
  *                          ]
  */
-// router.post("/room/enter/:roomId", checkAuth, userInRoom, roomCtr.enterRoom);
+// router.post("/room/enter/:roomId", checkAuth, checkPenalty, userInRoom, roomCtr.enterRoom);
 router.post("/room/enter/:roomId", roomCtr.enterRoom);
 
 /**
@@ -368,12 +368,12 @@ router.delete("/room/:roomId", roomCtr.deleteRoom);
  * paths:
  *  /api-server/shop:
  *    get:
- *      summary: "상품 목록 전체조회"
+ *      summary: "커스텀 목록 전체조회"
  *      description: ""
- *      tags: [Shop]
+ *      tags: [Custom]
  *      responses:
  *        "200":
- *          description: 전체 상품 목록
+ *          description: 전체 커스텀 목록
  *          content:
  *            application/json:
  *              schema:
@@ -387,9 +387,9 @@ router.delete("/room/:roomId", roomCtr.deleteRoom);
  *                          [
  *                                  {
         "product_id": 1,
-        "p_name": "기본",
+        "p_name": "펭귄",
         "p_type": "profile",
-        "p_img": "default",
+        "p_img": "/images/profile/penguin.png",
         "p_price": 0
     },
  *                          ]
@@ -401,12 +401,12 @@ router.get("/shop", shopCtr.productsList);
  * paths:
  *  /api-server/shop/user:
  *    get:
- *      summary: "유저가 구매한 상품 조회"
+ *      summary: "유저가 설정한 커스텀 조회"
  *      description: ""
- *      tags: [Shop]
+ *      tags: [Custom]
  *      responses:
  *        "200":
- *          description: 현재 접속 중인 유저가 이미 구매한 상품의 product_id를 조회
+ *          description: 유저 정보 조회
  *          content:
  *            application/json:
  *              schema:
@@ -418,16 +418,24 @@ router.get("/shop", shopCtr.productsList);
  *                      type: object
  *                      example:
  *                          [
- *                                  {
-        "purchase_id": 17,
-        "user_id": 11,
-        "product_id": 5
-    },
+ *                                  "data": {
+        "user_id": 23,
+        "email": "4321",
+        "password": "$2b$10$EIB9uVp3sZkodsg6H65KpuLr81bJGPQqktZnNsIb2z48a3PL1o.N.",
+        "nickname": "4321",
+        "profile": "/profile/default",
+        "profileEdge": "/profileEdge/default",
+        "theme": "#ffffff",
+        "win": 0,
+        "lose": 0,
+        "rating": 0,
+        "access_penalty": true
+    }
  *                          ]
  */
 router.get("/shop/user", checkAuth, shopCtr.ownedList);
 
-/**
+/*
  * @swagger
  * paths:
  *  /api-server/shop/buy:
@@ -463,7 +471,7 @@ router.post("/shop/buy", checkAuth, shopCtr.postBuy);
 
 // admin
 
-/**
+/*
  * @swagger
  * paths:
  *  /api-server/admin/shop/add:
@@ -499,7 +507,7 @@ router.post("/shop/buy", checkAuth, shopCtr.postBuy);
  */
 router.post("/admin/shop/add", shopCtr.postProduct);
 
-/**
+/*
  * @swagger
  * paths:
  *  /api-server/admin/shop/:productId:
@@ -534,7 +542,7 @@ router.post("/admin/shop/add", shopCtr.postProduct);
  */
 router.patch("/admin/shop/:productId", shopCtr.patchProduct);
 
-/**
+/*
  * @swagger
  * paths:
  *  /api-server/admin/shop/:productId:

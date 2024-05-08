@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>tetrist 관리자 페이지</title>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    </head>
+    <%- include('header')%>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .userTable {
+            text-align: center;
+        }
+        th {
+            padding: 5px;
+        }
+    </style>
+    <body>
+        <h2>유저 관리</h2>
+        <div class="users">
+            <table class="userTable" border="1" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>인덱스</th>
+                        <th>이메일</th>
+                        <th>닉네임</th>
+                        <th>승리 수</th>
+                        <th>패배 수</th>
+                        <th>승점</th>
+                        <th>제재 상태</th>
+                        <th>비밀번호 초기화</th>
+                        <th>유저 정보 삭제</th>
+                        <th>변경 사항 적용</th>
+                    </tr>
+                </thead>
+                <tbody id="userList">
+                    <% for (let i= 0; i < data.length; i++) { %>
+                    <%if(data[i].nickname == "admin"){%>
+                    <tr></tr>
+                    <%} else {%>
+                    <tr id="tr_<%= data[i].user_id %>">
+                        <td><%= data[i].user_id %></td>
+                        <td><%= data[i].email %></td>
+                        <td>
+                            <input
+                                type="text"
+                                value="<%=data[i].nickname%>"
+                                id="<%= data[i].user_id %>_nick"
+                            />
+                        </td>
+                        <td><%= data[i].win %></td>
+                        <td><%= data[i].lose %></td>
+                        <td><%= data[i].rating %></td>
+                        <td>
+                            <select id="<%= data[i].user_id %>_penal">
+                                <%if(!data[i].access_penalty){%>
+                                <option value="false" selected>없음</option>
+                                <option value="true">접속제재</option>
+                                <%} else {%>
+                                <option value="false">없음</option>
+                                <option value="true" selected>접속제재</option>
+                                <%}%>
+                            </select>
+                        </td>
+                        <td>
+                            <button onclick="resetPw('<%=data[i].user_id%>')">
+                                초기화
+                            </button>
+                        </td>
+                        <td>
+                            <button
+                                onclick="deleteUser('<%=data[i].user_id%>')"
+                            >
+                                삭제
+                            </button>
+                        </td>
+                        <td>
+                            <button onclick="apply('<%=data[i].user_id%>')">
+                                적용
+                            </button>
+                        </td>
+                    </tr>
+                    <%}%> <%}%>
+                </tbody>
+            </table>
+        </div>
+    </body>
+    <script>
+        const apply = (userId) => {
+            const nickname = document.getElementById(`${userId}_nick`).value;
+            const penalty = document.getElementById(`${userId}_penal`).value;
+            if (
+                confirm(
+                    "유저 정보를 수정하시겠습니까? 수정된 정보는 복구할 수 없습니다."
+                )
+            ) {
+                axios({
+                    method: "PATCH",
+                    url: "/api-server/admin/patchUser",
+                    data: { userId, penalty, nickname },
+                })
+                    .then((res) => {
+                        alert("유저 정보가 수정되었습니다.");
+                        document.location.href = "/api-server/admin/adminUser";
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        alert(err.response.data.msg);
+                    });
+            }
+        };
+        const deleteUser = (userId) => {
+            if (
+                confirm(
+                    "유저 정보를 삭제하시겠습니까? 삭제된 정보는 복구할 수 없습니다."
+                )
+            ) {
+                axios({
+                    method: "DELETE",
+                    url: `/api-server/admin/deleteUser/${userId}`,
+                })
+                    .then((res) => {
+                        alert("유저 정보가 삭제되었습니다.");
+                        document.location.href = "/api-server/admin/adminUser";
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        alert(err.response.data.msg);
+                    });
+            }
+        };
+        const resetPw = (userId) => {
+            if (
+                confirm(
+                    "유저 비밀번호를 초기화 하시겠습니까? 초기화된 비밀번호는 복구할 수 없습니다."
+                )
+            ) {
+                axios({
+                    method: "PATCH",
+                    url: "/api-server/admin/resetPw",
+                    data: { userId },
+                })
+                    .then((res) => {
+                        alert("유저 비밀번호가 초기화되었습니다.");
+                        document.location.href = "/api-server/admin/adminUser";
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        alert(err.response.data.msg);
+                    });
+            }
+        };
+    </script>
+</html>
