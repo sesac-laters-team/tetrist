@@ -226,6 +226,10 @@
     border-radius: 10px;
     box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
 }
+.logo-img {
+    height: auto; /* 높이는 자동으로 조정되어 비율을 유지 */
+    width: 100%; /* 모든 해상도에서 기본적으로 너비 100% 적용 */
+}
 
 @media (max-width: 768px) {
     .logo-and-menubar {
@@ -286,4 +290,24 @@
 .tetris-square {
     width: 30px;
     height: 30px;
+}
+/* 데스크탑에서의 로고 크기 조정 */
+@media (min-width: 1025px) {
+    .logo-img {
+        width: 50%; /* 데스크탑에서는 너비를 50%로 설정 */
+    }
+}
+
+/* 태블릿에서의 로고 크기 조정 */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .logo-img {
+        width: 60%; /* 태블릿에서는 너비를 60%로 설정 */
+    }
+}
+
+/* 모바일에서의 로고 크기 */
+@media (max-width: 768px) {
+    .logo-img {
+        width: 30%; /* 모바일에서는 너비를 100%로 설정 */
+    }
 }

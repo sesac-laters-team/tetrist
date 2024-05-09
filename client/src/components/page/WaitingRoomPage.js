@@ -164,7 +164,11 @@ export default function WaitingRoomPage() {
             style={{ backgroundColor: backgroundColor }}
         >
             <div className="logo-and-menubar">
-                <img src="/images/tetrist_logo.gif" alt="LOGO" />
+                <img
+                    src="/images/tetrist_logo.gif"
+                    alt="LOGO"
+                    class="logo-img"
+                />
                 <Menubar socket={socket} />
             </div>
             <br />
