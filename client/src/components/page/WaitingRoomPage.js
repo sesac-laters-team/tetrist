@@ -6,6 +6,7 @@ import CreateRoom from "../waitingRoom/CreateRoom";
 import Menubar from "../waitingRoom/Menubar";
 import WaitingChat from "../chat/WaitingChat";
 import axios from "axios";
+import Footer from "../../components/common/footer";
 axios.defaults.withCredentials = true;
 
 // 기존 소켓 연결 유지
@@ -209,6 +210,7 @@ export default function WaitingRoomPage() {
                     </div>
                 </div>
             )}
+            <Footer />
         </div>
     );
 }
