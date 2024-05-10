@@ -36,6 +36,7 @@ function tetrisSocketHandler(server) {
 
         socket.on("disconnect", () => {
             const remain = io.sockets.adapter.rooms.get("game");
+            socket.to("game").emit("game_over_all");
         });
     });
 }

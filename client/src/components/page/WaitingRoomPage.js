@@ -167,7 +167,7 @@ export default function WaitingRoomPage() {
                 <img
                     src="/images/tetrist_logo.gif"
                     alt="LOGO"
-                    class="logo-img"
+                    className="logo-img"
                 />
                 <Menubar socket={socket} />
             </div>

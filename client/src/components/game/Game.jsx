@@ -60,7 +60,6 @@ const Game = ({ rows, columns, roomId }) => {
                     // r_state: true,
                 })
             );
-            console.log("디스패치 액션!");
             // 게임 화면 표시
             setGameOver(false);
             // 게임 정보 업데이트
@@ -69,7 +68,6 @@ const Game = ({ rows, columns, roomId }) => {
                 user_id: room.user_id,
                 guest_id: guest,
             });
-            // console.log("상대 입장 시 변경된 룸 스테이트 ", room);
         });
         socket.on("saveNick", (saveNick) => {
             setOtherNick(saveNick);
@@ -78,6 +76,26 @@ const Game = ({ rows, columns, roomId }) => {
 
     // 서버로부터 게임 종료 이벤트를 받았을때 (상대가 먼저 죽었을 경우)
     socket.on("game_over_to_client", async () => {
+        setWinner(realUserId);
+
+        setGameOver(true);
+
+        await axios.patch(`${process.env.REACT_APP_API_SERVER}/matchResult`, {
+            winUserId: realUserId.userId,
+            loseUserId:
+                realUserId.userId === room.user_id
+                    ? room.guest_id
+                    : room.user_id,
+        });
+        socket.disconnect();
+
+        //axios
+        await axios.delete(
+            `${process.env.REACT_APP_API_SERVER}/room/${room.room_id}`
+        );
+    });
+
+    socket.on("game_over_all", async () => {
         setWinner(realUserId);
 
         setGameOver(true);
