@@ -23,6 +23,9 @@ pw : test1! <br/>
 email : admin@admin.com <br/>
 pw : test1! <br/>
 
+- 관리자페이지 주소
+http://52.78.163.112:8080/api-server/admin
+
 <br/>
 
 ## 👨‍👩‍👧‍👦 팀 소개
@@ -54,6 +57,14 @@ pw : test1! <br/>
 
 ---
 ## 📒 시작 가이드
+### .env
+DB_USERNAME=로컬DB계정 </br>
+DB_PASSWORD=로컬DB비밀번호 </br>
+DB_DATABASE=tetris </br>
+PORT=8080 </br>
+PORT_SOCKET=8081 </br>
+PORT_SOCKET_GAME=8082 </br>
+
 ### Installation
 ``` bash
 $ git clone https://github.com/sesac-laters-team/tetrist.git
@@ -63,14 +74,14 @@ $ cd tetrist
 ```
 $ cd server
 $ npm install
-$ nodemon app
+$ npm run dev
 ```
 
 #### Frontend
 ```
 $ cd client
 $ npm install 
-$ npm start
+$ npm run start
 ```
 
 ---
@@ -90,12 +101,23 @@ $ npm start
 ### Development
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=Javascript&logoColor=white)
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Swagger](https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black)
+![Socket.io](https://img.shields.io/badge/Socket.io-010101?style=for-the-badge&logo=Socket.io&logoColor=white)
+![express](https://img.shields.io/badge/express-000000?style=for-the-badge&logo=express&logoColor=white)
+![Sass](https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=Sass&logoColor=white)
+![Mysql](https://img.shields.io/badge/Mysql-4479A1?style=for-the-badge&logo=Mysql&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-5FA04E?style=for-the-badge&logo=Node.js&logoColor=white)
+![EC2](https://img.shields.io/badge/amazonec2-FF9900?style=for-the-badge&logo=amazonec2&logoColor=white)
+![RDS](https://img.shields.io/badge/amazonrds-527FFF?style=for-the-badge&logo=amazonrds&logoColor=white)
+![env](https://img.shields.io/badge/dotenv-ECD53F?style=for-the-badge&logo=dotenv&logoColor=white)
+![sequelize](https://img.shields.io/badge/sequelize-52B0E7?style=for-the-badge&logo=sequelize&logoColor=white)
+![Redux](https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=Redux&logoColor=white)
+
 ---
 
 ### Communication
 ![Slack](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=Slack&logoColor=white)
 ![Notion](https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion&logoColor=white)
-![GoogleMeet](https://img.shields.io/badge/GoogleMeet-00897B?style=for-the-badge&logo=Google%20Meet&logoColor=white)
 ![Discord](https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=Discord&logoColor=white)
 
 <br/>
@@ -125,33 +147,35 @@ $ npm start
 
 
 ---
-## 📦 주요 기능 
-### ⭐️ 게임 대기방 채팅 기능
+## ⭐ 주요 기능 
+### 1. 게임 대기방 채팅 기능
 - 플레이어는 새로운 방을 생성하여 다른 플레이어들과 게임을 할 수 있습니다. 필요에 따라 방의 비밀번호를 설정할 수 있습니다.
 - 대기방 화면에서는 현재 활성화되어 있는 모든 방의 리스트를 볼 수 있습니다. 각 방의 현재 인원, , 방의 상태등의 정보가 제공됩니다.
 - 플레이어는 리스트를 통해 자신이 참여하고 싶은 방을 찾고, 클릭 한 번으로 입장할 수 있습니다.
 - 대기방에서는 플레이어들이 실시간으로 채팅을 할 수 있습니다. 이를 통해 플레이어들은 서로 소통하며 게임 전략을 논의하거나 친목을 다질 수 있습니다.
 
-### ⭐️ 테트리스 게임 기능
+### 2. 테트리스 게임 기능
 - 각 플레이어는 자신의 게임 보드에서 블록을 쌓고, 완전한 라인을 만들어 해체하면서 포인트를 얻습니다.
 - 게임 인터페이스에는 플레이어의 현재 스탯과 게임 레벨을 확인할 수 있는 기능이 포함되어 있습니다. 이는 플레이어가 자신의 게임 진행 상황을 파악하고, 전략을 조정하는 데 도움을 줍니다.
 - 화면이 작아질 때, 게임은 플레이어의 보드를 중심으로 표시하고, 상대방의 보드는 축소된 형태로 표시됩니다. 이는 플레이어가 자신의 게임에 집중할 수 있게 돕고, 동시에 상대방의 진행 상황도 눈으로 확인할 수 있게 합니다.
 
-### ⭐️ 마이페이지 기능
+### 3. 마이페이지 기능
 - 사용자는 언제든지 자신의 닉네임과 비밀번호를 수정할 수 있습니다. 유효성 검사를 통해 개인의 정보를 유지하고, 유연성을 제공합니다.
 - 게임 내에서의 성과를 확인할 수 있습니다. 획득한 승점포인트와 게임전적(승/패)를 통해 사용자는 자신의 게임 실력과 진행 상황을 평가할 수 있습니다.
 
-### ⭐️ 상점 기능
+### 4. 상점 기능
 - 상점에서는 게임 플레이를 통해 얻은 포인트를 사용하여 다양한 커스터마이징 옵션을 구매할 수 있습니다.
 - (게임을 이용해서 얻은 포인트를 집계하여) 배경 색깔, 프로필 이미지.프로필 테두리를 변경할 수 있습니다.
 - (상점에서 바로 자신이 구매한 아이템을 바로 실시간으로 적용 가능하며, 구매한 아이템을 확인할 수 있습니다.)
 
-### ⭐️ 랭킹 시스템
+### 5. 랭킹 시스템
 - 게임에서 승리할 경우, 플레이어는 포인트를 획득하며 반대로 패배할 시엔, 일정량의 포인트를 잃습니다.
 - 플레이어의 총 점수는 실시간으로 갱신되어 3등까지 나타내줍니다.
 
 ---
-## 아키텍쳐
+## 📑 아키텍쳐
+### Swagger
+http://52.78.163.112:8080/api-docs
 
 ### 디렉토리 구조
 #### - Back-end
