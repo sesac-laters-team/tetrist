@@ -89,7 +89,6 @@ export const loginUser = (email, password) => async (dispatch) => {
             // 로컬 스토리지에 필요한 정보 저장
             localStorage.setItem("isLoggedIn", "true");
             localStorage.setItem("user", JSON.stringify(userData));
-            console.log("성공");
         } else {
             return Promise.reject(response.data.msg); // 오류 메시지 반환
         }
