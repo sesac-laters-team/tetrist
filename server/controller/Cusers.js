@@ -179,7 +179,6 @@ exports.logout = (req, res) => {
 
 // GET /api-server/auth/mypage
 exports.getOneUser = async (req, res) => {
-    console.log("서버 마이페이지 세션 id:: ", req.session.userId);
     try {
         const userData = await usersModel.findOne({
             where: {

@@ -33,7 +33,6 @@ const Game = ({ rows, columns, roomId }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    // console.log(realUserId.userNickname);
     const [otherNick, setOtherNick] = useState(null);
 
     useEffect(() => {
@@ -83,7 +82,6 @@ const Game = ({ rows, columns, roomId }) => {
 
         setGameOver(true);
 
-        console.log("결과 전송 엑시오스!!!!");
         await axios.patch(`${process.env.REACT_APP_API_SERVER}/matchResult`, {
             winUserId: realUserId.userId,
             loseUserId:
@@ -92,7 +90,6 @@ const Game = ({ rows, columns, roomId }) => {
                     : room.user_id,
         });
         socket.disconnect();
-        console.log("이거 realUserId.userId ??? :: ", realUserId.userId);
 
         //axios
         await axios.delete(

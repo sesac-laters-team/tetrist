@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { del } from "../../redux/store/module/waiting";
 
 const GameResult = ({ result }) => {
-    console.log("프롭스로 넘어온", result);
     const navigate = useNavigate();
     const winnerImage = "/tetris_winner.png";
     const loserImage = "/tetris_looser.png";

@@ -48,7 +48,6 @@ const Modal = ({ type, roomInfo, socket, closeModal }) => {
                     `${process.env.REACT_APP_API_SERVER}/auth/mypage`
                 );
                 setMyInfo(response.data);
-                console.log("서버에서 받은 유저 :: ", response.data);
             } catch (error) {
                 console.error("정보를 불러오는 중 오류가 발생했습니다:", error);
             }

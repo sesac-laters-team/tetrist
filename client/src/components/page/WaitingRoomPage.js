@@ -150,7 +150,6 @@ export default function WaitingRoomPage() {
         axios
             .get(`${process.env.REACT_APP_API_SERVER}/shop/user`)
             .then((response) => {
-                console.log("바뀐 배경 색 >> ", response.data.data.theme);
                 setBackgroundColor(response.data.data.theme);
             })
             .catch((error) => {

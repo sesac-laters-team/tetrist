@@ -1,7 +1,7 @@
 {
-    "name": "tetrist-server",
+    "name": "tetrist",
     "version": "1.0.0",
-    "description": "tetrist server",
+    "description": "React와 node. js, websocket.io 를 사용한 1:1 고전 테트리스 게임",
     "main": "app.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,7 +9,7 @@
         "start": "cross-env NODE_ENV=production pm2 start app.js"
     },
     "keywords": [],
-    "author": "",
+    "author": "지각변동",
     "license": "ISC",
     "dependencies": {
         "bcrypt": "^5.1.1",

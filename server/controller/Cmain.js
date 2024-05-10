@@ -16,12 +16,8 @@ exports.index = async (req, res) => {
 // PATCH /api-server/matchResult
 exports.matchResult = async (req, res) => {
     try {
-        /* 포인트를 프론트에서 지정
-        const { userId, ratePoint } = req.body; */
         /* 포인트를 백에서 지정 */
         const { winUserId, loseUserId } = req.body;
-        console.log("winUserId :: ", winUserId);
-        console.log("loseUserId :: ", loseUserId);
         const winRP = 50;
         const loseRP = 20;
 
@@ -53,8 +49,6 @@ exports.matchResult = async (req, res) => {
 
         // 승패 여부에 따라 데이터 처리
         // 승리 유저
-        /*
-            const winUpdateRating = findWinner.rating + Number(ratePoint); */
         const winUpdateRating = findWinner.rating + winRP;
         const winUser = await usersModel.update(
             {
@@ -68,12 +62,6 @@ exports.matchResult = async (req, res) => {
             }
         );
         // 패배 유저
-        /*
-            let updateRating = findLoser.rating - Number(ratePoint);
-            // 승점이 -가 되지 않도록
-            if (updateRating < 0) {
-                updateRating = 0;
-            } */
         // 승점이 -가 되지 않도록
         const updateRating =
             findLoser.rating >= loseRP ? findLoser.rating - loseRP : 0;
@@ -132,7 +120,6 @@ exports.getModalBackgroundColor = async (req, res) => {
             },
         });
 
-        console.log(">> ", theme);
         res.send({ data: theme });
     } catch (error) {
         console.log("error", error);

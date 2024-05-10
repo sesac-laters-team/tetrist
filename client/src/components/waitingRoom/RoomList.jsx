@@ -25,8 +25,6 @@ export default function RoomList({ socket }) {
             const res =
                 await axios.get(`${process.env.REACT_APP_API_SERVER}/rooms
             `);
-            console.log("getWaitingList :: ", res.data);
-            // {room_id, r_name, r_password, r_status, user_id, guest_id}
             if (res.data) {
                 // 서버에서 받아온 데이터를 rooms에 추가
                 dispatch(init(res.data));
@@ -40,11 +38,7 @@ export default function RoomList({ socket }) {
     useEffect(() => {
         getWaitingList();
     }, [currentPage]);
-    // useEffect(() => {
-    //     socket.on("newRoomList", (r_name) => {
-    //         console.log("룸 이름은 :: ", r_name);
-    //     });
-    // }, []);
+
     const gameJoin = async (room) => {
         // console.log("방 인덱스 :: ", room.room_id); // state에 저장되어 있는 방 전체 데이터
         if (room.guest_id === "2/2") {
@@ -55,7 +49,6 @@ export default function RoomList({ socket }) {
             `${process.env.REACT_APP_API_SERVER}/room/${room.room_id}`,
             { roomId: room.room_id }
         );
-        console.log("서버에서 보내는 방 데이터:: ", searchRoom.data);
         // 서버에서 방 입장
         const joinRoom = await axios.post(
             `${process.env.REACT_APP_API_SERVER}/room/enter/${searchRoom.data.roomData.room_id}`,
@@ -64,7 +57,6 @@ export default function RoomList({ socket }) {
                 r_password: searchRoom.data.roomData.r_password,
             }
         );
-        console.log("서버에서 보내는 방 참가 :: ", joinRoom.data.guestId);
         if (!searchRoom.data.result) {
             alert(`${searchRoom.data.msg}`);
         } else if (!joinRoom.data.result) {
@@ -77,14 +69,9 @@ export default function RoomList({ socket }) {
             searchRoom.data.roomData.user_id, // {user_id, email, password, nickname}
             joinRoom.data.guestId // guset_id
         );
-        console.log(
-            `참여방 제목은 ${searchRoom.data.roomData.r_name}, 방장은 ${searchRoom.data.roomData.user_id}, 게스트는 ${joinRoom.data.guestId}`
-        );
         dispatch(
             join({
                 room_id: searchRoom.data.roomData.room_id,
-                // user_id: searchRoom.data.creatorData.user_id,
-                // r_name: searchRoom.data.roomData.r_name,
                 guest_id: joinRoom.data.guestId,
             })
         );

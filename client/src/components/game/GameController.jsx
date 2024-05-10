@@ -7,7 +7,6 @@ import { useInterval } from "../../hooks/useInterval";
 import { useDropTime } from "../../hooks/useDropTime";
 
 // 게임 컨트롤러 컴포넌트
-// props : board, gameStats, player, setGameOver, setPlayer
 const GameController = ({
     board,
     gameStats,

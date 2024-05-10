@@ -11,7 +11,6 @@ async function getUserInfo() {
             `${process.env.REACT_APP_API_SERVER}/auth/mypage`
         );
         const userInfo = myInfo && myInfo.data;
-        console.log("userInfo >> ", userInfo.data.nickname);
         return userInfo.data.nickname;
     } catch (error) {
         console.error("Error fetching user info:", error);
@@ -29,7 +28,6 @@ export default function WaitingChat({ socket }) {
     useEffect(() => {
         const fetchUserInfo = async () => {
             const userInfo = await getUserInfo();
-            console.log("현재 아이디 >>> ", userInfo);
             setUserNickname(userInfo);
 
             socket.emit("userData", userInfo);
