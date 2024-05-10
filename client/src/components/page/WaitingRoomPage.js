@@ -6,6 +6,7 @@ import CreateRoom from "../waitingRoom/CreateRoom";
 import Menubar from "../waitingRoom/Menubar";
 import WaitingChat from "../chat/WaitingChat";
 import axios from "axios";
+import Footer from "../../components/common/footer";
 axios.defaults.withCredentials = true;
 
 // 기존 소켓 연결 유지
@@ -163,7 +164,11 @@ export default function WaitingRoomPage() {
             style={{ backgroundColor: backgroundColor }}
         >
             <div className="logo-and-menubar">
-                <img src="/images/tetrist_logo.gif" alt="LOGO" />
+                <img
+                    src="/images/tetrist_logo.gif"
+                    alt="LOGO"
+                    class="logo-img"
+                />
                 <Menubar socket={socket} />
             </div>
             <br />
@@ -204,6 +209,7 @@ export default function WaitingRoomPage() {
                     </div>
                 </div>
             )}
+            <Footer />
         </div>
     );
 }
