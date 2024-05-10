@@ -143,7 +143,7 @@ $ npm run start
 #### - 결과 페이지
 | win | lose |
 |---|---|
-| ![tetrist_win (2)](https://github.com/sesac-laters-team/tetrist/assets/133750746/b4ddd43a-093c-497d-8a08-b0709cd8e7e4) | ![tetrist_lose (1)](https://github.com/sesac-laters-team/tetrist/assets/133750746/c34ab305-c54d-4361-80e6-f482b606b972) |
+| ![win](https://github.com/sesac-laters-team/tetrist/assets/133750746/6be1d888-d417-4e6d-a967-670825148e6f) | ![lose](https://github.com/sesac-laters-team/tetrist/assets/133750746/30e1f2b3-9d45-46a8-9ef4-1aca1eefd2aa) |
 
 
 ---
