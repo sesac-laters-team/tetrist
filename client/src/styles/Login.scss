@@ -9,16 +9,7 @@ body {
         align-items: center;
         position: relative;
         overflow: hidden;
-        // background-image: url("../../public/tetris.png");
 
-        // /* 배경을 화면의 중앙에 배치 */
-        // background-position: center;
-
-        // /* 이미지를 반복하지 않음 */
-        // background-repeat: no-repeat;
-
-        // /* 이미지 크기를 화면에 꽉 채우도록 설정 */
-        // background-size: cover;
         &::after {
             content: "";
             display: block;
@@ -45,7 +36,6 @@ body {
             transition: background-color 0.3s, color 0.3s, border-color 0.3s;
             cursor: pointer;
             &:hover {
-                // background-color: #2980b9;
                 background-color: #ff406a;
                 color: #fff;
             }

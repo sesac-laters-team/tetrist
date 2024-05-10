@@ -35,7 +35,6 @@ export default function CreateRoom({ socket }) {
                 // 방 정보, 방장 정보
                 const userId = res.data.userId;
                 const roomId = res.data.roomId;
-                console.log("방 아이디:: ", roomId);
 
                 // 새로운 방 정보를 Redux store에 추가
                 dispatch(
@@ -47,17 +46,6 @@ export default function CreateRoom({ socket }) {
                         guest_id: null,
                     })
                 );
-
-                console.log(
-                    `방 번호 ${roomId}의 제목은 ${r_name} 인 방이 추가 되었습니다.`
-                );
-
-                // socket.emit("createRoom", r_name, r_password, userId);
-                // socket.on("err", (errMsg) => {
-                //     alert(errMsg);
-                //     setPwInput("");
-                //     r_name = "";
-                // });
 
                 // 게임 페이지로 이동
                 setPwInput("");

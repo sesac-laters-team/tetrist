@@ -24,20 +24,6 @@ exports.productsList = async (req, res) => {
 // GET /api-server/shop/user
 // 로그인한 유저가 이미 구매한 상품 목록 조회
 exports.ownedList = async (req, res) => {
-    // try {
-    //     const userOwned = await userPurchaseModel.findAll({
-    //         where: { user_id: req.session.userId },
-    //     });
-    //     if (userOwned) {
-    //         res.status(200).json(userOwned);
-    //     } else {
-    //         res.status(400).send({ result: false });
-    //     }
-    // } catch (error) {
-    //     console.log("error", error);
-    //     res.status(500).send("server error");
-    // }
-
     // GET요청 없어서 임시로 사용
     try {
         const usreInfo = await usersModel.findOne({
@@ -45,17 +31,7 @@ exports.ownedList = async (req, res) => {
                 user_id: req.session.userId,
             },
         });
-        // console.log(" 바뀐 정보 >> ", usreInfo);
         res.send({ data: usreInfo });
-//         if (userOwned) {
-//             res.status(200).json(userOwned);
-//         } else {
-//             res.status(400).send({
-//                 result: false,
-//                 msg: "유저 구매 목록 조회 실패",
-//             });
-//         }
-
     } catch (error) {
         console.log("error", error);
         res.status(500).send("server error");

@@ -32,15 +32,10 @@ const InsertPwModal = ({ roomInfo, socket, closeModal }) => {
                 roomInfo.user_id, // {user_id, email, password, nickname}
                 response.data.guestId // guset_id
             );
-            console.log(
-                `참여방 제목은 ${roomInfo.r_name}, 방장은 ${roomInfo.user_id}, 게스트는 ${response.data.guestId}`
-            );
 
             dispatch(
                 join({
                     room_id: roomInfo.room_id,
-                    // user_id: searchRoom.data.creatorData.user_id,
-                    // r_name: roomInfo.r_name,
                     guest_id: response.data.guestId,
                 })
             );

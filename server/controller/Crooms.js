@@ -43,7 +43,6 @@ exports.postRoom = async (req, res) => {
                 });
             }
         } else {
-            // res.status(400).send({
             res.send({
                 result: false,
                 msg: "방 생성에 실패했습니다. 다시 시도해주세요.",
@@ -72,7 +71,6 @@ exports.roomData = async (req, res) => {
                 },
             });
             if (!creator) {
-                // res.status(404).send({
                 res.send({
                     result: false,
                     msg: "방장 유저 정보를 찾을 수 없습니다.",
@@ -92,7 +90,6 @@ exports.roomData = async (req, res) => {
                 msg: "룸 정보 확인",
             });
         } else {
-            // res.status(404).send({
             res.send({
                 result: false,
                 msg: "룸 정보를 찾을 수 없습니다.",
@@ -139,7 +136,6 @@ exports.enterRoom = async (req, res) => {
                             msg: "공개 방에 입장했습니다.",
                         });
                     } else {
-                        // res.status(400).send({
                         res.send({
                             result: false,
                             msg: "방 입장 실패. 다시 시도해주세요.",
@@ -147,7 +143,6 @@ exports.enterRoom = async (req, res) => {
                     }
                 } else {
                     // 방에 guest_id가 이미 존재
-                    // res.status(409).send({
                     res.send({
                         result: false,
                         msg: "인원이 가득 찼습니다. 입장할 수 없습니다.",
@@ -172,7 +167,6 @@ exports.enterRoom = async (req, res) => {
                                 msg: "비공개 방에 입장했습니다.",
                             });
                         } else {
-                            // res.status(400).send({
                             res.send({
                                 result: false,
                                 msg: "방 입장 실패. 다시 시도해주세요.",
@@ -180,7 +174,6 @@ exports.enterRoom = async (req, res) => {
                         }
                     } else {
                         // 방에 guest_id가 이미 존재
-                        // res.status(409).send({
                         res.send({
                             result: false,
                             msg: "인원이 가득 찼습니다. 입장할 수 없습니다.",
@@ -188,7 +181,6 @@ exports.enterRoom = async (req, res) => {
                     }
                 } else {
                     // 비밀번호 불일치
-                    // res.status(401).send({
                     res.send({
                         result: false,
                         msg: "비밀번호가 일치하지 않습니다.",
@@ -196,7 +188,6 @@ exports.enterRoom = async (req, res) => {
                 }
             }
         } else {
-            // res.status(404).send({
             res.send({
                 result: false,
                 msg: "방 정보를 찾을 수 없습니다.",

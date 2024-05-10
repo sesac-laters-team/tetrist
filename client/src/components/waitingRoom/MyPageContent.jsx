@@ -63,7 +63,6 @@ const MyPageContent = ({ myInfo }) => {
                     { nickname: newNickname }
                 )
                 .then((response) => {
-                    console.log("닉네임 변경 요청 성공", response);
                     setNickname(newNickname);
                     alert("닉네임이 변경되었습니다.");
                 })
@@ -92,7 +91,6 @@ const MyPageContent = ({ myInfo }) => {
                 { password: newPassword }
             )
             .then((response) => {
-                console.log("비밀번호 변경 요청 성공", response);
                 setNewPassword(""); // 비밀번호 입력란 비우기
                 setIsChangePwVisible(false); // 비밀번호 변경란 숨기기
                 alert(`${response.data.msg}`);
