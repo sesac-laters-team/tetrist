@@ -15,17 +15,13 @@ function tetrisSocketHandler(server) {
         socket.on("game_enter", (creator, guest, nickname) => {
             socket.join("game");
             // 콘솔 확인용 룸정보
-
             const gameInfo = io.sockets.adapter.rooms.get("game");
-            console.log("gameInfo ::: ", gameInfo);
-            console.log(`${creator}가 게임 생성`);
-            console.log(gameInfo.size);
             if (gameInfo.size === 1) {
-                saveNick = nickname; //김성민
+                saveNick = nickname;
             }
             if (gameInfo.size === 2) {
-                socket.to("game").emit("game_enter_notice", guest, nickname); //닉네임 , 기다리는사람
-                socket.emit("saveNick", saveNick); // 김성민 , 나중에 들어온 사람
+                socket.to("game").emit("game_enter_notice", guest, nickname); // 닉네임 , 기다리는사람
+                socket.emit("saveNick", saveNick); // 나중에 들어온 사람
             }
         });
         // 상태정보 이벤트
@@ -39,7 +35,6 @@ function tetrisSocketHandler(server) {
         });
 
         socket.on("disconnect", () => {
-            console.log(`${socket.id} ::: disconnect`);
             const remain = io.sockets.adapter.rooms.get("game");
         });
     });

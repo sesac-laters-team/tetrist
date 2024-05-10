@@ -5,15 +5,9 @@
     width: 100%;
     position: relative;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    // background-image: url("../../public/testris.jpg"); /* 부모에 배경 이미지 적용 */
     overflow: hidden; /* 내부 요소가 바깥으로 넘치지 않도록 설정 */
     z-index: 1000; /* 우선순위를 높게 설정하여 테트리스 블록 위에 위치하도록 */
     background-color: rgb(24, 0, 113, 0.4);
-}
-
-.waiting-room > * {
-    // background-color: white; /* 자식 요소의 배경색을 흰색으로 설정 */
-    // background-color: rgba(255, 255, 255, 0.85);
 }
 
 .logo-and-menubar {
@@ -27,17 +21,6 @@
     padding: 0 20px; /* 좌우 패딩 추가 */
 }
 
-// .logoImg {
-//     height: 80px; /* 로고 높이 고정 */
-//     background-color: gray;
-//     margin: 20px 0; /* 상하 마진 설정 */
-//     padding: 10px;
-//     text-align: center;
-//     font-size: 50px;
-//     flex: 1; /* 유연하게 공간 차지 */
-//     flex-shrink: 0;
-// }
-
 .ListTitle {
     display: flex;
     align-items: center;
@@ -46,11 +29,8 @@
     width: 100%; /* 전체 너비 */
     max-width: 780px; /* 최대 너비 설정 */
     margin: auto; /* 위아래 마진 지정, 좌우는 자동으로 중앙 정렬 */
-    // border-radius: 10px;
     border-bottom: 5px solid #180071;
     background-color: white;
-    // border: 5px solid #180071;
-    // border-radius: 10px;
 }
 
 .roomListTitle {
@@ -59,34 +39,6 @@
     font-weight: bold; /* 글자를 굵게 */
     margin-right: auto; /* 오른쪽 여백을 자동으로 설정하여 버튼을 오른쪽 끝으로 밀어냄 */
 }
-
-// .btnRoom {
-//     padding: 10px 15px;
-//     margin: 10px; /* 여백 조정 */
-//     width: 120px; /* 버튼 너비 */
-//     font-weight: 600;
-//     text-align: center;
-//     line-height: 50px;
-//     border-radius: 10px;
-//     transition: all 0.2s;
-//     cursor: pointer; /* 마우스 오버 시 포인터로 변경 */
-//     background-color: #f1f1f1; /* 배경색 추가 */
-//     border: none; /* 테두리 없앰 */
-// }
-
-// .btnJoin {
-//     background-color: aliceblue;
-//     z-index: 0px;
-// }
-
-// .btnJoin.btnPush {
-//     box-shadow: 0px 1px 0px 0px rgb(0, 0, 0);
-// }
-
-// .btnJoin:hover {
-//     margin-top: 15px;
-//     margin-bottom: 5px;
-// }
 
 @mixin transition($duration) {
     -webkit-transition: all $duration cubic-bezier(0.23, 1, 0.32, 1);
@@ -101,12 +53,7 @@
 .btnJoin {
     position: relative;
     background-color: #180071;
-    // padding: 0 20vmin;
     color: rgba(255, 255, 255, 255);
-    // border: 3px solid rgba(255, 255, 255, 0.7);
-    // font-size: 1.4em;
-    // font-weight: 100;
-    // line-height: 2.4em;
     text-align: center;
     text-decoration: none;
     text-transform: uppercase;
@@ -149,16 +96,6 @@
     background-color: rgb(24, 0, 113, 0.4);
     border-radius: 10px;
 }
-
-// .SpaceWithBlueBackground {
-//     margin-bottom: 10px; /* 파란색 여백의 높이 */
-//     background-color: blue; /* 파란색 배경 */
-// }
-
-// .ShowRoomList {
-//     padding-bottom: 10px; /* 기존에 여백으로 사용하던 부분은 패딩으로 변경 */
-//     background-color: white; /* 하얀색 배경 */
-// }
 
 .ShowRoomList {
     margin-bottom: 10px; /* 섹션 사이의 여백 */

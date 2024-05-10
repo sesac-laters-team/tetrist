@@ -3,8 +3,8 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 
 const ShopModalContent = ({ shopList }) => {
+    // 상점에서 아이템 선택 시 내 정보의 프로필 이미지 및 게임 테마를 수정
     const handleImageClick = (item) => {
-        // console.log("사진 클릭");
         if (item.p_type === "theme") {
             axios
                 .patch(
@@ -13,7 +13,7 @@ const ShopModalContent = ({ shopList }) => {
                 )
                 .then((response) => {
                     // 요청 성공 시 처리할 내용
-                    console.log("Axios request success:", response);
+                    // 기능 동작은 하나 후처리 안됨.(새로고침 시 적용)
                 })
                 .catch((error) => {
                     // 요청 실패 시 처리할 내용
@@ -27,7 +27,7 @@ const ShopModalContent = ({ shopList }) => {
                 )
                 .then((response) => {
                     // 요청 성공 시 처리할 내용
-                    console.log("Axios request success:", response);
+                    // 기능 동작은 하나 후처리 안됨.(새로고침 시 적용)
                 })
                 .catch((error) => {
                     // 요청 실패 시 처리할 내용
@@ -41,7 +41,7 @@ const ShopModalContent = ({ shopList }) => {
                 )
                 .then((response) => {
                     // 요청 성공 시 처리할 내용
-                    console.log("Axios request success:", response);
+                    // 기능 동작은 하나 후처리 안됨.(새로고침 시 적용)
                 })
                 .catch((error) => {
                     // 요청 실패 시 처리할 내용
