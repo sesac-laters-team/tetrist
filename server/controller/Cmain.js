@@ -1,4 +1,3 @@
-const { where } = require("sequelize");
 const { usersModel } = require("../models");
 
 // GET /api-server
@@ -6,7 +5,7 @@ exports.index = async (req, res) => {
     if (req.session.userId) {
         res.send({
             isLogin: true,
-            userId: req.session.userId, // cookie : {}
+            userId: req.session.userId,
         });
     } else {
         res.send({ isLogin: false });
@@ -16,7 +15,6 @@ exports.index = async (req, res) => {
 // PATCH /api-server/matchResult
 exports.matchResult = async (req, res) => {
     try {
-        /* 포인트를 백에서 지정 */
         const { winUserId, loseUserId } = req.body;
         const winRP = 50;
         const loseRP = 20;
@@ -104,23 +102,6 @@ exports.rank = async (req, res) => {
             order: [["rating", "DESC"]],
         });
         res.json(rank);
-    } catch (error) {
-        console.log("error", error);
-        res.status(500).send("server error");
-    }
-};
-
-// GET /api-server/modalBackgroundColor
-// 배경색 값을 클라이언트에 전송
-exports.getModalBackgroundColor = async (req, res) => {
-    try {
-        const theme = await usersModel.findOne({
-            where: {
-                user_id: req.session.userId,
-            },
-        });
-
-        res.send({ data: theme });
     } catch (error) {
         console.log("error", error);
         res.status(500).send("server error");

@@ -1,82 +1,90 @@
 <!DOCTYPE html>
 <html lang="ko">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>tetrist 관리자 로그인 페이지</title>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-</head>
-<style>
-    body {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .loginform {
-        display: flex;
-        flex-direction: column;
-        align-items: end;
-    }
-</style>
-
-<body>
-    <h2>관리자 로그인</h2>
-    <div class="login">
-        <form name="login" class="loginform">
-            <label><span>ID</span>
-                <input type="text" name="adminId" required placeholder="아이디를 입력해주세요." />
-            </label>
-            <br />
-            <label><span>PW</span>
-                <input type="password" name="adminPw" required placeholder="비밀번호를 입력해주세요." />
-            </label>
-            <br />
-            <button type="button" onclick="adminLogin()">로그인</button>
-        </form>
-        <div class="message"></div>
-    </div>
-</body>
-<script>
-    const form = document.forms["login"];
-    const message = document.querySelector(".message");
-    function adminLogin() {
-        if (
-            !form.adminId.checkValidity() ||
-            !form.adminPw.checkValidity()
-        ) {
-            message.textContent = "아이디와 비밀번호를 입력하세요.";
-            return;
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>tetrist 관리자 로그인 페이지</title>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    </head>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
+        .loginform {
+            display: flex;
+            flex-direction: column;
+            align-items: end;
+        }
+    </style>
+    <body>
+        <h2>관리자 로그인</h2>
+        <div class="login">
+            <form name="login" class="loginform">
+                <label
+                    ><span>ID</span>
+                    <input
+                        type="text"
+                        name="adminId"
+                        required
+                        placeholder="아이디를 입력해주세요."
+                    />
+                </label>
+                <br />
+                <label
+                    ><span>PW</span>
+                    <input
+                        type="password"
+                        name="adminPw"
+                        required
+                        placeholder="비밀번호를 입력해주세요."
+                    />
+                </label>
+                <br />
+                <button type="button" onclick="adminLogin()">로그인</button>
+            </form>
+            <div class="message"></div>
+        </div>
+    </body>
+    <script>
+        const form = document.forms["login"];
+        const message = document.querySelector(".message");
+        function adminLogin() {
+            if (
+                !form.adminId.checkValidity() ||
+                !form.adminPw.checkValidity()
+            ) {
+                message.textContent = "아이디와 비밀번호를 입력하세요.";
+                return;
+            }
 
-        const data = {
-            id: form.adminId.value,
-            pw: form.adminPw.value,
-        };
-        axios({
-            method: "POST",
-            url: "/api-server/admin/login",
-            data: data,
-        })
-            .then((res) => {
-                if (res.data.result) {
-                    localStorage.setItem("isLoggedIn", "true");
-                    localStorage.setItem("admin", "true");
-                    localStorage.setItem(
-                        "user",
-                        JSON.stringify(res.data.userId)
-                    );
-                    document.location.href = "/api-server/admin/adminPage";
-                } else {
-                    alert(res.data.msg);
-                }
+            const data = {
+                id: form.adminId.value,
+                pw: form.adminPw.value,
+            };
+            axios({
+                method: "POST",
+                url: "/api-server/admin/login",
+                data: data,
             })
-            .catch((err) => {
-                console.log(err);
-                alert(err.response.data.msg);
-            });
-    }
-</script>
-
+                .then((res) => {
+                    if (res.data.result) {
+                        localStorage.setItem("isLoggedIn", "true");
+                        localStorage.setItem("admin", "true");
+                        localStorage.setItem(
+                            "user",
+                            JSON.stringify(res.data.userId)
+                        );
+                        document.location.href = "/api-server/admin/adminPage";
+                    } else {
+                        alert(res.data.msg);
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                    alert(err.response.data.msg);
+                });
+        }
+    </script>
 </html>
