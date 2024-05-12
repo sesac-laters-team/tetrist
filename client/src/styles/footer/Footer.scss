@@ -1,77 +1,78 @@
 .footer-container {
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* 세로 정렬을 위해 왼쪽 정렬 */
+    align-items: center;
+    justify-content: center;
     background-color: rgba(24, 0, 113, 0.4);
-    width: 1024px;
     padding: 20px;
     border-radius: 10px;
-    height: 150px;
+    width: 100%;
+    max-width: 1024px;
+    margin: auto;
+}
 
-    .stack-section {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 20px; /* 섹션들 사이에 여백 추가 */
-        margin-left: auto; /* 스택 섹션을 오른쪽으로 밀어줌 */
-
-        .logo-section {
-            display: flex;
-            align-items: center; /* 로고를 세로 중앙에 정렬 */
-            margin-bottom: 20px; /* 로고 섹션 아래 여백 추가 */
-
-            img {
-                width: 50px; /* 로고 이미지 크기 */
-                height: auto;
-                margin-right: 10px; /* 로고와 나머지 콘텐츠 사이의 간격 */
-            }
-        }
-
-        h4 {
-            margin-bottom: 10px; /* 섹션 제목 아래 여백 추가 */
-            font-size: 1em; /* 글자 크기 줄임 */
-        }
-
-        ul {
-            list-style-type: none;
-            padding: 0;
-
-            li {
-                margin-bottom: 5px;
-                font-size: 0.7em; /* 글자 크기 줄임 */
-            }
-        }
-    }
-
-    .github-icon {
-        font-size: 1.5em; /* 글자 크기 줄임 */
-    }
-
-    /* 프론트엔드 기술과 백엔드 기술 섹션을 가로로 배열 */
-    .stack-section {
-        display: flex;
-        flex-direction: row;
-        justify-content: end; /* 섹션들 사이에 여백을 넣기 위해 */
-        width: 100%; /* 섹션 너비를 100%로 설정 */
-
-        > div:not(:last-child) {
-            margin-right: 100px; /* 마지막 스택 섹션을 제외한 각 스택 섹션 간의 간격 조절 */
-        }
+.stack-section {
+    display: flex;
+    align-items: start;
+    justify-content: flex-end;
+    width: 100%;
+    div:not(:last-child) {
+        margin-right: 40px; // 오른쪽 마진을 40px로 설정하여 간격을 넓힘
     }
 }
 
-// 반응형 디자인을 위한 미디어 쿼리
+.logo-section img {
+    width: 100%;
+    max-width: 300px; // 최대 로고 크기
+    height: auto; // 비율 유지
+    margin-right: 150px;
+    display: flex;
+}
+
+.github-icon {
+    display: flex; // Flexbox를 사용하여 정렬
+    margin-left: 10px;
+    font-size: 4em; // 기본 폰트 크기
+    align-self: center; // 세로 중앙 정렬
+    margin-top: 10px;
+    align-items: center; // 가로 중앙 정렬
+    justify-content: center; // 가로 중앙 정렬
+}
+// 미디어 쿼리를 추가하여 다양한 화면 크기에 맞춰 조정
+@media (max-width: 1024px) {
+    .stack-section {
+        justify-content: center; // 너비가 좁아지면 중앙 정렬
+        margin-right: 0; // 고정된 마진 제거
+
+        div:not(:last-child) {
+            margin-right: 20px; // 더 작은 화면에서는 간격 줄이기
+        }
+    }
+
+    .logo-section img {
+        margin-right: 20px; // 모바일에서 로고 간격 조정
+    }
+}
+
 @media (max-width: 768px) {
-    .footer-container {
-        padding: 10px; /* 패딩 크기 줄임 */
+    .stack-section {
+        flex-direction: row; // 모바일 화면에서는 세로 정렬
+        align-items: center; // 모든 항목을 중앙에 배치
 
-        .stack-section,
-        .team-section {
-            flex-direction: column; /* 섹션들을 세로로 배열 */
-            align-items: flex-start; /* 왼쪽 정렬 */
-        }
+        div {
+            margin-right: 0; // 세로 정렬에서는 오른쪽 마진 제거
 
-        .github-icon {
-            margin-top: 10px; /* 깃허브 아이콘의 상단 여백 조절 */
+            font-size: 0.8em;
         }
+    }
+
+    .logo-section img {
+        max-width: 200px; // 모바일 화면에서 로고 크기 조정
+        margin-right: 0; // 세로 배치 시 오른쪽 마진 제거
+    }
+
+    .github-icon {
+        margin-right: 100px !important;
+        font-size: 4em !important;
     }
 }
