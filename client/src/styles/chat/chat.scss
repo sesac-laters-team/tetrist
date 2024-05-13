@@ -106,16 +106,20 @@
 }
 @media (max-width: 600px) {
     .chat-container {
-        width: 90%;
+        width: 100%;
         justify-content: center;
+        position: relative;
+        margin: 0 auto;
+        right: 4.3%;
     }
 }
-
 @media (min-width: 601px) and (max-width: 1024px) {
     .chat-container {
         width: 100%;
-        min-width: 500px; // 이 값은 조정 가능
+        min-width: 601px; /* 이 값은 조정 가능 */
         margin: 0 auto;
+        right: 3%; /* 이 값이 중앙 정렬에 필요하다면, 다른 근본적인 원인을 찾아보세요. */
+        position: relative;
         justify-content: center;
     }
 }

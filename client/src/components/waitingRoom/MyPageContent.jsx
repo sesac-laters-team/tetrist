@@ -41,6 +41,7 @@ const MyPageContent = ({ myInfo }) => {
             .delete(`${process.env.REACT_APP_API_SERVER}/auth/mypage/delete`)
             .then((response) => {
                 alert(`${response.data.msg}`);
+                window.location.href = "/login";
             })
             .catch((error) => console.error(error));
     };
@@ -63,6 +64,7 @@ const MyPageContent = ({ myInfo }) => {
                     { nickname: newNickname }
                 )
                 .then((response) => {
+                    console.log("닉네임 변경 요청 성공", response);
                     setNickname(newNickname);
                     alert("닉네임이 변경되었습니다.");
                 })
@@ -94,7 +96,6 @@ const MyPageContent = ({ myInfo }) => {
                 setNewPassword(""); // 비밀번호 입력란 비우기
                 setIsChangePwVisible(false); // 비밀번호 변경란 숨기기
                 alert(`${response.data.msg}`);
-                alert("비밀번호가 변경되었습니다.");
             })
             .catch((error) => {
                 console.error("비밀번호 변경 요청 실패", error);

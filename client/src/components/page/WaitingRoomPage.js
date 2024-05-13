@@ -175,6 +175,7 @@ export default function WaitingRoomPage() {
 
             <div className="ListTitle">
                 <span className="roomListTitle">방 목록</span>
+                <button className="btnJoin">혼자하기</button>
                 <button
                     onClick={() => setCreateModal(true)}
                     className="btnJoin"
