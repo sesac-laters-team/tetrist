@@ -24,6 +24,7 @@ const roomsModel = require("./Rooms")(sequelize, Sequelize);
 const usersModel = require("./Users")(sequelize, Sequelize);
 const productsModel = require("./Products")(sequelize, Sequelize);
 const userPurchaseModel = require("./UserPurchase")(sequelize, Sequelize);
+const suggestionsModel = require("./suggestion")(sequelize, Sequelize);
 
 // 테이블 관계 설정
 
@@ -47,11 +48,20 @@ productsModel.belongsToMany(usersModel, {
     foreignKey: "product_id",
 });
 
+// users > suggestions
+usersModel.hasMany(suggestionsModel, {
+    foreignKey: "user_id",
+});
+suggestionsModel.belongsTo(usersModel, {
+    foreignKey: "user_id",
+});
+
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 db.roomsModel = roomsModel;
 db.usersModel = usersModel;
 db.productsModel = productsModel;
 db.userPurchaseModel = userPurchaseModel;
+db.suggestionsModel = suggestionsModel;
 
 module.exports = db;
