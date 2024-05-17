@@ -34,4 +34,29 @@ async function checkPenalty(req, res, next) {
     }
 }
 
-module.exports = { checkAuth, checkPenalty };
+// 참여 중인 방이 있는지 확인
+const userInRoom = async (req, res, next) => {
+    try {
+        const findUser = await roomsModel.findOne({
+            where: {
+                [Op.or]: [
+                    { user_id: req.session.userId },
+                    { guest_id: req.session.userId },
+                ],
+            },
+        });
+        if (!findUser) {
+            next();
+        } else {
+            res.status(409).send({
+                result: false,
+                msg: "이미 참여 중인 방이 있습니다.",
+            });
+        }
+    } catch (error) {
+        console.log("error", error);
+        res.status(500).send("server error");
+    }
+};
+
+module.exports = { checkAuth, checkPenalty, userInRoom };
