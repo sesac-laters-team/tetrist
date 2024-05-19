@@ -1,4 +1,4 @@
--- Active: 1707101283311@@127.0.0.1@3306@tetris
+-- Active: 1707101713117@@127.0.0.1@3306@tetris
 desc products;
 
 select * from products;
@@ -32,7 +32,7 @@ INSERT INTO
 VALUES (
         2,
         "profileEdge",
-        "프레임1",
+        "프로필테두리1",
         "/images/profile_edge/frame_leaves.png",
         0
     );
@@ -80,7 +80,7 @@ INSERT INTO
 VALUES (
         5,
         "profileEdge",
-        "프레임2",
+        "프로필테두리2",
         "/images/profile_edge/frame_triangle.png",
         100
     );
