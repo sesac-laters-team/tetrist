@@ -126,6 +126,10 @@ router.patch("/matchResult", mainCtr.matchResult);
  */
 router.get("/rank", mainCtr.rank);
 
+// 건의사항
+
+router.post("/suggestion", mainCtr.suggestion);
+
 // rooms
 
 /**

@@ -1,4 +1,4 @@
-const { usersModel } = require("../models");
+const { usersModel, suggestionsModel } = require("../models");
 
 // GET /api-server
 exports.index = async (req, res) => {
@@ -102,6 +102,33 @@ exports.rank = async (req, res) => {
             order: [["rating", "DESC"]],
         });
         res.json(rank);
+    } catch (error) {
+        console.log("error", error);
+        res.status(500).send("server error");
+    }
+};
+
+// POST /api-server/suggestion
+// 건의사항 보내기
+exports.suggestion = async (req, res) => {
+    try {
+        const { title, content } = req.body;
+        const addSug = await suggestionsModel.create({
+            user_id: req.session.userId,
+            sug_title: title,
+            sug_content: content,
+        });
+        if (addSug) {
+            res.status(201).send({
+                result: true,
+                msg: "건의사항을 전송했습니다.",
+            });
+        } else {
+            res.status(400).send({
+                result: false,
+                msg: "전송 실패했습니다. 다시 시도해주세요.",
+            });
+        }
     } catch (error) {
         console.log("error", error);
         res.status(500).send("server error");
