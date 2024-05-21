@@ -1,0 +1,65 @@
+/* 건의사항 모달 전용 스타일 */
+.suggestion-container {
+    background-color: #180071; /* 모달 배경색 */
+    border-radius: 10px; /* 모서리를 둥글게 처리 */
+    padding: 30px; /* 내부 패딩 */
+    margin: 20px 10px; /* 외부 마진 */
+    width: 80%;
+    max-width: 350px; /* 최대 너비 설정 */
+    display: flex;
+    flex-direction: column; /* 세로로 정렬 */
+    align-items: center; /* 중앙 정렬 */
+}
+
+.suggestion-title {
+    font-size: 1.8rem; /* 제목 폰트 크기 */
+    font-weight: bold; /* 폰트 굵게 */
+    text-align: center; /* 중앙 정렬 */
+    margin-bottom: 20px; /* 아래 마진 */
+    color: #ffffff; /* 글자 색상 */
+}
+
+.suggestion-form {
+    width: 100%; /* 폼 너비 100% */
+    border-top: 3px solid white;
+}
+
+.suggestion-form label {
+    margin-top: 10px;
+    display: block; /* 블록 요소로 변환 */
+    font-weight: bold; /* 폰트 굵게 */
+    margin-bottom: 5px; /* 아래 마진 */
+    color: #ffffff; /* 글자 색상 */
+}
+
+.suggestion-form input[type="text"],
+.suggestion-form textarea {
+    width: 100%; /* 너비 100% */
+    padding: 10px; /* 내부 패딩 */
+    border: 1px solid #ccc; /* 테두리 */
+    border-radius: 5px; /* 모서리 둥글게 */
+    font-size: 1em; /* 폰트 크기 */
+    box-sizing: border-box; /* 박스 사이징 */
+    margin-bottom: 15px; /* 아래 마진 */
+}
+
+.suggestion-form textarea {
+    resize: vertical; /* 세로로만 크기 조절 가능 */
+    min-height: 100px; /* 최소 높이 설정 */
+}
+
+.suggestion-form button[type="submit"] {
+    position: relative;
+    padding: 10px 20px; /* 버튼 패딩 */
+    background-color: white; /* 버튼 배경색 */
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+    color: #333; /* 버튼 폰트 색상 */
+    border: 3px solid #333;
+    border-radius: 10px;
+    border-bottom: 2px solid #333;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.suggestion-form button[type="submit"]:hover {
+    background-color: #5ba3f8; /* 호버 상태의 배경색 */
+}

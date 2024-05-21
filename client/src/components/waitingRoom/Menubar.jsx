@@ -42,10 +42,15 @@ const Menubar = () => {
             >
                 악세사리
             </button>
+            <button
+                onClick={() => openModal("Suggestion")} // 건의사항 버튼 추가
+                className="menubar-button"
+            >
+                건의사항
+            </button>
             <button onClick={handleLogout} className="menubar-button">
                 로그아웃
             </button>{" "}
-            {/* 로그아웃 버튼 추가 */}
             {modalType && <Modal type={modalType} closeModal={closeModal} />}
         </div>
     );

@@ -6,6 +6,7 @@ import RegisterModalContent from "../auth/RegisterModalContent";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import InsertPwModal from "../waitingRoom/InsertPwModal";
+import SuggestionModalContent from "../waitingRoom/SuggestionModalContent";
 axios.defaults.withCredentials = true;
 
 const Modal = ({ type, roomInfo, socket, closeModal }) => {
@@ -102,6 +103,8 @@ const Modal = ({ type, roomInfo, socket, closeModal }) => {
                         closeModal={closeModal}
                     />
                 );
+            case "Suggestion":
+                return <SuggestionModalContent closeModal={closeModal} />;
             default:
                 return <div>내용이 없습니다.</div>;
         }

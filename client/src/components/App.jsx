@@ -22,7 +22,7 @@ import "../styles/rankingmodal.scss";
 import "../styles/ShopModal.scss";
 import "../styles/pagination.scss";
 import "../styles/font.scss";
-
+import "../styles/SuggestionModal.scss";
 function App() {
     const dispatch = useDispatch();
 
