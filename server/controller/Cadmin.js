@@ -1,9 +1,14 @@
 const bcrypt = require("bcrypt");
-const { usersModel, roomsModel, productsModel } = require("../models");
+const {
+    usersModel,
+    roomsModel,
+    productsModel,
+    suggestionsModel,
+} = require("../models");
 
 // 렌더링
 exports.toLogin = (req, res) => {
-    res.render("adminLogin");
+    res.render("adminLogin", { fromNoAuth: false });
 };
 exports.toAdmin = (req, res) => {
     res.render("adminPage");
@@ -30,6 +35,15 @@ exports.toShop = async (req, res) => {
     try {
         const productList = await productsModel.findAll();
         res.render("adminShop", { data: productList });
+    } catch (error) {
+        console.log("error", error);
+        res.status(500).send("server error");
+    }
+};
+exports.toSug = async (req, res) => {
+    try {
+        const sugList = await suggestionsModel.findAll();
+        res.render("adminSuggestion", { data: sugList });
     } catch (error) {
         console.log("error", error);
         res.status(500).send("server error");
@@ -123,9 +137,9 @@ exports.deleteUser = async (req, res) => {
     }
 };
 
-exports.patchUser = async (req, res) => {
+exports.patchUserNick = async (req, res) => {
     try {
-        const { userId, nickname, penalty } = req.body;
+        const { userId, nickname } = req.body;
 
         const checkDupNick = await usersModel.findOne({
             where: {
@@ -142,7 +156,6 @@ exports.patchUser = async (req, res) => {
         const isUpdated = await usersModel.update(
             {
                 nickname: nickname,
-                access_penalty: penalty,
             },
             {
                 where: {
@@ -160,6 +173,38 @@ exports.patchUser = async (req, res) => {
             res.status(400).send({
                 result: false,
                 msg: "유저 정보가 수정되지 않았습니다.",
+            });
+        }
+    } catch (error) {
+        console.log("error", error);
+        res.status(500).send("server error");
+    }
+};
+exports.patchUserPenal = async (req, res) => {
+    try {
+        const { userId, penalty } = req.body;
+        console.log(req.body);
+
+        const isUpdated = await usersModel.update(
+            {
+                access_penalty: penalty,
+            },
+            {
+                where: {
+                    user_id: userId,
+                },
+            }
+        );
+
+        if (isUpdated > 0) {
+            res.status(200).send({
+                result: true,
+                msg: "제재 상태가 변경되었습니다.",
+            });
+        } else {
+            res.status(400).send({
+                result: false,
+                msg: "제재 상태가 변경되지 않았습니다.",
             });
         }
     } catch (error) {
@@ -223,6 +268,41 @@ exports.deleteRoom = async (req, res) => {
             res.status(400).send({
                 result: false,
                 msg: "삭제 요청을 처리할 수 없습니다.",
+            });
+        }
+    } catch (error) {
+        console.log("error", error);
+        res.status(500).send("server error");
+    }
+};
+
+// 건의사항 관리
+
+exports.checkSug = async (req, res) => {
+    try {
+        const { sugId, isChecked } = req.body;
+        console.log(req.body);
+
+        const isUpdated = await suggestionsModel.update(
+            {
+                sug_checked: isChecked,
+            },
+            {
+                where: {
+                    sug_id: sugId,
+                },
+            }
+        );
+
+        if (isUpdated > 0) {
+            res.status(200).send({
+                result: true,
+                msg: "건의사항 확인 여부가 변경되었습니다.",
+            });
+        } else {
+            res.status(400).send({
+                result: false,
+                msg: "건의사항 확인 여부가 변경되지 않았습니다.",
             });
         }
     } catch (error) {

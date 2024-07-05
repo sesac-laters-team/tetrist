@@ -7,11 +7,6 @@
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     </head>
     <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
         .loginform {
             display: flex;
             flex-direction: column;
@@ -48,6 +43,11 @@
         </div>
     </body>
     <script>
+        const fromNoAuth = JSON.parse("<%-fromNoAuth%>");
+        if (fromNoAuth === true) {
+            alert("권한이 없습니다. 먼저 관리자 계정으로 로그인하세요.");
+        }
+
         const form = document.forms["login"];
         const message = document.querySelector(".message");
         function adminLogin() {
