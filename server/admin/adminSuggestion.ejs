@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>tetrist 관리자 페이지</title>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    </head>
+    <style>
+        details {
+            width: 70vw;
+        }
+        summary {
+            margin: 10px -10px;
+            padding: 5px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .checked_x {
+            background-color: rgb(225, 247, 235);
+        }
+        .checked_o {
+            background-color: rgb(206, 207, 207);
+        }
+
+        p {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        span {
+            font-weight: bold;
+            display: inline-block;
+            width: 100%;
+            text-align: right;
+        }
+        input {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+    <%- include('header')%>
+    <body>
+        <h2>건의사항 확인</h2>
+        <div class="sugs">
+            <% for (let i= 0; i < data.length; i++) { %> <%if
+            (!data[i].sug_checked) {%>
+            <details id="d_<%= data[i].sug_id %>">
+                <summary class="checked_x"><%= data[i].sug_title %></summary>
+                <p>유저 인덱스: <%= data[i].user_id %></p>
+                <p>건의 날짜: <%= data[i].updatedAt %></p>
+                <p class="s_content">건의 내용: <%= data[i].sug_content %></p>
+                <br />
+                <span>
+                    확인 <input type="checkbox" id="checkbox_<%= data[i].sug_id
+                    %>" <%= data[i].sug_checked ? "checked" : "" %>
+                    onclick="patchSugCheck('<%= data[i].sug_id %>')"/>
+                </span>
+            </details>
+            <%}%> <%}%>
+        </div>
+        <h3>확인 완료</h3>
+        <div class="sugs">
+            <% for (let i= 0; i < data.length; i++) { %> <%if
+            (data[i].sug_checked) {%>
+            <details id="d_<%= data[i].sug_id %>">
+                <summary class="checked_o"><%= data[i].sug_title %></summary>
+                <p>유저 인덱스: <%= data[i].user_id %></p>
+                <p>건의 날짜: <%= data[i].updatedAt %></p>
+                <p>건의 내용: <%= data[i].sug_content %></p>
+                <br />
+                <span>
+                    확인 <input type="checkbox" id="checkbox_<%= data[i].sug_id
+                    %>" <%= data[i].sug_checked ? "checked" : "" %>
+                    onclick="patchSugCheck('<%= data[i].sug_id %>')"/>
+                </span>
+            </details>
+            <%}%> <%}%>
+        </div>
+    </body>
+    <script>
+        const patchSugCheck = (sugId) => {
+            const isChecked = document.getElementById(
+                `checkbox_${sugId}`
+            ).checked;
+            console.log(sugId, isChecked);
+            axios({
+                method: "PATCH",
+                url: "/api-server/admin/checkSug",
+                data: { sugId, isChecked },
+            })
+                .then((res) => {
+                    alert("건의사항 확인 여부가 변경되었습니다.");
+                    document.location.href =
+                        "/api-server/admin/adminSuggestion";
+                })
+                .catch((err) => {
+                    console.log(err);
+                    alert(err.response.data.msg);
+                });
+        };
+    </script>
+</html>

@@ -338,7 +338,7 @@ authRouter.get("/logout", checkAuth, usersCtr.logout);
  *                  result: false
  *                  msg: "유저 정보를 찾을 수 없습니다."
  */
-authRouter.get("/mypage", checkAuth, usersCtr.getOneUser);
+authRouter.get("/mypage", checkAuth, /* checkPenalty, */ usersCtr.getOneUser);
 
 /**
  * @swagger
@@ -390,6 +390,7 @@ authRouter.get("/mypage", checkAuth, usersCtr.getOneUser);
 authRouter.patch(
     "/mypage/changePassword",
     checkAuth,
+    /* checkPenalty, */
     usersCtr.patchUserPassword
 );
 
@@ -443,6 +444,7 @@ authRouter.patch(
 authRouter.patch(
     "/mypage/changeNickname",
     checkAuth,
+    /* checkPenalty, */
     usersCtr.patchUserNickname
 );
 
@@ -497,7 +499,12 @@ authRouter.patch(
  *                  msg: "유저 정보가 수정되지 않았습니다."
  *
  */
-authRouter.patch("/mypage/changeCustom", checkAuth, usersCtr.patchCustom);
+authRouter.patch(
+    "/mypage/changeCustom",
+    checkAuth,
+    /* checkPenalty, */
+    usersCtr.patchCustom
+);
 
 /**
  * @swagger
@@ -538,6 +545,11 @@ authRouter.patch("/mypage/changeCustom", checkAuth, usersCtr.patchCustom);
  *                  msg: "탈퇴 요청을 처리할 수 없습니다."
  *
  */
-authRouter.delete("/mypage/delete", checkAuth, usersCtr.deleteUserData);
+authRouter.delete(
+    "/mypage/delete",
+    checkAuth,
+    /* checkPenalty, */
+    usersCtr.deleteUserData
+);
 
 module.exports = authRouter;

@@ -19,7 +19,7 @@ function checkAuth(req, res, next) {
 async function checkPenalty(req, res, next) {
     const findUserData = await usersModel.findOne({
         where: {
-            email: req.body.email,
+            user_id: req.session.userId,
         },
     });
     if (!findUserData.access_penalty) {

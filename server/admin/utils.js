@@ -5,10 +5,7 @@ function checkAdmin(req, res, next) {
         next();
     } else {
         // 일반 유저
-        res.status(403).send(`<script>
-        alert('권한이 없습니다.')
-        document.location.href = "http://52.78.163.112/login";
-        </script>`);
+        res.render("adminLogin", { fromNoAuth: true });
     }
 }
 
