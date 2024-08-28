@@ -186,9 +186,7 @@ export default function WaitingRoomPage() {
 
             <RoomList socket={socket} />
 
-            <div>
-                <WaitingChat socket={socket}></WaitingChat>
-            </div>
+            <WaitingChat socket={socket}></WaitingChat>
 
             {createModal && (
                 <div

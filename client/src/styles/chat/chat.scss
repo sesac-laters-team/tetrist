@@ -2,20 +2,24 @@
 .chat-container {
     background-color: rgb(24, 0, 113, 0.4);
     height: 300px;
-    max-width: 100%;
-    width: 1024px;
+    max-width: 780px;
+    width: 100%;
     margin: auto;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
     position: relative;
     border-radius: 10px;
     z-index: 0;
-    justify-content: center;
     overflow-x: hidden;
     overflow-y: hidden;
     margin-top: 3px !important;
     margin-bottom: 3px !important;
+}
+
+.chat-box1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 20px;
+    height: calc(100% - 40px);
 }
 
 .chat-title {
@@ -107,9 +111,15 @@
 .waiting-chat button:active {
     background-color: aliceblue;
 }
+
+@media (min-width: 1025px) {
+    .chat-container {
+        max-width: 1024px;
+    }
+}
 @media (max-width: 600px) {
     .chat-container {
-        max-width: 42%;
+        // max-width: 42%;
         justify-content: center;
         position: relative;
         margin: 0 auto;
@@ -119,7 +129,7 @@
 
 @media (min-width: 601px) and (max-width: 767px) {
     .chat-container {
-        max-width: 58%;
+        // max-width: 58%;
 
         margin: 0 auto;
         // right: 3%; /* 이 값이 중앙 정렬에 필요하다면, 다른 근본적인 원인을 찾아보세요. */
@@ -130,7 +140,7 @@
 
 @media (min-width: 768px) and (max-width: 1024px) {
     .chat-container {
-        max-width: 72%;
+        // max-width: 72%;
 
         margin: 0 auto;
         // right: 3%; /* 이 값이 중앙 정렬에 필요하다면, 다른 근본적인 원인을 찾아보세요. */

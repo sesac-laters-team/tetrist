@@ -6,7 +6,7 @@ const Footer = () => {
         <footer className="footer-container">
             <div className="stack-section">
                 <div className="logo-section">
-                    <img src="/images/tetrist_bc.gif" alt="Tetrist Logo" />
+                    {/* <img src="/images/tetrist_bc.gif" alt="Tetrist Logo" /> */}
                 </div>
                 <div>
                     <h4>Contributor</h4>
