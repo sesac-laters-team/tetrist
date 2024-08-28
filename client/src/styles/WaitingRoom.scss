@@ -92,7 +92,7 @@
     width: 100%; /* 부모 컨테이너에 맞게 너비 설정 */
     max-width: 780px; /* 최대 너비 설정 */
     margin: auto; /* 상하 여백 지정, 좌우는 자동으로 중앙 정렬 */
-    padding: 20px; /* 패딩 설정 */
+    // padding: 20px; /* 패딩 설정 */
     background-color: rgb(24, 0, 113, 0.4);
     border-radius: 10px;
 }
@@ -100,6 +100,7 @@
 .ShowRoomList {
     margin-bottom: 10px; /* 섹션 사이의 여백 */
     // background-color: white;
+    margin: 20px;
 }
 
 .ListRoom ul {

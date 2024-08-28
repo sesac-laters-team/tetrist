@@ -111,30 +111,32 @@ export default function WaitingChat({ socket }) {
 
     return (
         <div className="chat-container">
-            <span className="chat-title">채팅</span>
-            <br />
-            <section className="chat-section" ref={chatSectionRef}>
-                {chatList.map((chat, i) =>
-                    chat.type === "notice" ? (
-                        <Notice key={i} chat={chat} />
-                    ) : (
-                        <Speech key={i} chat={chat} />
-                    )
-                )}
-            </section>
-            <form
-                className="waiting-chat"
-                id="waiting-chat"
-                onSubmit={handleSubmit}
-            >
-                <input
-                    type="text"
-                    placeholder="채팅 입력"
-                    value={chatInput}
-                    onChange={(e) => setChatInput(e.target.value)}
-                />
-                <button>입력</button>
-            </form>
+            <div className="chat-box1">
+                <span className="chat-title">채팅</span>
+                <br />
+                <section className="chat-section" ref={chatSectionRef}>
+                    {chatList.map((chat, i) =>
+                        chat.type === "notice" ? (
+                            <Notice key={i} chat={chat} />
+                        ) : (
+                            <Speech key={i} chat={chat} />
+                        )
+                    )}
+                </section>
+                <form
+                    className="waiting-chat"
+                    id="waiting-chat"
+                    onSubmit={handleSubmit}
+                >
+                    <input
+                        type="text"
+                        placeholder="채팅 입력"
+                        value={chatInput}
+                        onChange={(e) => setChatInput(e.target.value)}
+                    />
+                    <button>입력</button>
+                </form>
+            </div>
         </div>
     );
 }
